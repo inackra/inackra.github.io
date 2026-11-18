@@ -17,3 +17,13 @@ Cloudflare DNS records, DNS only (gray cloud):
 Read existing records first. Replace only conflicting website records. Keep email MX/TXT records. Use the exact GitHub-generated TXT token for domain verification if needed. After domain validation and certificate issuance enable Enforce HTTPS in Pages settings.
 
 Every push to main deploys automatically. Artwork and CV belong to their respective owners. Included fonts retain their license.
+
+## Updated interaction and archive
+
+Selected projects use a native horizontal carousel with swipe, keyboard navigation and arrows. The complete current catalogue is served at `/work/`, including direct visits on GitHub Pages. Tags are maintained in `src/archive.js`; case content stays in `src/caseStudies.js` and `src/content.js`.
+
+Desktop wheel scrolling uses Lenis. Touch scrolling stays native. The custom rail uses immediate scroll and freezes its geometry during a gesture to prevent mobile viewport changes from moving its target. The preloader counts completed resource tasks (code, font, logo, covers). Reduced motion remains supported.
+
+`npm run build` prepares both routes; `npm test` runs the platform-stub and numerical regression checks after a build. These checks do not replace browser/device visual QA. The new local displacement effect needs comparison against the reference in a live browser before being described as an exact visual match.
+
+Google Sheets setup and account authorization: see `docs/ENQUIRIES.md`. Without a configured receiver the form retains an email fallback. Live delivery must be verified against an actual sheet after deployment.

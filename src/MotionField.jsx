@@ -49,7 +49,7 @@ export default function MotionField({menuCanvas,lang,paused}){
    if(!cached)return;const y=all?0:strip*height/12,h=all?height:height/12;
    idleContext.save();idleContext.beginPath();idleContext.rect(0,y,width,h);idleContext.clip();idleContext.clearRect(0,y,width,h);
    idleContext.font='8px monospace';idleContext.textAlign='center';idleContext.textBaseline='middle';
-   for(const p of particles){if(p.y<y-12||p.y>y+h+12)continue;idleContext.fillStyle=`rgba(245,245,245,${.035+p.seed*.03})`;idleContext.fillText(String(Math.floor(time/(160+p.seed*800)+p.seed*100)%2),p.x,p.y)}
+   for(const p of particles){if(p.y<y-12||p.y>y+h+12)continue;idleContext.fillStyle=`rgba(245,245,245,${width<700?.095+p.seed*.05:.035+p.seed*.03})`;idleContext.fillText(String(Math.floor(time/(160+p.seed*800)+p.seed*100)%2),p.x,p.y)}
    idleContext.restore();strip=(strip+1)%12;
   };
   const queued=new WeakSet(),revealed=new WeakSet();
@@ -110,6 +110,7 @@ export default function MotionField({menuCanvas,lang,paused}){
   }
   function reveal(el){
    if(dead||paused||revealed.has(el)||!el.isConnected)return;revealed.add(el);
+   if(document.documentElement.classList.contains('is-scrubbing')){gsap.set(el,{clearProps:'filter,transform,opacity'});el.dataset.motionState='complete';return;}
    const cloud=textCloud(el);if(cloud)clouds.push(cloud);
    // All text, including hero and Powered by AI, uses this one reveal.
    const tween=gsap.fromTo(el,{opacity:0,filter:'blur(12px)',scale:.95,y:10,transformOrigin:'left center'},{opacity:1,filter:'blur(0px)',scale:1,y:0,duration:1.15,ease:'power2.inOut',clearProps:'filter,transform,opacity',onUpdate(){if(dead)return;if(cloud)cloud.progress=this.progress();schedule()},onComplete(){if(dead)return;if(cloud)cloud.progress=1;el.dataset.motionState='complete'}});

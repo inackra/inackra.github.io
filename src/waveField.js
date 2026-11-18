@@ -58,7 +58,7 @@ export function sampleField(p,time,waves,trails,width,prepared){
   x:p.x+dx*perspective+Math.sin(time*.00045+p.phase)*1.3,
   y:p.y+dy*perspective+Math.cos(time*.00038+p.phase)*1.3,
   z,light:clamp(light),size:clamp((7+p.seed*2)*depth,5,14),
-  opacity:clamp(.035+p.seed*.03+light*.8+Math.max(0,z)*.003,0,.92),
+  opacity:clamp((width<700?.095+p.seed*.05:.035+p.seed*.03)+light*.8+Math.max(0,z)*.003,0,.92),
   bit:Math.floor(time/(160+p.seed*800)+p.seed*100)%2
  };
 }

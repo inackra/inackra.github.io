@@ -1,14 +1,11 @@
 import assert from 'node:assert/strict';
-import {surfacePose,stripPose} from '../src/cardWaveMath.js';
-const center=surfacePose(0,0,true);
-assert.ok(Math.abs(center.bend)<1e-8);assert.ok(Math.abs(center.tilt)<1e-8);assert.ok(Math.abs(center.depth)<1e-8);
-for(let i=0;i<18;i++)assert.deepEqual(stripPose(i,18,820,0),{y:0,z:0,angle:0});
-const enter=surfacePose(1,0,true),exit=surfacePose(-1,0,true);
-assert.equal(enter.bend,-exit.bend);assert.equal(enter.tilt,-exit.tilt);assert.equal(enter.depth,exit.depth);
-assert.ok(enter.depth<0&&enter.bend>0&&exit.bend<0);
-assert.ok(Math.abs(surfacePose(0,10000,true).bend)<=.11,'gesture impulses stay bounded');
-for(const h of [520,820,1120])for(const p of [-10,-1,0,1,10])for(let i=0;i<24;i++){
- const pose=surfacePose(p,90,false),band=stripPose(i,24,h,pose.bend);
- assert.ok(Object.values(band).every(Number.isFinite));
-}
-console.log('PASS: flat reading zone, mirrored entry/exit, bounded scroll impulse, finite card curvature.');
+import {sampleWarp} from '../src/cardWarp.js';
+const trail=[{x:200,y:150,t:1000,vx:20,vy:5}];
+assert.deepEqual(sampleWarp(500,150,trail,1050),{dx:0,dy:0},'outside the pointer radius the whole card stays unchanged');
+assert.ok(sampleWarp(200,150,trail,1050).dx>8,'the point under the cursor follows its movement');
+assert.deepEqual(sampleWarp(200,150,trail,1700),{dx:0,dy:0},'the surface settles completely');
+assert.deepEqual(sampleWarp(200,150,trail,900),{dx:0,dy:0},'future impulses do not affect the surface');
+for(let x=0;x<800;x+=2){const a=sampleWarp(x,160,trail,1100),b=sampleWarp(x+1,160,trail,1100);assert.ok(Math.hypot(a.dx-b.dx,a.dy-b.dy)<1,'no spatial seams at the edge of the local warp')}
+for(let t=1000;t<1700;t+=16){const a=sampleWarp(220,150,trail,t),b=sampleWarp(220,150,trail,t+16);assert.ok(Math.hypot(a.dx-b.dx,a.dy-b.dy)<4,'temporal motion is continuous')}
+assert.ok(Object.values(sampleWarp(210,160,Array.from({length:9},()=>trail[0]),1050)).every(v=>Number.isFinite(v)&&Math.abs(v)<=34),'overlapping impulses stay bounded');
+console.log('PASS: local card displacement, untouched outer surface, decay, continuous space/time and bounded overlapping gestures.');

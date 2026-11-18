@@ -1,0 +1,15 @@
+const assert=require('node:assert/strict'),vm=require('node:vm'),{buildSync}=require('esbuild');
+const queue=new Map(),listeners={},scrolls=[],classes=new Set();let rid=0,effect;
+const track={getBoundingClientRect:()=>({top:100,height:400})};let refs=0;
+const React={createElement:(type,props,...children)=>({type,props,children}),useState:()=>[{progress:0,active:0,percent:0,stops:[]},()=>{}],useRef:init=>({current:refs++===0?track:init}),useEffect:fn=>effect=fn};
+const sandbox={require:name=>name==='react'?React:{scrollTo:(y,options)=>{scrolls.push({y,options});sandbox.scrollY=y}},module:{exports:{}},exports:{},requestAnimationFrame:fn=>{queue.set(++rid,fn);return rid},cancelAnimationFrame:id=>queue.delete(id),document:{documentElement:{scrollHeight:5000,classList:{add:x=>classes.add(x),remove:x=>classes.delete(x)}},getElementById:id=>id==='main'?{}:{getBoundingClientRect:()=>({top:0})},fonts:{ready:new Promise(()=>{})}},ResizeObserver:class{observe(){}disconnect(){}},scrollY:0,innerHeight:1000,addEventListener:(event,fn)=>listeners[event]=fn,removeEventListener(){},dispatchEvent(){},Event:class{}};
+const code=buildSync({entryPoints:['src/ScrollRail.jsx'],bundle:true,format:'cjs',external:['react','./scroll'],write:false}).outputFiles[0].text;
+vm.runInNewContext(code,sandbox);const tree=sandbox.module.exports.default({lang:'ru',blocked:false});
+const walk=node=>{if(node?.props?.className==='rail-scrubber')return node;for(const child of node?.children?.flat(Infinity)||[]){const r=walk(child);if(r)return r}};
+const scrub=walk(tree).props,cleanup=effect();const flush=()=>{for(const [id,fn]of [...queue]){queue.delete(id);fn()}};flush();
+const event=y=>({button:0,clientY:y,pointerId:1,preventDefault(){},currentTarget:{setPointerCapture(){}}});
+scrub.onPointerDown(event(300));flush();assert.equal(scrolls.at(-1).y,2000);assert.equal(scrolls.at(-1).options.immediate,true,'rail must never animate against its pointer');assert.ok(classes.has('is-scrubbing'));
+sandbox.innerHeight=700;listeners.resize();scrub.onPointerMove(event(400));flush();assert.equal(scrolls.at(-1).y,3000,'dynamic mobile viewport height must not move the drag target');
+scrub.onPointerMove(event(999));flush();assert.equal(scrolls.at(-1).y,4000,'drag target remains bounded to its frozen page range');
+scrub.onPointerCancel();assert.ok(!classes.has('is-scrubbing'));const previous=scrolls.length;scrub.onPointerMove(event(200));flush();assert.equal(scrolls.length,previous,'cancelled pointers cannot continue scrubbing');cleanup();
+console.log('PASS: immediate rail input, fixed gesture geometry through mobile resize, bounded drag and pointer cancellation.');

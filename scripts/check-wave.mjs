@@ -7,7 +7,8 @@ const p={x:240,y:100,seed:.5,phase:1};
 const wave={x:100,y:100,time:1000,strength:1,dirX:1,dirY:0};
 const idle=sampleField(p,1450,[],[],375);
 const crest=sampleField(p,1450,[wave],[],375);
-assert.equal(idle.z,0);assert.ok(idle.opacity>.035&&idle.opacity<.07);
+assert.equal(idle.z,0);assert.ok(idle.opacity>.09&&idle.opacity<.15,'mobile idle numbers remain visible');
+assert.ok(sampleField(p,1450,[],[],1440).opacity<.07,'desktop idle retains its original brightness');
 assert.ok(crest.z>20,'a nearby crest raises the number surface');
 assert.ok(crest.size>idle.size,'perspective makes raised symbols larger');
 assert.ok(crest.opacity>idle.opacity,'the crest is illuminated');
@@ -32,7 +33,7 @@ for(let time=1000;time<3200;time+=16){
  assert.ok(Math.hypot(a.x-b.x,a.y-b.y)<15,'no position discontinuities at wave birth/expiry');
  assert.ok(Math.abs(a.size-b.size)<.8,'glyph size varies continuously instead of whole-pixel jumps');
 }
-assert.ok(sampleField(p,3084,[wave],[],375).opacity<.08,'waves decay before being removed');
+assert.ok(Math.abs(sampleField(p,3084,[wave],[],375).opacity-idle.opacity)<.01,'waves decay to the mobile idle baseline before being removed');
 console.log('PASS: soft birth/expiry and continuous position / fractional size.');
 
 const prepared=prepareField(1400,[wave],[{x:120,y:120,time:1300}],375);

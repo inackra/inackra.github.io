@@ -1,0 +1,13 @@
+const assert=require('node:assert/strict');
+const vm=require('node:vm');
+const fs=require('node:fs');
+const rows=[],cache=new Map();let releases=0;
+const sandbox={Date,JSON,Error,String,RegExp,PropertiesService:{getScriptProperties:()=>({getProperty:()=> 'test-sheet'})},LockService:{getScriptLock:()=>({waitLock(){},releaseLock(){releases++}})},CacheService:{getScriptCache:()=>({get:k=>cache.get(k),put:(k,v)=>cache.set(k,v)})},Utilities:{DigestAlgorithm:{SHA_256:1},computeDigest:(_,v)=>v,base64EncodeWebSafe:v=>Buffer.from(v).toString('base64url')},SpreadsheetApp:{openById:()=>({getSheetByName:()=>({appendRow:row=>rows.push(row)})})},HtmlService:{XFrameOptionsMode:{ALLOWALL:1},createHtmlOutput:html=>({html,setXFrameOptionsMode(){return this}})}};
+vm.createContext(sandbox);vm.runInContext(fs.readFileSync('integrations/google-sheets/Code.gs','utf8'),sandbox);
+const valid={requestId:'f940662b-9ff0-483e-9fb1-a00f292f0be1',name:'=IMPORTXML("bad")',email:'test@example.com',message:'A real project enquiry with enough detail.',intent:'project',lang:'ru'};
+const submit=p=>sandbox.doPost({parameter:p}).html;
+assert.ok(submit(valid).includes('"ok":true'));assert.equal(rows.length,1);assert.ok(rows[0][3].startsWith("'="),'visitor text never executes as a formula');assert.ok(submit(valid).includes('"ok":true'));assert.equal(rows.length,1,'a retry with the same ID must not duplicate a lead');
+assert.ok(submit({...valid,requestId:'other-request-01234567890123456789'}).includes('"ok":false'),'same email is rate-limited');
+for(const changes of [{website:'bot'},{email:'bad'},{message:'tiny'},{requestId:'bad'},{name:'x'.repeat(121)}])assert.ok(submit({...valid,...changes}).includes('"ok":false'));
+assert.equal(rows.length,1);assert.equal(releases,3,'locks release even after a duplicate or rate limit');assert.ok(submit({...valid,name:'</script>'}).includes('https://inackra.work'),'receipt is sent to the production origin only');
+console.log('PASS: Sheets validation, deduplication, rate limit, honeypot, formula escaping, acknowledged receipts and lock cleanup.');
