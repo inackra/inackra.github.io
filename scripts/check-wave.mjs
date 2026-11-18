@@ -9,7 +9,7 @@ const idle=sampleField(p,1450,[],[],375);
 const crest=sampleField(p,1450,[wave],[],375);
 assert.equal(idle.z,0);assert.ok(idle.opacity>.09&&idle.opacity<.15,'mobile idle numbers remain visible');
 assert.ok(sampleField(p,1450,[],[],1440).opacity<.07,'desktop idle retains its original brightness');
-assert.ok(crest.z>20,'a nearby crest raises the number surface');
+assert.ok(crest.z>10&&crest.z<20,'the softened crest remains visible without the former high bounce');
 assert.ok(crest.size>idle.size,'perspective makes raised symbols larger');
 assert.ok(crest.opacity>idle.opacity,'the crest is illuminated');
 assert.notEqual(crest.x,idle.x,'the wave displaces symbols, not just opacity');
@@ -23,7 +23,7 @@ assert.equal(faded.light,0,'the gesture trail expires');
 for(const particle of mobile.filter((_,i)=>i%97===0)){
  const point=sampleField(particle,1400,Array.from({length:9},()=>({...wave,strength:1.5})),[{x:120,y:120,time:1300}],375);
  assert.ok(Object.values(point).every(Number.isFinite),'overlapping waves remain finite');
- assert.ok(point.size>=5&&point.size<=14);assert.ok(point.z>=-85&&point.z<=95);assert.ok(point.opacity>=0&&point.opacity<=.92);
+ assert.ok(point.size>=5&&point.size<=14);assert.ok(point.z>=-62&&point.z<=68);assert.ok(point.opacity>=0&&point.opacity<=.92);
 }
 console.log(`PASS: dense mobile field (${mobile.length}), bounded desktop field (${desktop.length}), propagation, perspective, displacement, decay, overlap stability.`);
 

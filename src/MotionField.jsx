@@ -68,11 +68,11 @@ export default function MotionField({menuCanvas,lang,paused}){
    const dt=Math.min(64,last?time-last:16);last=time;const frameStart=performance.now();c.clearRect(0,0,width,height);
    if(!paused){
     if(input&&cursor&&time-input.time<180){
-     const follow=1-Math.exp(-dt/95),oldX=cursor.x,oldY=cursor.y;
+     const follow=1-Math.exp(-dt/115),oldX=cursor.x,oldY=cursor.y;
      cursor.x+=(input.x-cursor.x)*follow;cursor.y+=(input.y-cursor.y)*follow;
      const distance=Math.hypot(cursor.x-oldX,cursor.y-oldY),speed=clamp(distance/Math.max(1,dt),0,2);
      if(time-lastTrail>=40){trails.push({x:cursor.x,y:cursor.y,time});lastTrail=time;}
-     if(time-lastWave>=100){waves.push({x:cursor.x,y:cursor.y,time,strength:width>=700?(.55+speed*.28):(.65+speed*.4),dirX:distance?(cursor.x-oldX)/distance:0,dirY:distance?(cursor.y-oldY)/distance:0});lastWave=time;}
+     if(time-lastWave>=100){waves.push({x:cursor.x,y:cursor.y,time,strength:width>=700?(.48+speed*.10):(.58+speed*.18),dirX:distance?(cursor.x-oldX)/distance:0,dirY:distance?(cursor.y-oldY)/distance:0});lastWave=time;}
     }
     trails=trails.filter(p=>time-p.time<1900);waves=waves.filter(p=>time-p.time<2100);
     if(cached){if(time-lastIdle>100){paintIdle(time);lastIdle=time}c.drawImage(idle,0,0,idle.width,idle.height,0,0,width,height)}
@@ -113,7 +113,7 @@ export default function MotionField({menuCanvas,lang,paused}){
    if(document.documentElement.classList.contains('is-scrubbing')){gsap.set(el,{clearProps:'filter,transform,opacity'});el.dataset.motionState='complete';return;}
    const cloud=textCloud(el);if(cloud)clouds.push(cloud);
    // All text, including hero and Powered by AI, uses this one reveal.
-   const tween=gsap.fromTo(el,{opacity:0,filter:'blur(12px)',scale:.95,y:10,transformOrigin:'left center'},{opacity:1,filter:'blur(0px)',scale:1,y:0,duration:1.15,ease:'power2.inOut',clearProps:'filter,transform,opacity',onUpdate(){if(dead)return;if(cloud)cloud.progress=this.progress();schedule()},onComplete(){if(dead)return;if(cloud)cloud.progress=1;el.dataset.motionState='complete'}});
+   const tween=gsap.fromTo(el,{opacity:0,filter:'blur(12px)',scale:.95,y:10,transformOrigin:'left center'},{opacity:1,filter:'blur(0px)',scale:1,y:0,duration:.85,ease:'power2.inOut',clearProps:'filter,transform,opacity',onUpdate(){if(dead)return;if(cloud)cloud.progress=this.progress();schedule()},onComplete(){if(dead)return;if(cloud)cloud.progress=1;el.dataset.motionState='complete'}});
    animations.push(tween);el.dataset.motionState='revealing';
   }
 
@@ -134,13 +134,17 @@ export default function MotionField({menuCanvas,lang,paused}){
     queued.add(el);observer.observe(el);
    }
   };
+  // Scrubbing should display a stable document, not restart blur animations
+  // or leave number clouds following the rapidly moving sections.
+  const settle=()=>{animations.forEach(tween=>tween.progress(1));clouds.forEach(cloud=>cloud.progress=1);};
+  window.addEventListener('rail-scrub-start',settle);
   const mutations=new MutationObserver(scan);
   mutations.observe(scope,{subtree:true,childList:true,characterData:true,attributes:true,attributeFilter:['open']});
   resize();scan();
   document.fonts.load('500 16px "Manrope Variable"').then(()=>document.fonts.ready).catch(()=>{}).then(()=>{if(!dead){fontsReady=true;scan()}});
   document.addEventListener('pointermove',pointer,{passive:true});document.addEventListener('pointerdown',pointer,{passive:true});document.addEventListener('touchmove',touch,{passive:true});
   window.addEventListener('resize',resize,{passive:true});const visibility=()=>{if(!document.hidden)schedule()};document.addEventListener('visibilitychange',visibility);
-  return()=>{dead=true;cancelAnimationFrame(raf);mutations.disconnect();observers.forEach(o=>o.disconnect());animations.forEach(a=>{a.kill()});scope.querySelectorAll('[data-motion-text]').forEach(el=>gsap.set(el,{clearProps:'filter,transform,opacity'}));document.removeEventListener('pointermove',pointer);document.removeEventListener('pointerdown',pointer);document.removeEventListener('touchmove',touch);window.removeEventListener('resize',resize);document.removeEventListener('visibilitychange',visibility)};
+  return()=>{dead=true;cancelAnimationFrame(raf);mutations.disconnect();observers.forEach(o=>o.disconnect());animations.forEach(a=>{a.kill()});scope.querySelectorAll('[data-motion-text]').forEach(el=>gsap.set(el,{clearProps:'filter,transform,opacity'}));document.removeEventListener('pointermove',pointer);document.removeEventListener('pointerdown',pointer);document.removeEventListener('touchmove',touch);window.removeEventListener('rail-scrub-start',settle);window.removeEventListener('resize',resize);document.removeEventListener('visibilitychange',visibility)};
  },[lang,paused]);
  return <canvas ref={canvas} className="site-binary-field" aria-hidden="true"/>;
 }

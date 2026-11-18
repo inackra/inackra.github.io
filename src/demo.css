@@ -271,3 +271,36 @@ html.has-smooth-scroll,html.is-scrubbing{scroll-behavior:auto!important}
 .enquiry-form>label{display:block;font-size:11px;color:#aaa;margin:22px 0 0}.enquiry-form input:not([type=hidden]),.enquiry-form textarea{display:block;width:100%;border:0;border-bottom:1px solid #444;background:transparent;color:white;padding:12px 0;outline-offset:4px;border-radius:0;font-size:15px}.enquiry-form .button{margin-top:24px;width:100%}.enquiry-form .button:disabled{opacity:.5;cursor:wait}.enquiry-status{font-size:10px!important;color:#777;line-height:1.7;margin-top:16px!important}.status-error{color:#ddd}.form-trap{position:absolute!important;left:-10000px;width:1px;height:1px;overflow:hidden}.enquiry-frame{display:none}
 @media(max-width:700px){.work-carousel>.case-card{height:calc(100svh - 160px);min-height:460px}.work-carousel .case-card-body{padding:32px 20px 24px}.work-carousel .case-head h3{font-size:13vw}.work-carousel .powered-ai{font-size:13vw}.carousel-controls{gap:8px}.carousel-dots button{width:24px}.carousel-arrows{gap:6px}.archive-page{padding-top:130px}.archive-page>h1{font-size:15vw}.archive-grid{grid-template-columns:1fr;gap:20px}.archive-grid>.case-card{height:530px;min-height:0}.archive-filters{gap:6px}.archive-filters button{padding:10px 13px}.archive-grid .case-head h3{font-size:13vw}.archive-intro{font-size:14px}}
 @media(prefers-reduced-motion:reduce){.work-carousel{scroll-behavior:auto}.carousel-dots span,.carousel-arrows button,.archive-filters button{transition:none}}
+
+/* Stable navigation geometry and the original, shared arrow. */
+.rail-ticks i{transition:none}
+.rail-scrubber{top:0;bottom:0;user-select:none;-webkit-user-select:none;-webkit-touch-callout:none;overscroll-behavior:contain}
+.rail-links>a{font-size:14px}
+.arrow.left{transform:rotate(180deg)}
+.back-home{display:inline-flex;align-items:center;gap:12px}
+.carousel-arrows button{display:grid;place-items:center}
+.archive-filters button{display:inline-flex;align-items:center;justify-content:center;font-size:14px}
+.archive-filters small{font-size:11px}
+/* Only one opaque surface is rendered; the displacement map also covers its
+   full filter margin, so the margin cannot sample a second copy of an edge. */
+.case-card-stage{isolation:isolate;backface-visibility:visible}
+.form-privacy{margin-top:8px;font-size:14px;line-height:1.6;color:#aaa}
+.form-privacy a{display:inline-block;text-decoration:underline;text-underline-offset:4px}
+.form-privacy a:hover{color:#fff}
+.footer-controls{flex-wrap:wrap}
+.privacy-page{padding:150px 0 80px;max-width:720px}
+.privacy-page h1{font-size:clamp(34px,6vw,64px);line-height:1.15;letter-spacing:-.04em;margin:48px 0 20px;overflow-wrap:anywhere}
+.privacy-date{font-size:14px;color:#888}
+.privacy-intro{margin:32px 0 48px;font-size:20px;line-height:1.6}
+.privacy-page section{margin:36px 0}
+.privacy-page h2{font-size:22px;line-height:1.35;margin-bottom:14px}
+.privacy-page section p,.privacy-page li{font-size:16px;line-height:1.8;color:#aaa}
+.privacy-page li{margin:8px 0}
+.privacy-page ul{padding-left:20px}
+.privacy-page section a,.privacy-email{text-decoration:underline;text-underline-offset:4px;color:#eee;overflow-wrap:anywhere}
+@media(max-width:700px){.privacy-page{padding-top:120px}.privacy-intro{font-size:18px}.site-footer .footer-controls{gap:18px}.rail-scrubber{width:36px;left:-12px}}
+
+.hero-topline>span:only-child{max-width:none}
+/* Hidden allows programmatic seeking; clip would prevent window.scrollTo
+   while Lenis is stopped for an active pointer drag. */
+html.is-scrubbing.lenis.lenis-stopped{overflow:hidden!important}

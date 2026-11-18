@@ -42,15 +42,16 @@ export function sampleField(p,time,waves,trails,width,prepared){
   const phase=distance*.052,crest=Math.sin(phase)*envelope;
   const slope=Math.cos(phase)*envelope;
   const nx=d>.1?x/d:0,ny=d>.1?y/d:0;
-  z+=crest*52;
-  dx+=nx*slope*19-ny*crest*12+wave.dirX*envelope*8;
-  dy+=ny*slope*19+nx*crest*12+wave.dirY*envelope*8;
+  z+=crest*38;
+  dx+=nx*slope*15-ny*crest*9+wave.dirX*envelope*5;
+  dy+=ny*slope*15+nx*crest*9+wave.dirY*envelope*5;
   light=Math.max(light,envelope*.65);
  }
- const turbulence=light*(8+9*p.seed);
+ const turbulence=light*(6+7*p.seed);
  dx+=Math.sin(time*.0024+p.phase*4)*turbulence;
  dy+=Math.cos(time*.0019+p.phase*5)*turbulence;
- z=clamp(z,-85,95);
+ z=clamp(z,-62,68);
+ dx=48*Math.tanh(dx/48);dy=48*Math.tanh(dy/48);
  dx*=motionGain;dy*=motionGain;z*=motionGain;
  const perspective=640/(640-z);
  const depth=clamp(1+z/150,.55,1.65);
