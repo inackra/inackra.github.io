@@ -6,6 +6,7 @@ const Reveal = ({
 import { ImageLightbox } from './ImageLightbox';
 import { LanguageContext, useAioCopy } from './i18n';
 import './aio-story.css';
+import {projectCovers} from '../projectMedia';
 import {scrollTo} from '../scroll';
 import FlipText from '../FlipText';
 import Arrow from '../Arrow';
@@ -136,7 +137,8 @@ function Story({
     });
   };
   return <div className={`aio-study ${motion ? '' : 'motion-paused'}`}>
-   <section className="aio-project-intro archive-page" id="aio-intro"><p className="eyebrow">{tr("B2B SaaS / MarTech · Продуктовый UX")}</p><h1>AIO Tech.</h1><p className="archive-intro">{tr("Продуктовый UX маркетинговой платформы: от первого входа до работы с контентом, экспериментами и рекламой.")}</p><p className="aio-project-context">{tr("Я работал над продуктом от ранней стадии до MVP и последующих релизов. Три главные истории — эксперименты с контентом, просмотр визитов и когортная аналитика. Остальные сценарии показывают, как они связаны внутри продукта.")}</p></section>
+   <section className="aio-project-intro archive-page" id="aio-intro"><p className="eyebrow">{tr("B2B SaaS / MarTech · Продуктовый UX")}</p><h1>AIO Tech.</h1><p className="archive-intro">{tr("Продуктовый UX маркетинговой платформы: от первого входа до работы с контентом, экспериментами и рекламой.")}</p><p className="aio-project-context">{tr("Я спроектировал UX продукта от ранней стадии до MVP и последующих релизов. Три главные истории — эксперименты с контентом, просмотр визитов и когортная аналитика. Остальные сценарии показывают, как они связаны внутри продукта.")}</p></section>
+   <figure className="project-cover"><img src={projectCovers.aio.path} width="1080" height="1080" alt="AIO Tech" decoding="async"/></figure>
    <div id="experience"><TaskNavigation tasks={tasks} active={active} onSelect={select} /></div>
    <article ref={panel} tabIndex={-1} id="aio-task-panel" className="aio-task-panel privacy-page" aria-labelledby="aio-task-title">
     <div className={motion ? 'aio-task-body' : 'aio-task-body no-motion'} key={task.id}>

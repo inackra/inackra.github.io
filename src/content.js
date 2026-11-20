@@ -85,9 +85,8 @@ export const content = {
       strengths: ['Проектирование сложных сценариев, состояний и взаимодействий.', 'Компонентные системы и документация, поддерживающие работу команды.', 'Работа с продуктом и разработкой от обсуждения задачи до реализации.', 'Функциональные AI-прототипы и сильная визуальная база.'],
       experience: [['Semrush', 'Senior Product Designer / Design Systems', '2025–2026'], ['AIO Tech', 'Senior Product Designer', '2023–2025'], ['Evapolar', 'Senior Designer — Brand, Web & Design Systems', '2022–2023'], ['McCann Worldgroup', 'Multidisciplinary Designer', '2021–2022']],
       location: 'Вильнюс, Литва · удалённая работа, офис в Литве — обсуждаемо',
-      languages: 'Русский — родной. Английский — A2–B1, активно развиваю.',
       cta: 'Обсудить роль', cv: 'Скачать CV · PDF', linkedin: 'LinkedIn',
-      note: 'Короткий путь для нанимающего: профиль → релевантный опыт → CV → разговор о роли. Уровень английского указан честно. Текущую доступность нужно уточнить перед публичным запуском.'
+      note: 'Короткий путь для нанимающего: профиль → релевантный опыт → CV → разговор о роли. Текущую доступность нужно уточнить перед публичным запуском.'
     },
     contact: {
       label: '05 / Следующий шаг', title: 'Что будем делать вместе?',
@@ -183,9 +182,8 @@ export const content = {
       strengths: ['Complex user workflows, interface states and interaction design.', 'Component systems and documentation that support the team.', 'Collaboration with product and engineering through implementation.', 'Functional AI prototypes and a strong visual design foundation.'],
       experience: [['Semrush', 'Senior Product Designer / Design Systems', '2025–2026'], ['AIO Tech', 'Senior Product Designer', '2023–2025'], ['Evapolar', 'Senior Designer — Brand, Web & Design Systems', '2022–2023'], ['McCann Worldgroup', 'Multidisciplinary Designer', '2021–2022']],
       location: 'Vilnius, Lithuania · remote; office-based roles in Lithuania can be discussed',
-      languages: 'Russian — native. English — A2–B1, actively improving.',
       cta: 'Discuss a role', cv: 'Download CV · PDF', linkedin: 'LinkedIn',
-      note: 'A short hiring path: profile → relevant experience → CV → role discussion. English proficiency is stated transparently. Confirm current availability before public launch.'
+      note: 'A short hiring path: profile → relevant experience → CV → role discussion. Confirm current availability before public launch.'
     },
     contact: {
       label: '05 / Next step', title: 'What shall we work on together?',

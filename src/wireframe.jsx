@@ -53,7 +53,7 @@ function App() {
       <section id="team" className="section"><div className="container">
         <p className="eyebrow">{t.team.label}</p><h2>{t.team.title}</h2><p className="section-intro">{t.team.intro}</p><Note>{t.team.note}</Note>
         <div className="team-grid"><ul className="strengths">{t.team.strengths.map(x=><li key={x}>{x}</li>)}</ul><div className="experience">{t.team.experience.map(([name,role,year])=><div className="experience-row" key={name}><div><h3>{name}</h3><p>{role}</p></div><span>{year}</span></div>)}</div></div>
-        <div className="practical"><p>{t.team.location}</p><p>{t.team.languages}</p></div>
+        <div className="practical"><p>{t.team.location}</p></div>
         <div className="actions"><button className="button primary" onClick={()=>choose('role')}>{t.team.cta} <span aria-hidden="true"></span></button><a className="button" href="/assets/Yan-Kavaleu-CV.pdf" download>{t.team.cv} <span aria-hidden="true"></span></a><a className="text-link" href={LINKEDIN} target="_blank" rel="noreferrer">{t.team.linkedin}</a></div>
       </div></section>
       <section id="contact" className="section"><div className="container">

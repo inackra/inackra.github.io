@@ -11,7 +11,6 @@
   "экранов": "screens",
   "B2B SaaS / MarTech · Продуктовый UX": "B2B SaaS / MarTech · Product UX",
   "Продуктовый UX маркетинговой платформы: от первого входа до работы с контентом, экспериментами и рекламой.": "Product UX for a marketing platform: from first entry to content, experiments and advertising.",
-  "Я работал над продуктом от ранней стадии до MVP и последующих релизов. Три главные истории — эксперименты с контентом, просмотр визитов и когортная аналитика. Остальные сценарии показывают, как они связаны внутри продукта.": "I worked on the product from its early stages through MVP and subsequent releases. Three main stories cover content experiments, session replay and cohort analytics. The other workflows show how they connect within the product.",
   "Задача": "Challenge",
   "Решение": "Solution",
   "Логика решения": "Design rationale",
@@ -126,5 +125,6 @@
   "Открыть файл в полном размере": "Open full-size file",
   "Первый вариант без распределения между несколькими версиями. Самое короткое состояние настройки.": "The first variant is used without allocation between multiple versions. This is the simplest configuration.",
   "Автоматическое распределение связано с выбранной конверсией. У режима появляются параметры, которых нет в First.": "Automatic allocation follows the selected conversion. This mode introduces settings not needed in First.",
-  "Вес каждого варианта задаётся вручную. Числовые поля показывают, где именно пользователь управляет распределением.": "Each variant’s weight is set manually. Numeric fields provide direct allocation control."
+  "Вес каждого варианта задаётся вручную. Числовые поля показывают, где именно пользователь управляет распределением.": "Each variant’s weight is set manually. Numeric fields provide direct allocation control.",
+  "Я спроектировал UX продукта от ранней стадии до MVP и последующих релизов. Три главные истории — эксперименты с контентом, просмотр визитов и когортная аналитика. Остальные сценарии показывают, как они связаны внутри продукта.": "I designed the product UX from its early stages through MVP and subsequent releases. Three main stories cover content experiments, session replay and cohort analytics. The other workflows show how they connect within the product."
 }
