@@ -304,3 +304,15 @@ html.has-smooth-scroll,html.is-scrubbing{scroll-behavior:auto!important}
 /* Hidden allows programmatic seeking; clip would prevent window.scrollTo
    while Lenis is stopped for an active pointer drag. */
 html.is-scrubbing.lenis.lenis-stopped{overflow:hidden!important}
+
+/* The archive entry belongs to the carousel controls, immediately below the cards. */
+.carousel-controls{display:grid;grid-template-columns:minmax(0,1fr) auto auto auto;gap:20px;padding:0 0 20px;align-items:center}
+.carousel-all-work{justify-self:start;min-height:44px;font-size:14px;gap:20px;color:var(--fg)}
+.carousel-counter{font-size:12px;white-space:nowrap}
+@media(max-width:700px){
+ .carousel-controls{grid-template-columns:minmax(0,1fr) auto;column-gap:16px;row-gap:0;padding-bottom:24px}
+ .carousel-all-work{grid-column:1;grid-row:1;font-size:13px}
+ .carousel-arrows{grid-column:2;grid-row:1}
+ .carousel-dots{grid-column:1;grid-row:2}
+ .carousel-counter{grid-column:2;grid-row:2;text-align:right}
+}
