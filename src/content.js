@@ -7,7 +7,7 @@ export const content = {
     proto: 'Прототип структуры', version: 'Версия 0.1 · 17.11.2026', notes: 'Пояснения', skip: 'К содержимому',
     nav: ['Проекты', 'Сотрудничество', 'Обо мне', 'Контакт'],
     hero: {
-      label: 'Yan Kavaleu · Senior Product Designer',
+      label: 'Yan Kavaleu · Product Designer',
       title: 'Превращаю сложную логику в понятные цифровые продукты.',
       text: 'Проектирую AI-продукты, SaaS и дизайн-системы. Соединяю продуктовый подход с опытом в брендинге, 3D и motion.',
       location: 'Вильнюс, Литва · удалённое сотрудничество',
@@ -34,7 +34,7 @@ export const content = {
         {
           id: 'semrush', name: 'Semrush', category: 'Design systems · production workflows',
           headline: 'Системы, которые помогают выпускать материалы без постоянного участия дизайнера.',
-          role: 'Senior Product Designer / Design Systems', preview: 'Система компонентов и пример сборки страницы',
+          role: 'Product Designer / Design Systems', preview: 'Система компонентов и пример сборки страницы',
           takeaway: 'Сборка страницы в Figma: с нескольких часов до ≈15–20 минут.',
           context: 'Масштабировать создание лендингов, писем и адаптивных материалов, сократив повторяющуюся ручную работу.',
           contribution: ['Создал модульную библиотеку страниц под восемь адаптивных брейкпоинтов.', 'Разработал настраиваемые шаблоны писем и адаптивные SVG-материалы.', 'Подготовил документацию и инструменты для самостоятельной работы маркетинга и контент-команд.'],
@@ -43,7 +43,7 @@ export const content = {
         {
           id: 'aio', name: 'AIO Tech', category: 'B2B SaaS · product UX',
           headline: 'Сложные сценарии маркетинговой платформы — от настройки до результата.',
-          role: 'Senior Product Designer', preview: 'Пользовательский путь и ключевые состояния интерфейса',
+          role: 'Product Designer', preview: 'Пользовательский путь и ключевые состояния интерфейса',
           takeaway: 'Полный сценарий A/B-тестирования и переиспользуемый UI kit.',
           context: 'Сделать управляемыми сценарии кампаний, правил и A/B-тестов с большим количеством настроек и состояний.',
           contribution: ['Проектировал навигацию, управление кампаниями, создание правил и сложные состояния.', 'Разработал полный путь A/B-тестирования сайтов и креативов: настройка, комбинации и результаты.', 'Спроектировал опциональный AI-сценарий тестирования комбинаций и выбора лучшего варианта.', 'Работал с продуктовой и инженерной командами от обсуждения задач до реализации.'],
@@ -52,7 +52,7 @@ export const content = {
         {
           id: 'evapolar', name: 'Evapolar', category: 'Brand · web · 3D',
           headline: 'Единый визуальный язык для сайта, коммуникаций и продуктового контента.',
-          role: 'Senior Designer — Brand, Web & Design Systems', preview: 'Сайт, коммуникации и продуктовые 3D-материалы',
+          role: 'Designer — Brand, Web & Design Systems', preview: 'Сайт, коммуникации и продуктовые 3D-материалы',
           takeaway: 'Около 70% визуального контента переведено в 3D.',
           context: 'Обновить бренд и сайт, выстроить повторяемое производство материалов и снизить зависимость от фотосъёмок.',
           contribution: ['Вёл обновление бренда и сайта, создал переиспользуемую веб-дизайн-систему.', 'Инициировал переход к 3D-визуализации продукта.', 'Арт-директировал съёмки и координировал фотографов, дополняя материалы 3D-ассетами.'],
@@ -81,9 +81,9 @@ export const content = {
     },
     team: {
       label: '04 / Для работодателей', title: 'Могу усилить продуктовую команду на стыке UX, систем и визуального дизайна.',
-      intro: 'Основной фокус — Senior Product Designer в AI-продуктах, B2B SaaS и командах, развивающих дизайн-систему.',
+      intro: 'Основной фокус — Product Designer в AI-продуктах, B2B SaaS и командах, развивающих дизайн-систему.',
       strengths: ['Проектирование сложных сценариев, состояний и взаимодействий.', 'Компонентные системы и документация, поддерживающие работу команды.', 'Работа с продуктом и разработкой от обсуждения задачи до реализации.', 'Функциональные AI-прототипы и сильная визуальная база.'],
-      experience: [['Semrush', 'Senior Product Designer / Design Systems', '2025–2026'], ['AIO Tech', 'Senior Product Designer', '2023–2025'], ['Evapolar', 'Senior Designer — Brand, Web & Design Systems', '2022–2023'], ['McCann Worldgroup', 'Multidisciplinary Designer', '2021–2022']],
+      experience: [['Semrush', 'Product Designer / Design Systems', '2025–2026'], ['AIO Tech', 'Product Designer', '2023–2025'], ['Evapolar', 'Designer — Brand, Web & Design Systems', '2022–2023'], ['McCann Worldgroup', 'Multidisciplinary Designer', '2021–2022']],
       location: 'Вильнюс, Литва · удалённая работа, офис в Литве — обсуждаемо',
       cta: 'Обсудить роль', cv: 'Скачать CV · PDF', linkedin: 'LinkedIn',
       note: 'Короткий путь для нанимающего: профиль → релевантный опыт → CV → разговор о роли. Текущую доступность нужно уточнить перед публичным запуском.'
@@ -109,7 +109,7 @@ export const content = {
     proto: 'Structure prototype', version: 'Version 0.1 · 17 Nov 2026', notes: 'Review notes', skip: 'Skip to content',
     nav: ['Selected work', 'Collaboration', 'About', 'Contact'],
     hero: {
-      label: 'Yan Kavaleu · Senior Product Designer',
+      label: 'Yan Kavaleu · Product Designer',
       title: 'I turn complex workflows into clear digital products.',
       text: 'I design AI products, SaaS experiences and design systems, combining product thinking with a background in branding, 3D and motion.',
       location: 'Vilnius, Lithuania · working remotely', client: 'Discuss a project', employer: 'Explore a team fit',
@@ -135,7 +135,7 @@ export const content = {
         {
           id: 'semrush', name: 'Semrush', category: 'Design systems · production workflows',
           headline: 'Systems that help teams create materials independently.',
-          role: 'Senior Product Designer / Design Systems', preview: 'Component system and page assembly example',
+          role: 'Product Designer / Design Systems', preview: 'Component system and page assembly example',
           takeaway: 'Figma page assembly: from several hours to approximately 15–20 minutes.',
           context: 'Scale the production of landing pages, emails and responsive assets while reducing repetitive design work.',
           contribution: ['Created a modular page library covering eight responsive breakpoints.', 'Built configurable email templates and responsive SVG assets.', 'Documented the systems and enabled marketing and content teams to assemble materials independently.'],
@@ -144,7 +144,7 @@ export const content = {
         {
           id: 'aio', name: 'AIO Tech', category: 'B2B SaaS · product UX',
           headline: 'Complex marketing workflows, from configuration to results.',
-          role: 'Senior Product Designer', preview: 'User journey and key interface states',
+          role: 'Product Designer', preview: 'User journey and key interface states',
           takeaway: 'An end-to-end A/B-testing flow and a reusable UI kit.',
           context: 'Make campaigns, rules and A/B tests manageable across complex configurations and interface states.',
           contribution: ['Designed navigation, campaign management, rule creation and complex states.', 'Designed the complete journey for website and creative A/B testing: configuration, combinations and results.', 'Designed an optional AI-assisted flow for testing combinations and selecting the best-performing option.', 'Worked with product and engineering from grooming through implementation.'],
@@ -153,7 +153,7 @@ export const content = {
         {
           id: 'evapolar', name: 'Evapolar', category: 'Brand · web · 3D',
           headline: 'A consistent visual language across web, communications and product content.',
-          role: 'Senior Designer — Brand, Web & Design Systems', preview: 'Website, communications and 3D product visuals',
+          role: 'Designer — Brand, Web & Design Systems', preview: 'Website, communications and 3D product visuals',
           takeaway: 'Approximately 70% of visual content shifted to 3D.',
           context: 'Refresh the brand and website, create repeatable production workflows and reduce dependence on photography.',
           contribution: ['Led brand and website redesign work and built a reusable web design system.', 'Initiated the transition to 3D product visualisation.', 'Directed photoshoots and coordinated photographers, using 3D assets to fill content gaps.'],
@@ -178,9 +178,9 @@ export const content = {
     },
     team: {
       label: '04 / For employers', title: 'Product thinking, systems and visual craft for your team.',
-      intro: 'My main focus is a Senior Product Designer role in AI products, B2B SaaS or a team developing its design system.',
+      intro: 'My main focus is a Product Designer role in AI products, B2B SaaS or a team developing its design system.',
       strengths: ['Complex user workflows, interface states and interaction design.', 'Component systems and documentation that support the team.', 'Collaboration with product and engineering through implementation.', 'Functional AI prototypes and a strong visual design foundation.'],
-      experience: [['Semrush', 'Senior Product Designer / Design Systems', '2025–2026'], ['AIO Tech', 'Senior Product Designer', '2023–2025'], ['Evapolar', 'Senior Designer — Brand, Web & Design Systems', '2022–2023'], ['McCann Worldgroup', 'Multidisciplinary Designer', '2021–2022']],
+      experience: [['Semrush', 'Product Designer / Design Systems', '2025–2026'], ['AIO Tech', 'Product Designer', '2023–2025'], ['Evapolar', 'Designer — Brand, Web & Design Systems', '2022–2023'], ['McCann Worldgroup', 'Multidisciplinary Designer', '2021–2022']],
       location: 'Vilnius, Lithuania · remote; office-based roles in Lithuania can be discussed',
       cta: 'Discuss a role', cv: 'Download CV · PDF', linkedin: 'LinkedIn',
       note: 'A short hiring path: profile → relevant experience → CV → role discussion. Confirm current availability before public launch.'

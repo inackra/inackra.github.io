@@ -55,16 +55,16 @@ function EvidenceScreen({
   return <section id={evidenceId(item)} className={`aio-evidence-row case-chapter ${item.wide ? 'aio-evidence-wide' : ''}`}>
   <div><h3>{item.title}</h3><p>{item.text}</p></div>
   <figure className="case-image">
-   <a href={src} aria-label={"" + tr("Открыть оригинал: ") + item.title + ""} onClick={e => {
+   <button type="button" className="case-image-preview" aria-label={"" + tr("Открыть оригинал: ") + item.title + ""} onClick={e => {
         e.preventDefault();
         onOpen({
           src,
           alt: `AIO Tech — ${item.title}`
         });
       }}>
-    {frame.src ? <img src={src} width={dimensions[0]} height={dimensions[1]} alt={`AIO Tech — ${item.title}`} loading="lazy" decoding="async" /> : <svg viewBox={frame.box.join(' ')} preserveAspectRatio="xMidYMid meet" role="img" aria-label={`AIO Tech — ${item.title}`}><title>{item.title}</title><image href={src} width={dimensions[0]} height={dimensions[1]} /></svg>}
+    {frame.src ? <img src={src} width={dimensions[0]} height={dimensions[1]} alt={`AIO Tech — ${item.title}`} loading="lazy" decoding="async" draggable={false} /> : <svg viewBox={frame.box.join(' ')} preserveAspectRatio="xMidYMid meet" role="img" aria-label={`AIO Tech — ${item.title}`}><title>{item.title}</title><image href={src} width={dimensions[0]} height={dimensions[1]} /></svg>}
     <span className="image-zoom" aria-hidden="true"><Arrow /></span>
-   </a>
+   </button>
    <figcaption>{tr("Оригинальный экран · Нажми, чтобы увеличить")}</figcaption>
   </figure>
  </section>;

@@ -103,7 +103,7 @@ button:focus-visible,a:focus-visible,textarea:focus-visible{outline-color:var(--
 .case-preview img{display:block;width:100%;height:100%;max-height:430px;object-fit:contain}
 .case-card .case-head h3{font-size:clamp(52px,8vw,125px)}
 .case-soon{display:flex;align-items:center;justify-content:space-between;gap:50px;font-size:12px;color:#8d8d8d;min-width:180px;padding:17px 0;align-self:flex-end}
-.case-soon>span{font-size:22px}
+
 .case-period{margin:20px 0 28px!important;font-size:10px!important}
 .case-image{margin:0;min-width:0}
 .case-image>a{display:block;position:relative;line-height:0;border-radius:8px;overflow:hidden;background:#0a0a0a}
@@ -131,7 +131,7 @@ button:focus-visible,a:focus-visible,textarea:focus-visible{outline-color:var(--
  .case-card .case-outcome{font-size:10px;line-height:1.7;margin-top:8px}
  .case-card .case-bottom{padding-top:12px}
  .case-open,.case-soon{font-size:11px;width:100%;min-width:0;margin-top:10px;padding:14px 0 2px}
- .case-soon>span{font-size:20px}
+
  .case-metrics{gap:10px;margin:28px 0 35px}
  .case-metrics strong{font-size:22px}
  .case-metrics span{font-size:8px}
@@ -142,7 +142,7 @@ button:focus-visible,a:focus-visible,textarea:focus-visible{outline-color:var(--
  .case-source{font-size:10px;gap:12px}
 }
 
-.case-soon>.arrow{width:18px;height:18px;transform:rotate(-45deg)}
+
 .image-zoom .arrow{width:15px;height:15px;transform:rotate(-45deg)}
 
 /* Artwork fills each card; cards occlude the global number field. */
@@ -306,6 +306,21 @@ html.has-smooth-scroll,html.is-scrubbing{scroll-behavior:auto!important}
 html.is-scrubbing.lenis.lenis-stopped{overflow:hidden!important}
 
 /* The archive entry belongs to the carousel controls, immediately below the cards. */
+.demo-root[data-layout="centered"]>main,.demo-root[data-layout="centered"]>.site-footer{width:min(var(--content-width),calc(100% - 32px));margin-inline:auto}
+.demo-root[data-layout="centered"]>.site-header{padding-inline:max(16px,calc((100vw - var(--content-width))/2))}
+.case-card .case-open{font-size:14px;line-height:1.35;min-width:0;min-height:44px;gap:12px;align-self:auto}
+.case-card .case-open>.flip-label{font-size:inherit}
+.case-card .case-open>.arrow{width:20px;height:20px}
+.project-page .text-action,.project-neighbours .text-action,.visual-page .text-action{font-size:14px;min-height:44px;gap:12px}
+.project-page .text-action>.arrow,.project-neighbours .text-action>.arrow,.visual-page .text-action>.arrow{width:20px;height:20px}
+.aio-study .archive-filters button{font-size:14px}
+.page-end-actions{position:relative;z-index:47;display:flex;justify-content:flex-end;padding:28px 0 50px}
+.back-to-top{min-height:44px;gap:12px;font-size:14px}
+.arrow.up{transform:rotate(-90deg)}
+.back-to-top:hover .arrow.up{transform:translateY(-3px) rotate(-90deg)}
+.case-image-preview{display:block;width:100%;padding:0;border:0;text-align:inherit}
+.demo-root img,.demo-root video,.case-image svg{-webkit-user-drag:none;-webkit-touch-callout:none;user-select:none}
+.case-image,.project-cover,.visual-tile,.wall-media,.image-lightbox{-webkit-touch-callout:none}
 .carousel-controls{display:grid;grid-template-columns:minmax(0,1fr) auto auto auto;gap:20px;padding:0 0 20px;align-items:center}
 .carousel-all-work{justify-self:start;min-height:44px;font-size:14px;gap:20px;color:var(--fg)}
 .carousel-counter{font-size:12px;white-space:nowrap}

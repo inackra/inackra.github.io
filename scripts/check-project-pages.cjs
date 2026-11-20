@@ -9,7 +9,7 @@ const paths=new Set;for(let i=0;i<ru.length;i++){
  for(const lang of ['ru','en']){
  const sandbox={require,console,module:{exports:{}},exports:{},location:{pathname:'/work/aio/',hash:'#task='+r.id},matchMedia:()=>({matches:false})};vm.runInNewContext(code,sandbox);
  const html=renderToStaticMarkup(React.createElement(sandbox.module.exports.default,{lang,paused:false}));
- assert.ok(html.includes((lang==='en'?e:r).title));assert.ok(!html.includes('readymag'));assert.ok(!html.includes('aio-related-list'));assert.ok(html.includes(lang==='ru'?'Как задача связана с проектом':'How this task connects to the project'));
+ assert.ok(html.includes((lang==='en'?e:r).title));assert.ok(html.includes('case-image-preview'));assert.ok(!/<a\b[^>]*href="[^"]+\.(?:png|jpe?g|webp)(?:[?#][^"]*)?"/i.test(html),'screens enlarge inside the site instead of linking to files');assert.ok(!html.includes('readymag'));assert.ok(!html.includes('aio-related-list'));assert.ok(html.includes(lang==='ru'?'Как задача связана с проектом':'How this task connects to the project'));
  if(lang==='en')assert.equal(/[А-Яа-яЁё]/.test(html),false,'English rendered controls: '+r.id);
  for(const item of r.evidence){const src=item.frame.src||'/assets/cases/allinone/'+String(item.frame.index).padStart(2,'0')+'.webp';assert.ok(fs.existsSync('public'+src),'asset '+src);paths.add(src)}
  }

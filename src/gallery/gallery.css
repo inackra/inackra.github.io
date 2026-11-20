@@ -8,3 +8,6 @@
 /* Compact project tiles must not inherit the full-screen carousel title size. */
 .media-wall .wall-project .case-card .case-head h3{font-size:32px;line-height:1.15;overflow-wrap:anywhere}
 @media(max-width:700px){.media-wall .wall-project .case-card .case-head h3{font-size:25px}}
+.gallery-top-chrome{position:fixed;inset:0 0 auto;z-index:48;pointer-events:none;visibility:hidden;background:linear-gradient(180deg,#000 0%,#000 calc(100% - 18px),#0000 100%)}
+.gallery-page[data-pinned="true"] .gallery-top-chrome{visibility:visible}
+.gallery-page[data-pinned="true"] .gallery-filters{background:none}
