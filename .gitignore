@@ -1,0 +1,15 @@
+node_modules/
+dist/
+.env
+.env.*
+!.env.example
+*.pem
+*.key
+.DS_Store
+.qa-*
+qa-*.html
+public/__gallery*
+public/__media-check.html
+public/assets/aio-2026/
+public/assets/aio-sections/
+public/assets/aio-visits/
