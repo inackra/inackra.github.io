@@ -34,6 +34,6 @@ export function getCaseStudies(base,lang){
   const details=ready[lang][item.id];
   if(!details)return {...item,status:'soon',line:item.headline};
   const folder=item.id==='aio'?'allinone':item.id;
-  return {...item,...details,status:'ready',cover:image(folder,item.id==='aio'?6:item.id==='buburuza'?7:0),source:`https://readymag.website/u2712612266/6032231/${item.id==='aio'?'allinone':item.id}`};
+  return {...item,...details,status:'ready',cover:image(folder,item.id==='aio'?6:item.id==='buburuza'?7:0),source:''};
  });
 }

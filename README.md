@@ -27,3 +27,11 @@ Desktop wheel scrolling uses Lenis. Touch scrolling stays native. The custom rai
 `npm run build` prepares both routes; `npm test` runs the platform-stub and numerical regression checks after a build. These checks do not replace browser/device visual QA. The new local displacement effect needs comparison against the reference in a live browser before being described as an exact visual match.
 
 Google Sheets setup and account authorization: see `docs/ENQUIRIES.md`. Without a configured receiver the form retains an email fallback. Live delivery must be verified against an actual sheet after deployment.
+
+## Case pages
+
+Project cards link to `/work/<id>/` rather than opening a project dialog. Static entry pages are emitted by `scripts/build-pages.mjs`, so direct links work on GitHub Pages. Image enlargement in AIO remains a separate image viewer.
+
+AIO contains 11 workflows in Russian and English. Narrative, screen captions and prototype controls live in `src/aio/`; screenshot files retain their original content. No import audit reports or original upload archives are shipped. The bottom task selector is followed by a separate previous/next project area with cover images. `npm test` includes route, language and media checks.
+
+Original AIO PNGs are stored in `assets/aio-media.tar.gz` (under GitHub’s per-file upload limit). The build extracts them into ignored `public/assets/aio-*` folders before Vite copies them to the deploy output. No image compression or repainting occurs. Build on Node.js 22 with `tar` available (as in the existing Ubuntu Pages workflow). AIO code and media load only when needed by its case page.

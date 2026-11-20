@@ -1,0 +1,3081 @@
+[
+  {
+    "id": "traffic",
+    "label": "Content A/B testing",
+    "title": "Testing individual page elements.",
+    "summary": "Prepare content variants, choose how impressions are allocated and keep these actions connected.",
+    "problem": "Once variants are ready, the user needs to decide how they reach the audience. The interface offers three modes: First, AI and Weights.",
+    "decision": "Each mode reveals its own settings, rather than presenting every traffic control at once.",
+    "steps": [
+      "Prepare content",
+      "Choose an allocation mode",
+      "Display variant A",
+      "Display variant B"
+    ],
+    "story": [
+      [
+        "The challenge",
+        "The visual editor supports experiments with text, images and combinations of elements. Users need to understand both what they are changing and how each version will be shown to their audience."
+      ],
+      [
+        "The solution",
+        "Experiment settings remain inside the editor. The page preview preserves context while the selected element’s properties appear alongside it, connecting content preparation with impression allocation."
+      ],
+      [
+        "Three allocation modes",
+        "First keeps the first variant. AI automatically reallocates impressions towards stronger content. Weights provides manual control. The available fields change with the selected mode."
+      ],
+      [
+        "My contribution",
+        "I designed the visual landing-page editor, A/B tests for text, images and combinations, and the First, AI and Weights modes. Editor states connect content preparation with experiment settings."
+      ]
+    ],
+    "reasoning": [
+      [
+        "Keeping the preview close",
+        "A text or image variant makes sense within the page composition. A persistent preview makes changes visible in context without repeatedly switching between settings and viewing."
+      ],
+      [
+        "One pattern across content types",
+        "Text Split and Image Split repeat the same control structure. Changing the content type does not require learning a different interaction."
+      ],
+      [
+        "Reveal settings after a choice",
+        "First, AI and Weights require different decisions. Conversion and weight fields appear with the relevant mode so that the next step follows the user’s choice."
+      ]
+    ],
+    "evidence": [
+      {
+        "sectionAssetId": 18,
+        "title": "Open the editor",
+        "text": "Manage Lander connects a library item to its editor.",
+        "wide": false,
+        "frame": {
+          "src": "/assets/aio-sections/18-manage-landers-editor.png",
+          "width": 1912,
+          "height": 1080
+        }
+      },
+      {
+        "sectionAssetId": 22,
+        "title": "Add the first split",
+        "text": "The empty variants area explains that no splits exist yet and offers the next action.",
+        "wide": false,
+        "frame": {
+          "src": "/assets/aio-sections/22-adding-splits.png",
+          "width": 1864,
+          "height": 1032
+        }
+      },
+      {
+        "sectionAssetId": 23,
+        "title": "Work with multiple splits",
+        "text": "Text and image settings sit alongside the page preview.",
+        "wide": false,
+        "frame": {
+          "src": "/assets/aio-sections/23-displaying-splits.png",
+          "width": 1864,
+          "height": 1032
+        }
+      },
+      {
+        "sectionAssetId": 20,
+        "title": "Understand a field",
+        "text": "A contextual hint explains the parameter where it is edited.",
+        "wide": false,
+        "frame": {
+          "src": "/assets/aio-sections/20-displaying-tooltip.png",
+          "width": 1864,
+          "height": 1032
+        }
+      },
+      {
+        "sectionAssetId": 21,
+        "title": "Make room for the preview",
+        "text": "Collapsing the right panel expands the page area without leaving the editor.",
+        "wide": false,
+        "frame": {
+          "src": "/assets/aio-sections/21-hiden-right-side.png",
+          "width": 1864,
+          "height": 1032
+        }
+      },
+      {
+        "sectionAssetId": 25,
+        "title": "Image / First: getting started",
+        "text": "The initial state prompts the user to add an image variant.",
+        "wide": false,
+        "frame": {
+          "src": "/assets/aio-sections/25-split-card.png",
+          "width": 468,
+          "height": 196
+        }
+      },
+      {
+        "sectionAssetId": 24,
+        "title": "Image / First: a variant",
+        "text": "The row combines its enabled state, scope and image source.",
+        "wide": false,
+        "frame": {
+          "src": "/assets/aio-sections/24-split-card-1.png",
+          "width": 468,
+          "height": 244
+        }
+      },
+      {
+        "sectionAssetId": 26,
+        "title": "Image / AI: conversion",
+        "text": "The selected conversion defines the goal of automatic allocation.",
+        "wide": false,
+        "frame": {
+          "src": "/assets/aio-sections/26-split-card-2.png",
+          "width": 468,
+          "height": 264
+        }
+      },
+      {
+        "sectionAssetId": 34,
+        "title": "Image / AI: clicks",
+        "text": "Click counts stay in each variant’s row, linked to the corresponding image.",
+        "wide": false,
+        "frame": {
+          "src": "/assets/aio-sections/34-split-card-4.png",
+          "width": 468,
+          "height": 392
+        }
+      },
+      {
+        "sectionAssetId": 37,
+        "title": "Image / AI: conversions",
+        "text": "The conversion view compares variants through their target actions.",
+        "wide": false,
+        "frame": {
+          "src": "/assets/aio-sections/37-split-card-5.png",
+          "width": 468,
+          "height": 392
+        }
+      },
+      {
+        "sectionAssetId": 29,
+        "title": "Image / AI: shares",
+        "text": "The percentage view shows the variants’ relative shares.",
+        "wide": false,
+        "frame": {
+          "src": "/assets/aio-sections/29-split-card-3.png",
+          "width": 468,
+          "height": 392
+        }
+      },
+      {
+        "sectionAssetId": 33,
+        "title": "Image / Weights: getting started",
+        "text": "Manual mode begins by adding variants.",
+        "wide": false,
+        "frame": {
+          "src": "/assets/aio-sections/33-split-card-6.png",
+          "width": 468,
+          "height": 196
+        }
+      },
+      {
+        "sectionAssetId": 30,
+        "title": "Image / Weights: allocation",
+        "text": "Each image can be assigned an individual relative weight.",
+        "wide": false,
+        "frame": {
+          "src": "/assets/aio-sections/30-split-card-7.png",
+          "width": 468,
+          "height": 392
+        }
+      },
+      {
+        "sectionAssetId": 17,
+        "title": "Text / First: getting started",
+        "text": "The empty state offers to add the first text variant.",
+        "wide": false,
+        "frame": {
+          "src": "/assets/aio-sections/17-split-card-8.png",
+          "width": 468,
+          "height": 196
+        }
+      },
+      {
+        "sectionAssetId": 19,
+        "title": "Text / First: multiple rows",
+        "text": "Text is entered in rows with individual enable and delete controls.",
+        "wide": false,
+        "frame": {
+          "src": "/assets/aio-sections/19-split-card-9.png",
+          "width": 468,
+          "height": 284
+        }
+      },
+      {
+        "sectionAssetId": 36,
+        "title": "Text / AI: conversion",
+        "text": "Conversion selection connects to automatic allocation of text variants.",
+        "wide": false,
+        "frame": {
+          "src": "/assets/aio-sections/36-split-card-13.png",
+          "width": 468,
+          "height": 264
+        }
+      },
+      {
+        "sectionAssetId": 31,
+        "title": "Text / AI: clicks",
+        "text": "Click counts remain beside the text they describe.",
+        "wide": false,
+        "frame": {
+          "src": "/assets/aio-sections/31-split-card-11.png",
+          "width": 468,
+          "height": 392
+        }
+      },
+      {
+        "sectionAssetId": 35,
+        "title": "Text / AI: conversions",
+        "text": "Conversions provide another way to compare text variants.",
+        "wide": false,
+        "frame": {
+          "src": "/assets/aio-sections/35-split-card-12.png",
+          "width": 468,
+          "height": 392
+        }
+      },
+      {
+        "sectionAssetId": 32,
+        "title": "Text / AI: shares",
+        "text": "The percentage view supports comparison of relative shares.",
+        "wide": false,
+        "frame": {
+          "src": "/assets/aio-sections/32-split-card-10.png",
+          "width": 468,
+          "height": 392
+        }
+      },
+      {
+        "sectionAssetId": 27,
+        "title": "Text / Weights: getting started",
+        "text": "Manual mode offers to add text fields.",
+        "wide": false,
+        "frame": {
+          "src": "/assets/aio-sections/27-split-card-14.png",
+          "width": 468,
+          "height": 196
+        }
+      },
+      {
+        "sectionAssetId": 28,
+        "title": "Text / Weights: row weights",
+        "text": "An individual weight for each row gives direct control over text allocation.",
+        "wide": false,
+        "frame": {
+          "src": "/assets/aio-sections/28-split-card-15.png",
+          "width": 468,
+          "height": 392
+        }
+      }
+    ],
+    "evidenceGroups": [
+      {
+        "id": "content-editor",
+        "title": "Editor and splits",
+        "intro": "Page structure, preview and element variants share one workspace.",
+        "items": [
+          {
+            "sectionAssetId": 18,
+            "title": "Open the editor",
+            "text": "Manage Lander connects a library item to its editor.",
+            "wide": false,
+            "frame": {
+              "src": "/assets/aio-sections/18-manage-landers-editor.png",
+              "width": 1912,
+              "height": 1080
+            }
+          },
+          {
+            "sectionAssetId": 22,
+            "title": "Add the first split",
+            "text": "The empty variants area explains that no splits exist yet and offers the next action.",
+            "wide": false,
+            "frame": {
+              "src": "/assets/aio-sections/22-adding-splits.png",
+              "width": 1864,
+              "height": 1032
+            }
+          },
+          {
+            "sectionAssetId": 23,
+            "title": "Work with multiple splits",
+            "text": "Text and image settings sit alongside the page preview.",
+            "wide": false,
+            "frame": {
+              "src": "/assets/aio-sections/23-displaying-splits.png",
+              "width": 1864,
+              "height": 1032
+            }
+          },
+          {
+            "sectionAssetId": 20,
+            "title": "Understand a field",
+            "text": "A contextual hint explains the parameter where it is edited.",
+            "wide": false,
+            "frame": {
+              "src": "/assets/aio-sections/20-displaying-tooltip.png",
+              "width": 1864,
+              "height": 1032
+            }
+          },
+          {
+            "sectionAssetId": 21,
+            "title": "Make room for the preview",
+            "text": "Collapsing the right panel expands the page area without leaving the editor.",
+            "wide": false,
+            "frame": {
+              "src": "/assets/aio-sections/21-hiden-right-side.png",
+              "width": 1864,
+              "height": 1032
+            }
+          }
+        ]
+      },
+      {
+        "id": "image-split",
+        "title": "Image variants",
+        "intro": "One component connects each image with its allocation settings and performance indicators.",
+        "items": [
+          {
+            "sectionAssetId": 25,
+            "title": "Image / First: getting started",
+            "text": "The initial state prompts the user to add an image variant.",
+            "wide": false,
+            "frame": {
+              "src": "/assets/aio-sections/25-split-card.png",
+              "width": 468,
+              "height": 196
+            }
+          },
+          {
+            "sectionAssetId": 24,
+            "title": "Image / First: a variant",
+            "text": "The row combines its enabled state, scope and image source.",
+            "wide": false,
+            "frame": {
+              "src": "/assets/aio-sections/24-split-card-1.png",
+              "width": 468,
+              "height": 244
+            }
+          },
+          {
+            "sectionAssetId": 26,
+            "title": "Image / AI: conversion",
+            "text": "The selected conversion defines the goal of automatic allocation.",
+            "wide": false,
+            "frame": {
+              "src": "/assets/aio-sections/26-split-card-2.png",
+              "width": 468,
+              "height": 264
+            }
+          },
+          {
+            "sectionAssetId": 34,
+            "title": "Image / AI: clicks",
+            "text": "Click counts stay in each variant’s row, linked to the corresponding image.",
+            "wide": false,
+            "frame": {
+              "src": "/assets/aio-sections/34-split-card-4.png",
+              "width": 468,
+              "height": 392
+            }
+          },
+          {
+            "sectionAssetId": 37,
+            "title": "Image / AI: conversions",
+            "text": "The conversion view compares variants through their target actions.",
+            "wide": false,
+            "frame": {
+              "src": "/assets/aio-sections/37-split-card-5.png",
+              "width": 468,
+              "height": 392
+            }
+          },
+          {
+            "sectionAssetId": 29,
+            "title": "Image / AI: shares",
+            "text": "The percentage view shows the variants’ relative shares.",
+            "wide": false,
+            "frame": {
+              "src": "/assets/aio-sections/29-split-card-3.png",
+              "width": 468,
+              "height": 392
+            }
+          },
+          {
+            "sectionAssetId": 33,
+            "title": "Image / Weights: getting started",
+            "text": "Manual mode begins by adding variants.",
+            "wide": false,
+            "frame": {
+              "src": "/assets/aio-sections/33-split-card-6.png",
+              "width": 468,
+              "height": 196
+            }
+          },
+          {
+            "sectionAssetId": 30,
+            "title": "Image / Weights: allocation",
+            "text": "Each image can be assigned an individual relative weight.",
+            "wide": false,
+            "frame": {
+              "src": "/assets/aio-sections/30-split-card-7.png",
+              "width": 468,
+              "height": 392
+            }
+          }
+        ]
+      },
+      {
+        "id": "text-split",
+        "title": "Text variants",
+        "intro": "Text variants use the same First, AI and Weights logic.",
+        "items": [
+          {
+            "sectionAssetId": 17,
+            "title": "Text / First: getting started",
+            "text": "The empty state offers to add the first text variant.",
+            "wide": false,
+            "frame": {
+              "src": "/assets/aio-sections/17-split-card-8.png",
+              "width": 468,
+              "height": 196
+            }
+          },
+          {
+            "sectionAssetId": 19,
+            "title": "Text / First: multiple rows",
+            "text": "Text is entered in rows with individual enable and delete controls.",
+            "wide": false,
+            "frame": {
+              "src": "/assets/aio-sections/19-split-card-9.png",
+              "width": 468,
+              "height": 284
+            }
+          },
+          {
+            "sectionAssetId": 36,
+            "title": "Text / AI: conversion",
+            "text": "Conversion selection connects to automatic allocation of text variants.",
+            "wide": false,
+            "frame": {
+              "src": "/assets/aio-sections/36-split-card-13.png",
+              "width": 468,
+              "height": 264
+            }
+          },
+          {
+            "sectionAssetId": 31,
+            "title": "Text / AI: clicks",
+            "text": "Click counts remain beside the text they describe.",
+            "wide": false,
+            "frame": {
+              "src": "/assets/aio-sections/31-split-card-11.png",
+              "width": 468,
+              "height": 392
+            }
+          },
+          {
+            "sectionAssetId": 35,
+            "title": "Text / AI: conversions",
+            "text": "Conversions provide another way to compare text variants.",
+            "wide": false,
+            "frame": {
+              "src": "/assets/aio-sections/35-split-card-12.png",
+              "width": 468,
+              "height": 392
+            }
+          },
+          {
+            "sectionAssetId": 32,
+            "title": "Text / AI: shares",
+            "text": "The percentage view supports comparison of relative shares.",
+            "wide": false,
+            "frame": {
+              "src": "/assets/aio-sections/32-split-card-10.png",
+              "width": 468,
+              "height": 392
+            }
+          },
+          {
+            "sectionAssetId": 27,
+            "title": "Text / Weights: getting started",
+            "text": "Manual mode offers to add text fields.",
+            "wide": false,
+            "frame": {
+              "src": "/assets/aio-sections/27-split-card-14.png",
+              "width": 468,
+              "height": 196
+            }
+          },
+          {
+            "sectionAssetId": 28,
+            "title": "Text / Weights: row weights",
+            "text": "An individual weight for each row gives direct control over text allocation.",
+            "wide": false,
+            "frame": {
+              "src": "/assets/aio-sections/28-split-card-15.png",
+              "width": 468,
+              "height": 392
+            }
+          }
+        ]
+      }
+    ],
+    "featured": true
+  },
+  {
+    "id": "visits",
+    "label": "Visits / Recordings",
+    "title": "See the actions behind a visit.",
+    "summary": "A session player reveals where a visitor clicked and how they moved through a page.",
+    "problem": "Visit statistics describe the outcome. Understanding behaviour requires reconstructing the sequence of on-page actions.",
+    "decision": "Recordings open from the Visits table. The list, player and timeline share one window, with an option to expand the viewing area.",
+    "steps": [
+      "Open the recordings",
+      "Select and load a visit",
+      "Watch the visitor’s actions",
+      "Expand the player"
+    ],
+    "story": [
+      [
+        "The challenge",
+        "Help a marketer move from visit metrics to a person’s actual clicks, movement and pauses on a page."
+      ],
+      [
+        "From visit to recording",
+        "The entry point is the Visits context menu. The recordings list stays beside the player, so switching sessions does not require returning to the main table."
+      ],
+      [
+        "Control the pace",
+        "Pause and ten-second jumps support close inspection. Playback at 1×–4× and Skip inactive help move through periods without activity. The timeline preserves the position within the recording."
+      ],
+      [
+        "Room for analysis",
+        "Expanded mode hides the list and enlarges the recording area. Playback controls stay in place so changing the view does not interrupt inspection."
+      ],
+      [
+        "Interface states",
+        "Before selection, the player explains where to start. Loading feedback confirms progress, while the highlighted row identifies the current visit."
+      ]
+    ],
+    "reasoning": [
+      [
+        "A persistent reference point",
+        "The adjacent list preserves the connection between the recording and its visit, allowing sessions to be compared without rebuilding context in the main table."
+      ],
+      [
+        "Two viewing scales",
+        "The list supports finding recordings; a larger player supports examining details. Collapsing the list changes the scale while preserving playback controls and position."
+      ],
+      [
+        "Uneven event density",
+        "Speed controls and skipping inactivity support both quick review and close inspection. Pause and the timeline keep the user in control."
+      ]
+    ],
+    "evidence": [
+      {
+        "visitAssetId": 3,
+        "title": "Recordings in context",
+        "text": "Show Sessions opens recordings for the selected visit directly from the Visits table. Search and list settings help locate the relevant context.",
+        "frame": {
+          "src": "/assets/aio-visits/03-action-menu-show-sessions.png",
+          "width": 1912,
+          "height": 1080
+        }
+      },
+      {
+        "visitAssetId": 5,
+        "title": "Before playback",
+        "text": "The list remains available while the player asks the user to select a recording. The empty state explains the next step.",
+        "frame": {
+          "src": "/assets/aio-visits/05-nothing-is-play-display.png",
+          "width": 1912,
+          "height": 1080
+        }
+      },
+      {
+        "visitAssetId": 4,
+        "title": "Selection and loading",
+        "text": "The selected row is highlighted. A loading indicator confirms that the recording is being prepared.",
+        "frame": {
+          "src": "/assets/aio-visits/04-chosen-session.png",
+          "width": 1912,
+          "height": 1080
+        }
+      },
+      {
+        "visitAssetId": 2,
+        "title": "Player beside the list",
+        "text": "Actions play alongside the recordings list. The timeline includes pause, ten-second jumps, 1×–4× speed and skipping inactive sections.",
+        "frame": {
+          "src": "/assets/aio-visits/02-active-session.png",
+          "width": 1912,
+          "height": 1080
+        }
+      },
+      {
+        "visitAssetId": 1,
+        "title": "Expanded playback",
+        "text": "The list collapses to make room for the recording. Playback controls and the timeline remain visible.",
+        "frame": {
+          "src": "/assets/aio-visits/01-active-session-1.png",
+          "width": 1912,
+          "height": 1080
+        }
+      }
+    ],
+    "featured": true
+  },
+  {
+    "id": "analytics",
+    "label": "Cohort analytics",
+    "title": "From an overview to a specific slice.",
+    "summary": "A cohort table with period selection, individual cells and contextual details.",
+    "problem": "Compare cohorts over time and inspect details without losing the selected group’s context.",
+    "decision": "The period controls the scope of the view. A selected cell links the table to its details, while expanded mode creates more room for comparison.",
+    "steps": [
+      "Choose a period",
+      "Select a cell",
+      "Inspect the details",
+      "Expand the table"
+    ],
+    "story": [
+      [
+        "Comparison over time",
+        "The table combines cohorts and periods in one view. Colour makes differences between values easier to notice."
+      ],
+      [
+        "From overview to detail",
+        "A selected cell sets the context for detailed statistics. The user examines a specific slice without losing their position in the table."
+      ],
+      [
+        "Different scales",
+        "A short period provides a compact view. A longer period and expanded mode make broader comparisons possible."
+      ],
+      [
+        "Cell states",
+        "Colour and selection states connect readability with the current analytical focus."
+      ]
+    ],
+    "reasoning": [
+      [
+        "A cell connects overview and detail",
+        "An explicit selection identifies the group and period behind the details, giving both views a shared focus."
+      ],
+      [
+        "Scale follows the question",
+        "Short periods reveal early changes; longer periods show cohort development. Expanded mode makes room for a wider table without changing selection behaviour."
+      ],
+      [
+        "Patterns and precise reading",
+        "Colour helps reveal patterns across values. Selection and details support closer inspection of a particular slice."
+      ]
+    ],
+    "evidence": [
+      {
+        "sectionAssetId": 42,
+        "title": "Choose a short period",
+        "text": "A compact selection focuses on the cohorts’ early changes.",
+        "wide": false,
+        "frame": {
+          "src": "/assets/aio-sections/42-a-short-period-has-been-selected-for-displaying-statistics.png",
+          "width": 1912,
+          "height": 1080
+        }
+      },
+      {
+        "sectionAssetId": 43,
+        "title": "Extend the period and select a cell",
+        "text": "A longer period reveals cohort development. Details remain tied to the currently selected cell.",
+        "wide": false,
+        "frame": {
+          "src": "/assets/aio-sections/43-displaying-a-cohort-table-with-the-selected-cell-and-statistics-for-that-cell-a-long-period-has-been-selected-for-displaying-statistics.png",
+          "width": 1912,
+          "height": 1080
+        }
+      },
+      {
+        "sectionAssetId": 44,
+        "title": "Expand the table",
+        "text": "Expanded mode provides more room to compare cohorts.",
+        "wide": true,
+        "frame": {
+          "src": "/assets/aio-sections/44-full-screen-cohort-template.png",
+          "width": 1912,
+          "height": 890
+        }
+      },
+      {
+        "sectionAssetId": 41,
+        "title": "Distinguish cell states",
+        "text": "The colour system supports comparison while keeping the selected cell readable.",
+        "wide": false,
+        "frame": {
+          "src": "/assets/aio-sections/41-cells-and-cells-colors.png",
+          "width": 1102,
+          "height": 601
+        }
+      }
+    ],
+    "evidenceGroups": [
+      {
+        "id": "analytics-cohorts",
+        "title": "Cohort analytics",
+        "intro": "The period, selected cell and detailed view remain parts of one analysis.",
+        "items": [
+          {
+            "sectionAssetId": 42,
+            "title": "Choose a short period",
+            "text": "A compact selection focuses on the cohorts’ early changes.",
+            "wide": false,
+            "frame": {
+              "src": "/assets/aio-sections/42-a-short-period-has-been-selected-for-displaying-statistics.png",
+              "width": 1912,
+              "height": 1080
+            }
+          },
+          {
+            "sectionAssetId": 43,
+            "title": "Extend the period and select a cell",
+            "text": "A longer period reveals cohort development. Details remain tied to the currently selected cell.",
+            "wide": false,
+            "frame": {
+              "src": "/assets/aio-sections/43-displaying-a-cohort-table-with-the-selected-cell-and-statistics-for-that-cell-a-long-period-has-been-selected-for-displaying-statistics.png",
+              "width": 1912,
+              "height": 1080
+            }
+          },
+          {
+            "sectionAssetId": 44,
+            "title": "Expand the table",
+            "text": "Expanded mode provides more room to compare cohorts.",
+            "wide": true,
+            "frame": {
+              "src": "/assets/aio-sections/44-full-screen-cohort-template.png",
+              "width": 1912,
+              "height": 890
+            }
+          },
+          {
+            "sectionAssetId": 41,
+            "title": "Distinguish cell states",
+            "text": "The colour system supports comparison while keeping the selected cell readable.",
+            "wide": false,
+            "frame": {
+              "src": "/assets/aio-sections/41-cells-and-cells-colors.png",
+              "width": 1102,
+              "height": 601
+            }
+          }
+        ]
+      }
+    ],
+    "featured": true
+  },
+  {
+    "id": "landings",
+    "label": "Landing pages",
+    "title": "From creating a page to analysing it.",
+    "summary": "A page library, ZIP upload, development requests and heatmaps.",
+    "problem": "Create pages, find them in a shared library and examine audience interaction within one product.",
+    "decision": "Table and card views connect the page overview with creation methods, upload states and behavioural analytics.",
+    "steps": [
+      "Find a page",
+      "Add a ZIP file",
+      "Check the upload",
+      "Open the landing page"
+    ],
+    "story": [
+      [
+        "One library",
+        "The table provides a parameter overview, while cards help identify pages through previews. Search and filters preserve the current selection."
+      ],
+      [
+        "Multiple creation paths",
+        "A shared entry point offers ZIP upload, manual creation, generation and a page-development request. The method is selected before detailed settings."
+      ],
+      [
+        "Understandable uploads",
+        "Initial, progress, retryable error and success states explain each stage of the file transfer."
+      ],
+      [
+        "Analysis in page context",
+        "Heatmaps show clicks and scroll depth over the actual page, linking behaviour to specific landing-page elements."
+      ]
+    ],
+    "reasoning": [
+      [
+        "Two library views",
+        "Tables suit parameter comparison; cards support visual recognition. Shared search and filters preserve the same selection when the view changes."
+      ]
+    ],
+    "evidence": [
+      {
+        "sectionAssetId": 38,
+        "title": "Table overview",
+        "text": "Pages and metrics appear in rows with shared search and view settings.",
+        "wide": false,
+        "frame": {
+          "src": "/assets/aio-sections/38-tables-layout.png",
+          "width": 1912,
+          "height": 1080
+        }
+      },
+      {
+        "sectionAssetId": 39,
+        "title": "Card overview",
+        "text": "Page previews support visual recognition while preserving access to settings and metrics.",
+        "wide": false,
+        "frame": {
+          "src": "/assets/aio-sections/39-tables-layout-1.png",
+          "width": 1912,
+          "height": 1080
+        }
+      },
+      {
+        "sectionAssetId": 10,
+        "title": "Filter by user",
+        "text": "User selection narrows the page list.",
+        "wide": false,
+        "frame": {
+          "src": "/assets/aio-sections/10-user-droplist.png",
+          "width": 1914,
+          "height": 1082
+        }
+      },
+      {
+        "sectionAssetId": 11,
+        "title": "Applied filters",
+        "text": "Active conditions remain visible in the search bar, preserving the context of the selection.",
+        "wide": false,
+        "frame": {
+          "src": "/assets/aio-sections/11-displaying-filters-in-search-field.png",
+          "width": 1914,
+          "height": 1082
+        }
+      },
+      {
+        "sectionAssetId": 40,
+        "title": "Page types",
+        "text": "Consistent labels distinguish the purpose of landing pages in the library.",
+        "wide": false,
+        "frame": {
+          "src": "/assets/aio-sections/40-6873844.png",
+          "width": 561,
+          "height": 422
+        }
+      },
+      {
+        "sectionAssetId": 6,
+        "title": "Choose a creation method",
+        "text": "The user can upload a ZIP file, create a page manually or choose generation.",
+        "wide": false,
+        "frame": {
+          "src": "/assets/aio-sections/06-selector.png",
+          "width": 480,
+          "height": 473
+        }
+      },
+      {
+        "sectionAssetId": 4,
+        "title": "Prepare the page",
+        "text": "Name, template, type and tags are set before the next step.",
+        "wide": false,
+        "frame": {
+          "src": "/assets/aio-sections/04-normal-state.png",
+          "width": 480,
+          "height": 645
+        }
+      },
+      {
+        "sectionAssetId": 9,
+        "title": "Add a file",
+        "text": "The upload area responds to interaction and indicates where the ZIP file belongs.",
+        "wide": false,
+        "frame": {
+          "src": "/assets/aio-sections/09-hover-of-uploading-place.png",
+          "width": 480,
+          "height": 645
+        }
+      },
+      {
+        "sectionAssetId": 8,
+        "title": "Track the upload",
+        "text": "Progress feedback confirms that the file transfer is continuing.",
+        "wide": false,
+        "frame": {
+          "src": "/assets/aio-sections/08-uploading.png",
+          "width": 480,
+          "height": 645
+        }
+      },
+      {
+        "sectionAssetId": 7,
+        "title": "Retry after an error",
+        "text": "The error remains within the form and offers another attempt.",
+        "wide": false,
+        "frame": {
+          "src": "/assets/aio-sections/07-error-uploading.png",
+          "width": 480,
+          "height": 645
+        }
+      },
+      {
+        "sectionAssetId": 5,
+        "title": "Continue after upload",
+        "text": "Success feedback confirms the upload and enables the next step.",
+        "wide": false,
+        "frame": {
+          "src": "/assets/aio-sections/05-success-uploading.png",
+          "width": 480,
+          "height": 645
+        }
+      },
+      {
+        "sectionAssetId": 3,
+        "title": "Start from the library",
+        "text": "Adding a page is available beside existing landing pages.",
+        "wide": false,
+        "frame": {
+          "src": "/assets/aio-sections/03-overmine-lander-request-modal.png",
+          "width": 1914,
+          "height": 1082
+        }
+      },
+      {
+        "sectionAssetId": 1,
+        "title": "Request page development",
+        "text": "Order a Landing Page appears in the shared creation-method selector.",
+        "wide": false,
+        "frame": {
+          "src": "/assets/aio-sections/01-selector.png",
+          "width": 480,
+          "height": 732
+        }
+      },
+      {
+        "sectionAssetId": 2,
+        "title": "Contact a developer",
+        "text": "The screen explains the collaboration format and provides a contact point.",
+        "wide": false,
+        "frame": {
+          "src": "/assets/aio-sections/02-contact-custom.png",
+          "width": 480,
+          "height": 530
+        }
+      },
+      {
+        "sectionAssetId": 16,
+        "title": "Open page analytics",
+        "text": "Landing-page management connects the list item with its heatmap.",
+        "wide": false,
+        "frame": {
+          "src": "/assets/aio-sections/16-manage-landers-heatmap.png",
+          "width": 1912,
+          "height": 1080
+        }
+      },
+      {
+        "sectionAssetId": 15,
+        "title": "Identify interaction areas",
+        "text": "Heat overlays preserve the page’s visual context.",
+        "wide": false,
+        "frame": {
+          "src": "/assets/aio-sections/15-heatmap.png",
+          "width": 1864,
+          "height": 1032
+        }
+      },
+      {
+        "sectionAssetId": 12,
+        "title": "Inspect click statistics",
+        "text": "An additional view connects the map with interaction details.",
+        "wide": false,
+        "frame": {
+          "src": "/assets/aio-sections/12-displaying-clicks-statistic.png",
+          "width": 1864,
+          "height": 1032
+        }
+      },
+      {
+        "sectionAssetId": 14,
+        "title": "Examine scroll depth",
+        "text": "A gradient shows how far visitors reach through the page.",
+        "wide": false,
+        "frame": {
+          "src": "/assets/aio-sections/14-heatmap-gradient.png",
+          "width": 1864,
+          "height": 1032
+        }
+      },
+      {
+        "sectionAssetId": 13,
+        "title": "Read the scale",
+        "text": "The percentage legend explains the scroll-depth gradient.",
+        "wide": false,
+        "frame": {
+          "src": "/assets/aio-sections/13-hitmap-gradations.png",
+          "width": 935,
+          "height": 1160
+        }
+      }
+    ],
+    "evidenceGroups": [
+      {
+        "id": "landing-library",
+        "title": "Page library",
+        "intro": "Table and card views offer different ways to explore the same library.",
+        "items": [
+          {
+            "sectionAssetId": 38,
+            "title": "Table overview",
+            "text": "Pages and metrics appear in rows with shared search and view settings.",
+            "wide": false,
+            "frame": {
+              "src": "/assets/aio-sections/38-tables-layout.png",
+              "width": 1912,
+              "height": 1080
+            }
+          },
+          {
+            "sectionAssetId": 39,
+            "title": "Card overview",
+            "text": "Page previews support visual recognition while preserving access to settings and metrics.",
+            "wide": false,
+            "frame": {
+              "src": "/assets/aio-sections/39-tables-layout-1.png",
+              "width": 1912,
+              "height": 1080
+            }
+          },
+          {
+            "sectionAssetId": 10,
+            "title": "Filter by user",
+            "text": "User selection narrows the page list.",
+            "wide": false,
+            "frame": {
+              "src": "/assets/aio-sections/10-user-droplist.png",
+              "width": 1914,
+              "height": 1082
+            }
+          },
+          {
+            "sectionAssetId": 11,
+            "title": "Applied filters",
+            "text": "Active conditions remain visible in the search bar, preserving the context of the selection.",
+            "wide": false,
+            "frame": {
+              "src": "/assets/aio-sections/11-displaying-filters-in-search-field.png",
+              "width": 1914,
+              "height": 1082
+            }
+          },
+          {
+            "sectionAssetId": 40,
+            "title": "Page types",
+            "text": "Consistent labels distinguish the purpose of landing pages in the library.",
+            "wide": false,
+            "frame": {
+              "src": "/assets/aio-sections/40-6873844.png",
+              "width": 561,
+              "height": 422
+            }
+          }
+        ]
+      },
+      {
+        "id": "landing-zip",
+        "title": "Create from ZIP",
+        "intro": "The flow covers method selection, upload, error and success.",
+        "items": [
+          {
+            "sectionAssetId": 6,
+            "title": "Choose a creation method",
+            "text": "The user can upload a ZIP file, create a page manually or choose generation.",
+            "wide": false,
+            "frame": {
+              "src": "/assets/aio-sections/06-selector.png",
+              "width": 480,
+              "height": 473
+            }
+          },
+          {
+            "sectionAssetId": 4,
+            "title": "Prepare the page",
+            "text": "Name, template, type and tags are set before the next step.",
+            "wide": false,
+            "frame": {
+              "src": "/assets/aio-sections/04-normal-state.png",
+              "width": 480,
+              "height": 645
+            }
+          },
+          {
+            "sectionAssetId": 9,
+            "title": "Add a file",
+            "text": "The upload area responds to interaction and indicates where the ZIP file belongs.",
+            "wide": false,
+            "frame": {
+              "src": "/assets/aio-sections/09-hover-of-uploading-place.png",
+              "width": 480,
+              "height": 645
+            }
+          },
+          {
+            "sectionAssetId": 8,
+            "title": "Track the upload",
+            "text": "Progress feedback confirms that the file transfer is continuing.",
+            "wide": false,
+            "frame": {
+              "src": "/assets/aio-sections/08-uploading.png",
+              "width": 480,
+              "height": 645
+            }
+          },
+          {
+            "sectionAssetId": 7,
+            "title": "Retry after an error",
+            "text": "The error remains within the form and offers another attempt.",
+            "wide": false,
+            "frame": {
+              "src": "/assets/aio-sections/07-error-uploading.png",
+              "width": 480,
+              "height": 645
+            }
+          },
+          {
+            "sectionAssetId": 5,
+            "title": "Continue after upload",
+            "text": "Success feedback confirms the upload and enables the next step.",
+            "wide": false,
+            "frame": {
+              "src": "/assets/aio-sections/05-success-uploading.png",
+              "width": 480,
+              "height": 645
+            }
+          }
+        ]
+      },
+      {
+        "id": "landing-request",
+        "title": "Request a page",
+        "intro": "From choosing a creation method to contacting a page developer.",
+        "items": [
+          {
+            "sectionAssetId": 3,
+            "title": "Start from the library",
+            "text": "Adding a page is available beside existing landing pages.",
+            "wide": false,
+            "frame": {
+              "src": "/assets/aio-sections/03-overmine-lander-request-modal.png",
+              "width": 1914,
+              "height": 1082
+            }
+          },
+          {
+            "sectionAssetId": 1,
+            "title": "Request page development",
+            "text": "Order a Landing Page appears in the shared creation-method selector.",
+            "wide": false,
+            "frame": {
+              "src": "/assets/aio-sections/01-selector.png",
+              "width": 480,
+              "height": 732
+            }
+          },
+          {
+            "sectionAssetId": 2,
+            "title": "Contact a developer",
+            "text": "The screen explains the collaboration format and provides a contact point.",
+            "wide": false,
+            "frame": {
+              "src": "/assets/aio-sections/02-contact-custom.png",
+              "width": 480,
+              "height": 530
+            }
+          }
+        ]
+      },
+      {
+        "id": "landing-heatmap",
+        "title": "Heatmaps",
+        "intro": "Click maps, statistics and scroll depth reveal different aspects of page behaviour.",
+        "items": [
+          {
+            "sectionAssetId": 16,
+            "title": "Open page analytics",
+            "text": "Landing-page management connects the list item with its heatmap.",
+            "wide": false,
+            "frame": {
+              "src": "/assets/aio-sections/16-manage-landers-heatmap.png",
+              "width": 1912,
+              "height": 1080
+            }
+          },
+          {
+            "sectionAssetId": 15,
+            "title": "Identify interaction areas",
+            "text": "Heat overlays preserve the page’s visual context.",
+            "wide": false,
+            "frame": {
+              "src": "/assets/aio-sections/15-heatmap.png",
+              "width": 1864,
+              "height": 1032
+            }
+          },
+          {
+            "sectionAssetId": 12,
+            "title": "Inspect click statistics",
+            "text": "An additional view connects the map with interaction details.",
+            "wide": false,
+            "frame": {
+              "src": "/assets/aio-sections/12-displaying-clicks-statistic.png",
+              "width": 1864,
+              "height": 1032
+            }
+          },
+          {
+            "sectionAssetId": 14,
+            "title": "Examine scroll depth",
+            "text": "A gradient shows how far visitors reach through the page.",
+            "wide": false,
+            "frame": {
+              "src": "/assets/aio-sections/14-heatmap-gradient.png",
+              "width": 1864,
+              "height": 1032
+            }
+          },
+          {
+            "sectionAssetId": 13,
+            "title": "Read the scale",
+            "text": "The percentage legend explains the scroll-depth gradient.",
+            "wide": false,
+            "frame": {
+              "src": "/assets/aio-sections/13-hitmap-gradations.png",
+              "width": 935,
+              "height": 1160
+            }
+          }
+        ]
+      }
+    ],
+    "featured": false
+  },
+  {
+    "id": "routing",
+    "label": "Landing-page A/B tests",
+    "title": "Allocation between landing pages.",
+    "summary": "Land and Destination variants, First, AI and Weights modes, and metric views.",
+    "problem": "Define page variants and traffic destinations, select an allocation method and understand each mode’s parameters.",
+    "decision": "A shared component combines landing variants with conversion selection, manual weights and allocation metrics.",
+    "steps": [
+      "Prepare page variants",
+      "Choose an allocation mode",
+      "Route traffic to variants",
+      "Continue to Destination"
+    ],
+    "story": [
+      [
+        "What is being compared",
+        "A campaign compares pages and traffic destinations. Land defines landing-page variants; Destination defines the visitor’s next step."
+      ],
+      [
+        "Three allocation methods",
+        "First uses the first variant. AI follows the selected conversion. Weights gives manual control over the relative weight of each row."
+      ],
+      [
+        "Metrics beside variants",
+        "Conversions, clicks and percentage shares remain within the list context, connecting allocation to the pages it affects."
+      ],
+      [
+        "A progressive setup",
+        "Empty states prompt variant creation. Types, parameters and metrics appear as the setup progresses, preserving one component structure."
+      ]
+    ],
+    "reasoning": [
+      [
+        "Connect variants and impressions",
+        "Conversions and manual weights belong to particular page variants. Settings beside the rows make it clear which destination each change affects."
+      ]
+    ],
+    "evidence": [
+      {
+        "assetId": 28,
+        "title": "First: no variants",
+        "text": "The empty First state focuses on adding a landing-page variant.",
+        "wide": false,
+        "frame": {
+          "src": "/assets/aio-2026/28-split-accordion.png",
+          "width": 468,
+          "height": 144
+        }
+      },
+      {
+        "assetId": 36,
+        "title": "AI: select a conversion",
+        "text": "AI introduces the conversion that guides automatic allocation.",
+        "wide": false,
+        "frame": {
+          "src": "/assets/aio-2026/36-split-accordion-1.png",
+          "width": 468,
+          "height": 212
+        }
+      },
+      {
+        "assetId": 33,
+        "title": "Weights: manual allocation",
+        "text": "Weights begins with adding variants, followed by their relative weights.",
+        "wide": false,
+        "frame": {
+          "src": "/assets/aio-2026/33-split-accordion-7.png",
+          "width": 468,
+          "height": 144
+        }
+      },
+      {
+        "assetId": 35,
+        "title": "First: populated list",
+        "text": "The list preserves variant order and access to each row’s controls.",
+        "wide": false,
+        "frame": {
+          "src": "/assets/aio-2026/35-split-accordion-2.png",
+          "width": 468,
+          "height": 352
+        }
+      },
+      {
+        "assetId": 32,
+        "title": "Weights: individual rows",
+        "text": "Each variant has a separate numeric weight for manual allocation control.",
+        "wide": false,
+        "frame": {
+          "src": "/assets/aio-2026/32-split-accordion-6.png",
+          "width": 468,
+          "height": 352
+        }
+      },
+      {
+        "assetId": 3,
+        "title": "Choose a variant type",
+        "text": "One menu offers Landing, Reflect, Redirect, HTML and Skip.",
+        "wide": false,
+        "frame": {
+          "src": "/assets/aio-2026/03-group-1.png",
+          "width": 476,
+          "height": 359
+        }
+      },
+      {
+        "assetId": 29,
+        "title": "Conversions",
+        "text": "Conversion counts appear beside each variant in the selected mode’s context.",
+        "wide": false,
+        "frame": {
+          "src": "/assets/aio-2026/29-split-accordion-5.png",
+          "width": 468,
+          "height": 420
+        }
+      },
+      {
+        "assetId": 30,
+        "title": "Clicks",
+        "text": "The click view compares audience interaction across variants.",
+        "wide": false,
+        "frame": {
+          "src": "/assets/aio-2026/30-split-accordion-4.png",
+          "width": 468,
+          "height": 420
+        }
+      },
+      {
+        "assetId": 34,
+        "title": "Percentage view",
+        "text": "Percentages show the variants’ relative shares for comparison.",
+        "wide": false,
+        "frame": {
+          "src": "/assets/aio-2026/34-split-accordion-3.png",
+          "width": 468,
+          "height": 420
+        }
+      },
+      {
+        "assetId": 27,
+        "title": "Destination / First",
+        "text": "First sets the initial destination. The explanation describes rejection behaviour.",
+        "wide": false,
+        "frame": {
+          "src": "/assets/aio-2026/27-split-accordion-8.png",
+          "width": 468,
+          "height": 296
+        }
+      },
+      {
+        "assetId": 26,
+        "title": "Destination / AI",
+        "text": "AI adds conversion selection while keeping destination settings in one row.",
+        "wide": false,
+        "frame": {
+          "src": "/assets/aio-2026/26-split-accordion-9.png",
+          "width": 468,
+          "height": 364
+        }
+      },
+      {
+        "assetId": 31,
+        "title": "Destination / Weights",
+        "text": "Weights provides manual control over a destination’s relative weight.",
+        "wide": false,
+        "frame": {
+          "src": "/assets/aio-2026/31-split-accordion-10.png",
+          "width": 468,
+          "height": 296
+        }
+      }
+    ],
+    "evidenceGroups": [
+      {
+        "id": "land",
+        "title": "Land: variants and modes",
+        "intro": "The Land component connects landing-page variants with traffic allocation.",
+        "items": [
+          {
+            "assetId": 28,
+            "title": "First: no variants",
+            "text": "The empty First state focuses on adding a landing-page variant.",
+            "wide": false,
+            "frame": {
+              "src": "/assets/aio-2026/28-split-accordion.png",
+              "width": 468,
+              "height": 144
+            }
+          },
+          {
+            "assetId": 36,
+            "title": "AI: select a conversion",
+            "text": "AI introduces the conversion that guides automatic allocation.",
+            "wide": false,
+            "frame": {
+              "src": "/assets/aio-2026/36-split-accordion-1.png",
+              "width": 468,
+              "height": 212
+            }
+          },
+          {
+            "assetId": 33,
+            "title": "Weights: manual allocation",
+            "text": "Weights begins with adding variants, followed by their relative weights.",
+            "wide": false,
+            "frame": {
+              "src": "/assets/aio-2026/33-split-accordion-7.png",
+              "width": 468,
+              "height": 144
+            }
+          },
+          {
+            "assetId": 35,
+            "title": "First: populated list",
+            "text": "The list preserves variant order and access to each row’s controls.",
+            "wide": false,
+            "frame": {
+              "src": "/assets/aio-2026/35-split-accordion-2.png",
+              "width": 468,
+              "height": 352
+            }
+          },
+          {
+            "assetId": 32,
+            "title": "Weights: individual rows",
+            "text": "Each variant has a separate numeric weight for manual allocation control.",
+            "wide": false,
+            "frame": {
+              "src": "/assets/aio-2026/32-split-accordion-6.png",
+              "width": 468,
+              "height": 352
+            }
+          },
+          {
+            "assetId": 3,
+            "title": "Choose a variant type",
+            "text": "One menu offers Landing, Reflect, Redirect, HTML and Skip.",
+            "wide": false,
+            "frame": {
+              "src": "/assets/aio-2026/03-group-1.png",
+              "width": 476,
+              "height": 359
+            }
+          }
+        ]
+      },
+      {
+        "id": "ai-metrics",
+        "title": "AI: metric views",
+        "intro": "Conversions, clicks and relative shares offer different perspectives on variants.",
+        "items": [
+          {
+            "assetId": 29,
+            "title": "Conversions",
+            "text": "Conversion counts appear beside each variant in the selected mode’s context.",
+            "wide": false,
+            "frame": {
+              "src": "/assets/aio-2026/29-split-accordion-5.png",
+              "width": 468,
+              "height": 420
+            }
+          },
+          {
+            "assetId": 30,
+            "title": "Clicks",
+            "text": "The click view compares audience interaction across variants.",
+            "wide": false,
+            "frame": {
+              "src": "/assets/aio-2026/30-split-accordion-4.png",
+              "width": 468,
+              "height": 420
+            }
+          },
+          {
+            "assetId": 34,
+            "title": "Percentage view",
+            "text": "Percentages show the variants’ relative shares for comparison.",
+            "wide": false,
+            "frame": {
+              "src": "/assets/aio-2026/34-split-accordion-3.png",
+              "width": 468,
+              "height": 420
+            }
+          }
+        ]
+      },
+      {
+        "id": "destination",
+        "title": "Destination: the same modes",
+        "intro": "Destination reuses the same modes for the next traffic destination.",
+        "items": [
+          {
+            "assetId": 27,
+            "title": "Destination / First",
+            "text": "First sets the initial destination. The explanation describes rejection behaviour.",
+            "wide": false,
+            "frame": {
+              "src": "/assets/aio-2026/27-split-accordion-8.png",
+              "width": 468,
+              "height": 296
+            }
+          },
+          {
+            "assetId": 26,
+            "title": "Destination / AI",
+            "text": "AI adds conversion selection while keeping destination settings in one row.",
+            "wide": false,
+            "frame": {
+              "src": "/assets/aio-2026/26-split-accordion-9.png",
+              "width": 468,
+              "height": 364
+            }
+          },
+          {
+            "assetId": 31,
+            "title": "Destination / Weights",
+            "text": "Weights provides manual control over a destination’s relative weight.",
+            "wide": false,
+            "frame": {
+              "src": "/assets/aio-2026/31-split-accordion-10.png",
+              "width": 468,
+              "height": 296
+            }
+          }
+        ]
+      }
+    ],
+    "featured": false
+  },
+  {
+    "id": "campaigns",
+    "label": "Campaigns",
+    "title": "One campaign. Several connected tasks.",
+    "summary": "Editing, rules, labels and variants inside Campaigns.",
+    "problem": "Work with a campaign list and individual object settings while preserving the context of each task.",
+    "decision": "The context menu connects the table to the campaign form. Parameters, rules, tags and variants appear in the relevant workspace.",
+    "steps": [
+      "Select a campaign",
+      "Open its settings",
+      "Configure conditions",
+      "See the result in the list"
+    ],
+    "story": [
+      [
+        "From list to configuration",
+        "Campaigns open from the table. General fields sit beside the structure, keeping object properties connected to the working flow."
+      ],
+      [
+        "Managing conditions",
+        "A rule starts with a field, operator and value. Additional rows use logical connections; dragging changes their order."
+      ],
+      [
+        "Recognition in the list",
+        "Tags, colour and emoji help organise and distinguish campaigns. Labels are configured beside the object’s properties."
+      ],
+      [
+        "Working with variants",
+        "Row controls and HTML editing remain beside the relevant variant, connecting campaign setup to its content."
+      ]
+    ],
+    "reasoning": [
+      [
+        "Act within object context",
+        "The row menu links a campaign to its settings. Colour, emoji and tags carry those settings back into the overview, where objects need to be recognised quickly."
+      ]
+    ],
+    "evidence": [
+      {
+        "assetId": 15,
+        "title": "Entry from the campaign list",
+        "text": "The context menu provides campaign actions directly from the overview.",
+        "wide": false,
+        "frame": {
+          "src": "/assets/aio-2026/15-action-menu-edit-campaign.png",
+          "width": 1914,
+          "height": 1082
+        }
+      },
+      {
+        "assetId": 21,
+        "title": "Campaign settings and structure",
+        "text": "General fields sit beside the structure. Preland variants use Weights with a separate weight per row.",
+        "wide": false,
+        "frame": {
+          "src": "/assets/aio-2026/21-split-campaign.png",
+          "width": 920,
+          "height": 1032
+        }
+      },
+      {
+        "assetId": 7,
+        "title": "Choose tags",
+        "text": "Tags group campaigns and help locate objects. Selection is available inside editing.",
+        "wide": false,
+        "frame": {
+          "src": "/assets/aio-2026/07-2.png",
+          "width": 1912,
+          "height": 1080
+        }
+      },
+      {
+        "assetId": 8,
+        "title": "Multiple tags",
+        "text": "The field supports several tags, keeping selected values visible while other settings are changed.",
+        "wide": false,
+        "frame": {
+          "src": "/assets/aio-2026/08-3.png",
+          "width": 1912,
+          "height": 1080
+        }
+      },
+      {
+        "assetId": 19,
+        "title": "An empty rule",
+        "text": "The empty state explains the rule’s purpose and offers the first condition.",
+        "wide": false,
+        "frame": {
+          "src": "/assets/aio-2026/19-manage-rule.png",
+          "width": 920,
+          "height": 368
+        }
+      },
+      {
+        "assetId": 17,
+        "title": "The first condition",
+        "text": "A row combines field, comparison operator and value. More conditions are added in the same window.",
+        "wide": false,
+        "frame": {
+          "src": "/assets/aio-2026/17-one-condition-display.png",
+          "width": 920,
+          "height": 256
+        }
+      },
+      {
+        "assetId": 14,
+        "title": "Comparison operators",
+        "text": "The operator menu ranges from numeric comparisons to checking whether a value exists.",
+        "wide": false,
+        "frame": {
+          "src": "/assets/aio-2026/14-group-3.png",
+          "width": 920,
+          "height": 367
+        }
+      },
+      {
+        "assetId": 13,
+        "title": "Find a field",
+        "text": "Search narrows the field list when composing a rule.",
+        "wide": false,
+        "frame": {
+          "src": "/assets/aio-2026/13-search-expanded.png",
+          "width": 920,
+          "height": 528
+        }
+      },
+      {
+        "assetId": 16,
+        "title": "Multiple conditions",
+        "text": "Logical operators connect conditions. For Empty and Not Empty, the interface explains why no value is required.",
+        "wide": false,
+        "frame": {
+          "src": "/assets/aio-2026/16-more-then-one-condition-display.png",
+          "width": 920,
+          "height": 464
+        }
+      },
+      {
+        "assetId": 42,
+        "title": "Condition order",
+        "text": "Drag-and-drop reorders conditions while preserving their settings and connections.",
+        "wide": false,
+        "frame": {
+          "src": "/assets/aio-2026/42-drag-n-drop.png",
+          "width": 920,
+          "height": 456
+        }
+      },
+      {
+        "assetId": 55,
+        "title": "Colour through the context menu",
+        "text": "A campaign row’s context menu provides colour assignment.",
+        "wide": false,
+        "frame": {
+          "src": "/assets/aio-2026/55-1st-flow-right-click.png",
+          "width": 1914,
+          "height": 1082
+        }
+      },
+      {
+        "assetId": 56,
+        "title": "Colour through editing",
+        "text": "Colour labels can also be changed alongside campaign parameters.",
+        "wide": false,
+        "frame": {
+          "src": "/assets/aio-2026/56-2nd-flow-edit-campaign.png",
+          "width": 1914,
+          "height": 1082
+        }
+      },
+      {
+        "assetId": 58,
+        "title": "Choose colour in the form",
+        "text": "The colour field in Campaign Details keeps labels with other properties.",
+        "wide": false,
+        "frame": {
+          "src": "/assets/aio-2026/58-color-selector.png",
+          "width": 1912,
+          "height": 1080
+        }
+      },
+      {
+        "assetId": 59,
+        "title": "Palette and reset",
+        "text": "The palette offers a fixed set of colours and No Color to remove the label.",
+        "wide": false,
+        "frame": {
+          "src": "/assets/aio-2026/59-color-picker.png",
+          "width": 480,
+          "height": 285
+        }
+      },
+      {
+        "assetId": 54,
+        "title": "Colour in the overview",
+        "text": "The selected colour is applied to the table row to distinguish campaigns.",
+        "wide": false,
+        "frame": {
+          "src": "/assets/aio-2026/54-displaying-colored-lines-1.png",
+          "width": 1914,
+          "height": 1082
+        }
+      },
+      {
+        "assetId": 11,
+        "title": "Choose an emoji",
+        "text": "An emoji picker beside the campaign name creates a recognisable label.",
+        "wide": false,
+        "frame": {
+          "src": "/assets/aio-2026/11-emoji-tagging.png",
+          "width": 1912,
+          "height": 1080
+        }
+      },
+      {
+        "assetId": 25,
+        "title": "Emoji in the list",
+        "text": "Emoji appear before campaign names to support scanning.",
+        "wide": false,
+        "frame": {
+          "src": "/assets/aio-2026/25-emoji-display-in-table.png",
+          "width": 1914,
+          "height": 1082
+        }
+      },
+      {
+        "assetId": 23,
+        "title": "Variant row controls",
+        "text": "Enabled state and scope are available inside the row without opening another window.",
+        "wide": false,
+        "frame": {
+          "src": "/assets/aio-2026/23-edit-campaign.png",
+          "width": 1912,
+          "height": 1080
+        }
+      },
+      {
+        "assetId": 20,
+        "title": "An HTML variant",
+        "text": "HTML variants provide a dedicated action for editing code.",
+        "wide": false,
+        "frame": {
+          "src": "/assets/aio-2026/20-2.png",
+          "width": 1912,
+          "height": 1080
+        }
+      },
+      {
+        "assetId": 22,
+        "title": "Code editor",
+        "text": "A separate editor window keeps code changes in one workspace.",
+        "wide": false,
+        "frame": {
+          "src": "/assets/aio-2026/22-3.png",
+          "width": 1912,
+          "height": 1080
+        }
+      }
+    ],
+    "evidenceGroups": [
+      {
+        "id": "campaign-edit",
+        "title": "Campaign editing",
+        "intro": "General parameters, structure and tags share one workspace.",
+        "items": [
+          {
+            "assetId": 15,
+            "title": "Entry from the campaign list",
+            "text": "The context menu provides campaign actions directly from the overview.",
+            "wide": false,
+            "frame": {
+              "src": "/assets/aio-2026/15-action-menu-edit-campaign.png",
+              "width": 1914,
+              "height": 1082
+            }
+          },
+          {
+            "assetId": 21,
+            "title": "Campaign settings and structure",
+            "text": "General fields sit beside the structure. Preland variants use Weights with a separate weight per row.",
+            "wide": false,
+            "frame": {
+              "src": "/assets/aio-2026/21-split-campaign.png",
+              "width": 920,
+              "height": 1032
+            }
+          },
+          {
+            "assetId": 7,
+            "title": "Choose tags",
+            "text": "Tags group campaigns and help locate objects. Selection is available inside editing.",
+            "wide": false,
+            "frame": {
+              "src": "/assets/aio-2026/07-2.png",
+              "width": 1912,
+              "height": 1080
+            }
+          },
+          {
+            "assetId": 8,
+            "title": "Multiple tags",
+            "text": "The field supports several tags, keeping selected values visible while other settings are changed.",
+            "wide": false,
+            "frame": {
+              "src": "/assets/aio-2026/08-3.png",
+              "width": 1912,
+              "height": 1080
+            }
+          }
+        ]
+      },
+      {
+        "id": "rules",
+        "title": "Rules and conditions",
+        "intro": "From the first condition to field selection, logical connections and reordering.",
+        "items": [
+          {
+            "assetId": 19,
+            "title": "An empty rule",
+            "text": "The empty state explains the rule’s purpose and offers the first condition.",
+            "wide": false,
+            "frame": {
+              "src": "/assets/aio-2026/19-manage-rule.png",
+              "width": 920,
+              "height": 368
+            }
+          },
+          {
+            "assetId": 17,
+            "title": "The first condition",
+            "text": "A row combines field, comparison operator and value. More conditions are added in the same window.",
+            "wide": false,
+            "frame": {
+              "src": "/assets/aio-2026/17-one-condition-display.png",
+              "width": 920,
+              "height": 256
+            }
+          },
+          {
+            "assetId": 14,
+            "title": "Comparison operators",
+            "text": "The operator menu ranges from numeric comparisons to checking whether a value exists.",
+            "wide": false,
+            "frame": {
+              "src": "/assets/aio-2026/14-group-3.png",
+              "width": 920,
+              "height": 367
+            }
+          },
+          {
+            "assetId": 13,
+            "title": "Find a field",
+            "text": "Search narrows the field list when composing a rule.",
+            "wide": false,
+            "frame": {
+              "src": "/assets/aio-2026/13-search-expanded.png",
+              "width": 920,
+              "height": 528
+            }
+          },
+          {
+            "assetId": 16,
+            "title": "Multiple conditions",
+            "text": "Logical operators connect conditions. For Empty and Not Empty, the interface explains why no value is required.",
+            "wide": false,
+            "frame": {
+              "src": "/assets/aio-2026/16-more-then-one-condition-display.png",
+              "width": 920,
+              "height": 464
+            }
+          },
+          {
+            "assetId": 42,
+            "title": "Condition order",
+            "text": "Drag-and-drop reorders conditions while preserving their settings and connections.",
+            "wide": false,
+            "frame": {
+              "src": "/assets/aio-2026/42-drag-n-drop.png",
+              "width": 920,
+              "height": 456
+            }
+          }
+        ]
+      },
+      {
+        "id": "colors",
+        "title": "Colour labels",
+        "intro": "Colour can be set from a context menu or campaign settings, with the result visible in the list.",
+        "items": [
+          {
+            "assetId": 55,
+            "title": "Colour through the context menu",
+            "text": "A campaign row’s context menu provides colour assignment.",
+            "wide": false,
+            "frame": {
+              "src": "/assets/aio-2026/55-1st-flow-right-click.png",
+              "width": 1914,
+              "height": 1082
+            }
+          },
+          {
+            "assetId": 56,
+            "title": "Colour through editing",
+            "text": "Colour labels can also be changed alongside campaign parameters.",
+            "wide": false,
+            "frame": {
+              "src": "/assets/aio-2026/56-2nd-flow-edit-campaign.png",
+              "width": 1914,
+              "height": 1082
+            }
+          },
+          {
+            "assetId": 58,
+            "title": "Choose colour in the form",
+            "text": "The colour field in Campaign Details keeps labels with other properties.",
+            "wide": false,
+            "frame": {
+              "src": "/assets/aio-2026/58-color-selector.png",
+              "width": 1912,
+              "height": 1080
+            }
+          },
+          {
+            "assetId": 59,
+            "title": "Palette and reset",
+            "text": "The palette offers a fixed set of colours and No Color to remove the label.",
+            "wide": false,
+            "frame": {
+              "src": "/assets/aio-2026/59-color-picker.png",
+              "width": 480,
+              "height": 285
+            }
+          },
+          {
+            "assetId": 54,
+            "title": "Colour in the overview",
+            "text": "The selected colour is applied to the table row to distinguish campaigns.",
+            "wide": false,
+            "frame": {
+              "src": "/assets/aio-2026/54-displaying-colored-lines-1.png",
+              "width": 1914,
+              "height": 1082
+            }
+          }
+        ]
+      },
+      {
+        "id": "emoji",
+        "title": "Emoji in campaigns and tables",
+        "intro": "Emoji connect campaign settings to its identity in the table.",
+        "items": [
+          {
+            "assetId": 11,
+            "title": "Choose an emoji",
+            "text": "An emoji picker beside the campaign name creates a recognisable label.",
+            "wide": false,
+            "frame": {
+              "src": "/assets/aio-2026/11-emoji-tagging.png",
+              "width": 1912,
+              "height": 1080
+            }
+          },
+          {
+            "assetId": 25,
+            "title": "Emoji in the list",
+            "text": "Emoji appear before campaign names to support scanning.",
+            "wide": false,
+            "frame": {
+              "src": "/assets/aio-2026/25-emoji-display-in-table.png",
+              "width": 1914,
+              "height": 1082
+            }
+          }
+        ]
+      },
+      {
+        "id": "inline-html",
+        "title": "Variants and HTML",
+        "intro": "Variant controls and code editing sit beside the relevant campaign element.",
+        "items": [
+          {
+            "assetId": 23,
+            "title": "Variant row controls",
+            "text": "Enabled state and scope are available inside the row without opening another window.",
+            "wide": false,
+            "frame": {
+              "src": "/assets/aio-2026/23-edit-campaign.png",
+              "width": 1912,
+              "height": 1080
+            }
+          },
+          {
+            "assetId": 20,
+            "title": "An HTML variant",
+            "text": "HTML variants provide a dedicated action for editing code.",
+            "wide": false,
+            "frame": {
+              "src": "/assets/aio-2026/20-2.png",
+              "width": 1912,
+              "height": 1080
+            }
+          },
+          {
+            "assetId": 22,
+            "title": "Code editor",
+            "text": "A separate editor window keeps code changes in one workspace.",
+            "wide": false,
+            "frame": {
+              "src": "/assets/aio-2026/22-3.png",
+              "width": 1912,
+              "height": 1080
+            }
+          }
+        ]
+      }
+    ],
+    "featured": false
+  },
+  {
+    "id": "tables",
+    "label": "Shared tables",
+    "title": "A common foundation across sections.",
+    "summary": "Search, object selection and data-view configuration in a consistent table system.",
+    "problem": "Find objects and configure tables across sections without repeatedly learning new controls.",
+    "decision": "Search and actions sit above the table. Filters, column visibility and order share one settings window.",
+    "steps": [
+      "Open a table",
+      "Set filters",
+      "Reorder columns",
+      "Apply the view"
+    ],
+    "story": [
+      [
+        "A shared pattern",
+        "The table system repeats across the platform. A familiar structure connects search, sorting, row selection and object actions."
+      ],
+      [
+        "Configure the view",
+        "Filters and columns share one window. Dragging changes column order while other settings stay accessible."
+      ],
+      [
+        "Work with the list",
+        "Row selection supports actions on multiple objects. The controls remain consistent across sections with different content."
+      ]
+    ],
+    "reasoning": [
+      [
+        "Transfer an established interaction",
+        "Repeated search, selection and column settings let users carry familiar ways of working between sections. The data changes while the interaction stays consistent."
+      ]
+    ],
+    "evidence": [
+      {
+        "assetId": 2,
+        "title": "Shared table structure",
+        "text": "Search, sorting and settings sit above the table. Actions stay near the data.",
+        "wide": false,
+        "frame": {
+          "src": "/assets/aio-2026/02-tables-layout.png",
+          "width": 1912,
+          "height": 1080
+        }
+      },
+      {
+        "assetId": 4,
+        "title": "Filters and visible columns",
+        "text": "One window combines filters on the left with table columns on the right.",
+        "wide": false,
+        "frame": {
+          "src": "/assets/aio-2026/04-table-settings-mode.png",
+          "width": 985,
+          "height": 944
+        }
+      },
+      {
+        "assetId": 1,
+        "title": "Column order",
+        "text": "Drag-and-drop adapts the order of data to the task.",
+        "wide": false,
+        "frame": {
+          "src": "/assets/aio-2026/01-reorder-columns.png",
+          "width": 985,
+          "height": 944
+        }
+      },
+      {
+        "assetId": 10,
+        "title": "Row selection in Tracker",
+        "text": "Selected rows support working with multiple objects in the overview.",
+        "wide": false,
+        "frame": {
+          "src": "/assets/aio-2026/10-0.png",
+          "width": 1914,
+          "height": 1082
+        }
+      }
+    ],
+    "evidenceGroups": [
+      {
+        "id": "shared-tables",
+        "title": "Shared tables",
+        "intro": "One pattern for search, row selection and data-view settings across the platform.",
+        "items": [
+          {
+            "assetId": 2,
+            "title": "Shared table structure",
+            "text": "Search, sorting and settings sit above the table. Actions stay near the data.",
+            "wide": false,
+            "frame": {
+              "src": "/assets/aio-2026/02-tables-layout.png",
+              "width": 1912,
+              "height": 1080
+            }
+          },
+          {
+            "assetId": 4,
+            "title": "Filters and visible columns",
+            "text": "One window combines filters on the left with table columns on the right.",
+            "wide": false,
+            "frame": {
+              "src": "/assets/aio-2026/04-table-settings-mode.png",
+              "width": 985,
+              "height": 944
+            }
+          },
+          {
+            "assetId": 1,
+            "title": "Column order",
+            "text": "Drag-and-drop adapts the order of data to the task.",
+            "wide": false,
+            "frame": {
+              "src": "/assets/aio-2026/01-reorder-columns.png",
+              "width": 985,
+              "height": 944
+            }
+          },
+          {
+            "assetId": 10,
+            "title": "Row selection in Tracker",
+            "text": "Selected rows support working with multiple objects in the overview.",
+            "wide": false,
+            "frame": {
+              "src": "/assets/aio-2026/10-0.png",
+              "width": 1914,
+              "height": 1082
+            }
+          }
+        ]
+      }
+    ],
+    "featured": false
+  },
+  {
+    "id": "dashboard",
+    "label": "Dashboard",
+    "title": "An overview before the details.",
+    "summary": "Bring advertising, financial and analytical metrics into a clear entry point.",
+    "problem": "The platform combines advertising, financial and analytical data. An overview should orient users before they move into details.",
+    "decision": "Summary metrics establish context at the top, with charts below expanding it. Detailed work remains in dedicated tools.",
+    "steps": [
+      "Campaign data",
+      "Financial context",
+      "Key metrics",
+      "Trends and geography"
+    ],
+    "story": [
+      [
+        "The challenge",
+        "Combine advertising, financial and analytical data in one overview, including situations where data is unavailable."
+      ],
+      [
+        "Developing the solution",
+        "Summary metrics are supported by charts, traffic destinations and geography. The second and third iterations develop the dashboard’s information structure."
+      ],
+      [
+        "No-data states",
+        "Messages inside widgets preserve the context of individual blocks. A shared empty state applies when the entire overview has no data."
+      ],
+      [
+        "A visualisation system",
+        "A library of charts, tooltips and time dividers supports a consistent analytical language."
+      ]
+    ],
+    "reasoning": [
+      [
+        "From summary to a specific slice",
+        "The first level establishes the overall picture; charts and geography reveal more. Empty states explain missing data while preserving the information structure."
+      ]
+    ],
+    "evidence": [
+      {
+        "assetId": 41,
+        "title": "Summary, trends and geography",
+        "text": "Campaign metrics, financial summary, trends and geography share one overview.",
+        "wide": true,
+        "frame": {
+          "src": "/assets/aio-2026/41-dashboard-layout.png",
+          "width": 2868,
+          "height": 2273
+        }
+      },
+      {
+        "assetId": 38,
+        "title": "Second iteration: populated view",
+        "text": "The second iteration combines summary metrics, time charts, traffic destinations and visit geography.",
+        "wide": false,
+        "frame": {
+          "src": "/assets/aio-2026/38-dashboard.png",
+          "width": 1912,
+          "height": 1515
+        }
+      },
+      {
+        "assetId": 37,
+        "title": "A widget has no data",
+        "text": "The empty state stays inside the widget, preserving the rest of the dashboard.",
+        "wide": false,
+        "frame": {
+          "src": "/assets/aio-2026/37-no-info-by-widget.png",
+          "width": 1912,
+          "height": 1515
+        }
+      },
+      {
+        "assetId": 39,
+        "title": "The whole overview has no data",
+        "text": "A shared empty state explains the absence of data without repeating messages in every block.",
+        "wide": false,
+        "frame": {
+          "src": "/assets/aio-2026/39-no-info-by-screen.png",
+          "width": 1912,
+          "height": 1515
+        }
+      },
+      {
+        "assetId": 40,
+        "title": "Visualisation library",
+        "text": "The library defines consistent charts, tooltips, colours and time dividers.",
+        "wide": true,
+        "frame": {
+          "src": "/assets/aio-2026/40-graphics-and-elements.png",
+          "width": 7751,
+          "height": 2681
+        }
+      }
+    ],
+    "evidenceGroups": [
+      {
+        "id": "dashboard-third",
+        "title": "Third iteration",
+        "intro": "The overview starts with key metrics, then reveals trends, destinations and geography.",
+        "items": [
+          {
+            "assetId": 41,
+            "title": "Summary, trends and geography",
+            "text": "Campaign metrics, financial summary, trends and geography share one overview.",
+            "wide": true,
+            "frame": {
+              "src": "/assets/aio-2026/41-dashboard-layout.png",
+              "width": 2868,
+              "height": 2273
+            }
+          }
+        ]
+      },
+      {
+        "id": "dashboard-second",
+        "title": "Second iteration and no-data states",
+        "intro": "Summary and detailed slices are complemented by states for missing data.",
+        "items": [
+          {
+            "assetId": 38,
+            "title": "Second iteration: populated view",
+            "text": "The second iteration combines summary metrics, time charts, traffic destinations and visit geography.",
+            "wide": false,
+            "frame": {
+              "src": "/assets/aio-2026/38-dashboard.png",
+              "width": 1912,
+              "height": 1515
+            }
+          },
+          {
+            "assetId": 37,
+            "title": "A widget has no data",
+            "text": "The empty state stays inside the widget, preserving the rest of the dashboard.",
+            "wide": false,
+            "frame": {
+              "src": "/assets/aio-2026/37-no-info-by-widget.png",
+              "width": 1912,
+              "height": 1515
+            }
+          },
+          {
+            "assetId": 39,
+            "title": "The whole overview has no data",
+            "text": "A shared empty state explains the absence of data without repeating messages in every block.",
+            "wide": false,
+            "frame": {
+              "src": "/assets/aio-2026/39-no-info-by-screen.png",
+              "width": 1912,
+              "height": 1515
+            }
+          }
+        ]
+      },
+      {
+        "id": "dashboard-library",
+        "title": "Charts and elements",
+        "intro": "Reusable elements support consistency across analytical screens.",
+        "items": [
+          {
+            "assetId": 40,
+            "title": "Visualisation library",
+            "text": "The library defines consistent charts, tooltips, colours and time dividers.",
+            "wide": true,
+            "frame": {
+              "src": "/assets/aio-2026/40-graphics-and-elements.png",
+              "width": 7751,
+              "height": 2681
+            }
+          }
+        ]
+      }
+    ],
+    "featured": false
+  },
+  {
+    "id": "access",
+    "label": "Team and permissions",
+    "title": "Collaboration within an object’s context.",
+    "summary": "Connect campaigns, people, teams and permissions in one workflow.",
+    "problem": "Campaign work also involves people: finding participants, choosing teams and checking or changing permissions.",
+    "decision": "People management stays connected to the object they work on, keeping permissions near the task.",
+    "steps": [
+      "Select an object",
+      "Find a participant",
+      "Choose a team",
+      "Set permissions"
+    ],
+    "story": [
+      [
+        "The challenge",
+        "Manage access within an object’s context: find people or teams, add participants and set permissions."
+      ],
+      [
+        "The solution",
+        "The window separates organisation members from people with access. All, Users and Teams tabs, search, bulk addition and drag-and-drop form one flow."
+      ],
+      [
+        "Clear states",
+        "No search results, no teams and an exhausted list of available users need different explanations. Specific messages clarify the situation and the available next action."
+      ],
+      [
+        "Access control",
+        "Permissions can be edited for individuals and teams. Contextual actions reflect the owner’s or another administrator’s role."
+      ]
+    ],
+    "reasoning": [
+      [
+        "Explain why a list is empty",
+        "No search results, no teams and all participants already added are different situations. Specific messages support the next action instead of another unsuccessful search."
+      ]
+    ],
+    "evidence": [
+      {
+        "assetId": 46,
+        "title": "Open object access",
+        "text": "The object menu keeps participant management connected to the current task.",
+        "wide": false,
+        "frame": {
+          "src": "/assets/aio-2026/46-table-view.png",
+          "width": 1914,
+          "height": 1082
+        }
+      },
+      {
+        "assetId": 53,
+        "title": "Users only",
+        "text": "The Users tab shows individuals while people with access stay in the adjacent list.",
+        "wide": false,
+        "frame": {
+          "src": "/assets/aio-2026/53-users-in-tenant-second-tab.png",
+          "width": 920,
+          "height": 960
+        }
+      },
+      {
+        "assetId": 45,
+        "title": "Teams only",
+        "text": "The Teams tab groups teams with their member counts.",
+        "wide": false,
+        "frame": {
+          "src": "/assets/aio-2026/45-users-in-tenant-third-tab.png",
+          "width": 920,
+          "height": 960
+        }
+      },
+      {
+        "assetId": 49,
+        "title": "Add by dragging",
+        "text": "Dragging moves a participant between lists with an immediately visible result.",
+        "wide": false,
+        "frame": {
+          "src": "/assets/aio-2026/49-drag-n-drop-users.png",
+          "width": 920,
+          "height": 960
+        }
+      },
+      {
+        "assetId": 47,
+        "title": "Everyone added",
+        "text": "All users have been added explains that no more eligible users remain in the list.",
+        "wide": false,
+        "frame": {
+          "src": "/assets/aio-2026/47-all-users-added.png",
+          "width": 920,
+          "height": 960
+        }
+      },
+      {
+        "assetId": 43,
+        "title": "Search: no users on the right",
+        "text": "Search preserves organisation members and people with access as separate contexts. A dedicated message explains missing matches.",
+        "wide": false,
+        "frame": {
+          "src": "/assets/aio-2026/43-empty-users.png",
+          "width": 920,
+          "height": 960
+        }
+      },
+      {
+        "assetId": 44,
+        "title": "Search: teams not found",
+        "text": "Teams not found appears when no groups match the query.",
+        "wide": false,
+        "frame": {
+          "src": "/assets/aio-2026/44-search-state.png",
+          "width": 920,
+          "height": 960
+        }
+      },
+      {
+        "assetId": 48,
+        "title": "No teams yet",
+        "text": "No teams yet distinguishes an absence of teams from an empty search result.",
+        "wide": false,
+        "frame": {
+          "src": "/assets/aio-2026/48-empty-teams.png",
+          "width": 920,
+          "height": 960
+        }
+      },
+      {
+        "assetId": 50,
+        "title": "Edit permissions",
+        "text": "Permissions for people and teams can be edited while the membership list stays visible.",
+        "wide": false,
+        "frame": {
+          "src": "/assets/aio-2026/50-access-editing.png",
+          "width": 920,
+          "height": 960
+        }
+      },
+      {
+        "assetId": 51,
+        "title": "Owner menu",
+        "text": "The owner’s menu contains actions available to that role.",
+        "wide": false,
+        "frame": {
+          "src": "/assets/aio-2026/51-table-view-of-owner.png",
+          "width": 1914,
+          "height": 1082
+        }
+      },
+      {
+        "assetId": 52,
+        "title": "Another administrator’s menu",
+        "text": "A different administrator receives the actions appropriate to their role.",
+        "wide": false,
+        "frame": {
+          "src": "/assets/aio-2026/52-table-view-of-another-admin.png",
+          "width": 1914,
+          "height": 1082
+        }
+      }
+    ],
+    "evidenceGroups": [
+      {
+        "id": "share-members",
+        "title": "People and teams",
+        "intro": "User and team selection, participant addition and result confirmation.",
+        "items": [
+          {
+            "assetId": 46,
+            "title": "Open object access",
+            "text": "The object menu keeps participant management connected to the current task.",
+            "wide": false,
+            "frame": {
+              "src": "/assets/aio-2026/46-table-view.png",
+              "width": 1914,
+              "height": 1082
+            }
+          },
+          {
+            "assetId": 53,
+            "title": "Users only",
+            "text": "The Users tab shows individuals while people with access stay in the adjacent list.",
+            "wide": false,
+            "frame": {
+              "src": "/assets/aio-2026/53-users-in-tenant-second-tab.png",
+              "width": 920,
+              "height": 960
+            }
+          },
+          {
+            "assetId": 45,
+            "title": "Teams only",
+            "text": "The Teams tab groups teams with their member counts.",
+            "wide": false,
+            "frame": {
+              "src": "/assets/aio-2026/45-users-in-tenant-third-tab.png",
+              "width": 920,
+              "height": 960
+            }
+          },
+          {
+            "assetId": 49,
+            "title": "Add by dragging",
+            "text": "Dragging moves a participant between lists with an immediately visible result.",
+            "wide": false,
+            "frame": {
+              "src": "/assets/aio-2026/49-drag-n-drop-users.png",
+              "width": 920,
+              "height": 960
+            }
+          },
+          {
+            "assetId": 47,
+            "title": "Everyone added",
+            "text": "All users have been added explains that no more eligible users remain in the list.",
+            "wide": false,
+            "frame": {
+              "src": "/assets/aio-2026/47-all-users-added.png",
+              "width": 920,
+              "height": 960
+            }
+          }
+        ]
+      },
+      {
+        "id": "share-empty",
+        "title": "Search and empty states",
+        "intro": "Different messages explain why results are absent and how to continue.",
+        "items": [
+          {
+            "assetId": 43,
+            "title": "Search: no users on the right",
+            "text": "Search preserves organisation members and people with access as separate contexts. A dedicated message explains missing matches.",
+            "wide": false,
+            "frame": {
+              "src": "/assets/aio-2026/43-empty-users.png",
+              "width": 920,
+              "height": 960
+            }
+          },
+          {
+            "assetId": 44,
+            "title": "Search: teams not found",
+            "text": "Teams not found appears when no groups match the query.",
+            "wide": false,
+            "frame": {
+              "src": "/assets/aio-2026/44-search-state.png",
+              "width": 920,
+              "height": 960
+            }
+          },
+          {
+            "assetId": 48,
+            "title": "No teams yet",
+            "text": "No teams yet distinguishes an absence of teams from an empty search result.",
+            "wide": false,
+            "frame": {
+              "src": "/assets/aio-2026/48-empty-teams.png",
+              "width": 920,
+              "height": 960
+            }
+          }
+        ]
+      },
+      {
+        "id": "share-permissions",
+        "title": "Permissions and administrators",
+        "intro": "Permission controls reflect membership and the administrator’s role.",
+        "items": [
+          {
+            "assetId": 50,
+            "title": "Edit permissions",
+            "text": "Permissions for people and teams can be edited while the membership list stays visible.",
+            "wide": false,
+            "frame": {
+              "src": "/assets/aio-2026/50-access-editing.png",
+              "width": 920,
+              "height": 960
+            }
+          },
+          {
+            "assetId": 51,
+            "title": "Owner menu",
+            "text": "The owner’s menu contains actions available to that role.",
+            "wide": false,
+            "frame": {
+              "src": "/assets/aio-2026/51-table-view-of-owner.png",
+              "width": 1914,
+              "height": 1082
+            }
+          },
+          {
+            "assetId": 52,
+            "title": "Another administrator’s menu",
+            "text": "A different administrator receives the actions appropriate to their role.",
+            "wide": false,
+            "frame": {
+              "src": "/assets/aio-2026/52-table-view-of-another-admin.png",
+              "width": 1914,
+              "height": 1082
+            }
+          }
+        ]
+      }
+    ],
+    "featured": false
+  },
+  {
+    "id": "registration",
+    "label": "Registration",
+    "title": "An introduction, one step at a time.",
+    "summary": "Guide someone from an invitation to a workspace, revealing settings progressively.",
+    "problem": "Before advertising work can begin, a new user needs to accept an invitation, enter their details and set up a workspace.",
+    "decision": "Attention stays on the current action. Other settings are introduced in the following steps.",
+    "steps": [
+      "Accept an invitation",
+      "Complete a profile",
+      "Create a workspace",
+      "Choose a subscription"
+    ],
+    "story": [
+      [
+        "The challenge",
+        "First entry involves an invitation, personal details, security, a workspace and a subscription. These need a sequence that does not require every setting at once."
+      ],
+      [
+        "The solution",
+        "Registration is divided into states with one current action. Two-factor authentication can be configured between steps, and subscription selection can be skipped."
+      ],
+      [
+        "My contribution",
+        "I designed registration and the associated first-entry states, progressively introducing profile details, security and workspace settings."
+      ]
+    ],
+    "reasoning": [
+      [
+        "Introduce complexity gradually",
+        "Profile, security and workspace settings solve different tasks. A sequence with one current action supports setup without requiring every decision simultaneously."
+      ]
+    ],
+    "evidence": [
+      {
+        "index": 1,
+        "title": "Invitation",
+        "text": "An invitation provides the platform entry point and explains context before personal settings.",
+        "frame": {
+          "index": 1,
+          "box": [
+            294,
+            164,
+            777,
+            441
+          ]
+        }
+      },
+      {
+        "index": 2,
+        "title": "User details",
+        "text": "The next step focuses on the profile, separate from workspace configuration.",
+        "frame": {
+          "index": 2,
+          "box": [
+            294,
+            164,
+            777,
+            441
+          ]
+        }
+      },
+      {
+        "index": 3,
+        "title": "Security",
+        "text": "Two-factor authentication can be configured between registration steps.",
+        "frame": {
+          "index": 3,
+          "box": [
+            294,
+            164,
+            777,
+            441
+          ]
+        }
+      },
+      {
+        "index": 4,
+        "title": "Workspace",
+        "text": "After personal settings, the user configures the workspace they will use.",
+        "frame": {
+          "index": 4,
+          "box": [
+            294,
+            164,
+            777,
+            441
+          ]
+        }
+      },
+      {
+        "index": 5,
+        "title": "Subscription",
+        "text": "Subscription selection completes the sequence and can be skipped.",
+        "frame": {
+          "index": 5,
+          "box": [
+            294,
+            164,
+            777,
+            441
+          ]
+        }
+      }
+    ],
+    "featured": false
+  },
+  {
+    "id": "ads",
+    "label": "Meta Ads",
+    "title": "From an account to an advertisement.",
+    "summary": "Preserve the hierarchy of advertising objects while making their settings accessible.",
+    "problem": "Accounts, campaigns, ad sets and statistics represent different levels of one advertising structure.",
+    "decision": "Tables support list work, while an individual object’s settings open within its own context.",
+    "steps": [
+      "Choose an account",
+      "Open a campaign",
+      "Move to an ad set",
+      "Work with an ad"
+    ],
+    "story": [
+      [
+        "The challenge",
+        "Connect social and advertising accounts to campaigns, ad sets and individual advertisements."
+      ],
+      [
+        "Context across levels",
+        "The selected account stays on the left while the right-hand area switches between Campaigns, Adsets and Ads. Moving down the hierarchy does not require finding the account again."
+      ],
+      [
+        "Account management",
+        "Account creation opens in a dedicated form. Cards and indicators communicate selection and object state."
+      ],
+      [
+        "Working without data",
+        "Empty states distinguish missing accounts from missing rows. A loading error includes a retry action."
+      ]
+    ],
+    "reasoning": [
+      [
+        "Make the advertising hierarchy visible",
+        "Campaigns, ad sets and ads belong to the selected account. A persistent account area makes that relationship visible when moving between levels."
+      ]
+    ],
+    "evidence": [
+      {
+        "sectionAssetId": 48,
+        "title": "Campaigns",
+        "text": "The selected advertising account remains on the left while campaigns appear in the working table.",
+        "wide": false,
+        "frame": {
+          "src": "/assets/aio-sections/48-campaigns-tab-is-on-the-right-side-of-the-screen.png",
+          "width": 1912,
+          "height": 1080
+        }
+      },
+      {
+        "sectionAssetId": 45,
+        "title": "Ad sets",
+        "text": "Switching to Adsets changes the data level while preserving account context.",
+        "wide": false,
+        "frame": {
+          "src": "/assets/aio-sections/45-adsets-tab-is-on-the-right-side-of-the-screen.png",
+          "width": 1912,
+          "height": 1080
+        }
+      },
+      {
+        "sectionAssetId": 52,
+        "title": "Advertisements",
+        "text": "The Ads tab opens individual advertisements within the same structure.",
+        "wide": false,
+        "frame": {
+          "src": "/assets/aio-sections/52-ads-tab-is-on-the-right-side-of-the-screen.png",
+          "width": 1912,
+          "height": 1080
+        }
+      },
+      {
+        "sectionAssetId": 46,
+        "title": "Create an advertising account",
+        "text": "The form combines the profile, connection details and account settings.",
+        "wide": false,
+        "frame": {
+          "src": "/assets/aio-sections/46-create-advertising-account.png",
+          "width": 420,
+          "height": 561
+        }
+      },
+      {
+        "sectionAssetId": 47,
+        "title": "Card states",
+        "text": "Selection, indicators and actions distinguish social and advertising account states.",
+        "wide": false,
+        "frame": {
+          "src": "/assets/aio-sections/47-cards-and-elements-state.png",
+          "width": 478,
+          "height": 1080
+        }
+      },
+      {
+        "sectionAssetId": 51,
+        "title": "No connected accounts",
+        "text": "Empty social and advertising areas show which objects are missing.",
+        "wide": false,
+        "frame": {
+          "src": "/assets/aio-sections/51-empty-social-accounts.png",
+          "width": 641,
+          "height": 1080
+        }
+      },
+      {
+        "sectionAssetId": 50,
+        "title": "No table data",
+        "text": "The empty working list preserves the selected section’s context.",
+        "wide": false,
+        "frame": {
+          "src": "/assets/aio-sections/50-empty-table.png",
+          "width": 1912,
+          "height": 1080
+        }
+      },
+      {
+        "sectionAssetId": 49,
+        "title": "Retry loading",
+        "text": "A loading error offers Reload.",
+        "wide": false,
+        "frame": {
+          "src": "/assets/aio-sections/49-alert.png",
+          "width": 296,
+          "height": 152
+        }
+      }
+    ],
+    "evidenceGroups": [
+      {
+        "id": "meta-structure",
+        "title": "Accounts and advertising structure",
+        "intro": "Campaigns, ad sets and ads are presented as connected levels.",
+        "items": [
+          {
+            "sectionAssetId": 48,
+            "title": "Campaigns",
+            "text": "The selected advertising account remains on the left while campaigns appear in the working table.",
+            "wide": false,
+            "frame": {
+              "src": "/assets/aio-sections/48-campaigns-tab-is-on-the-right-side-of-the-screen.png",
+              "width": 1912,
+              "height": 1080
+            }
+          },
+          {
+            "sectionAssetId": 45,
+            "title": "Ad sets",
+            "text": "Switching to Adsets changes the data level while preserving account context.",
+            "wide": false,
+            "frame": {
+              "src": "/assets/aio-sections/45-adsets-tab-is-on-the-right-side-of-the-screen.png",
+              "width": 1912,
+              "height": 1080
+            }
+          },
+          {
+            "sectionAssetId": 52,
+            "title": "Advertisements",
+            "text": "The Ads tab opens individual advertisements within the same structure.",
+            "wide": false,
+            "frame": {
+              "src": "/assets/aio-sections/52-ads-tab-is-on-the-right-side-of-the-screen.png",
+              "width": 1912,
+              "height": 1080
+            }
+          }
+        ]
+      },
+      {
+        "id": "meta-accounts",
+        "title": "Account creation and states",
+        "intro": "Cards, creation forms and selection states connect to the advertising structure.",
+        "items": [
+          {
+            "sectionAssetId": 46,
+            "title": "Create an advertising account",
+            "text": "The form combines the profile, connection details and account settings.",
+            "wide": false,
+            "frame": {
+              "src": "/assets/aio-sections/46-create-advertising-account.png",
+              "width": 420,
+              "height": 561
+            }
+          },
+          {
+            "sectionAssetId": 47,
+            "title": "Card states",
+            "text": "Selection, indicators and actions distinguish social and advertising account states.",
+            "wide": false,
+            "frame": {
+              "src": "/assets/aio-sections/47-cards-and-elements-state.png",
+              "width": 478,
+              "height": 1080
+            }
+          }
+        ]
+      },
+      {
+        "id": "meta-recovery",
+        "title": "Empty states and recovery",
+        "intro": "Messages explain missing data and offer an action when loading fails.",
+        "items": [
+          {
+            "sectionAssetId": 51,
+            "title": "No connected accounts",
+            "text": "Empty social and advertising areas show which objects are missing.",
+            "wide": false,
+            "frame": {
+              "src": "/assets/aio-sections/51-empty-social-accounts.png",
+              "width": 641,
+              "height": 1080
+            }
+          },
+          {
+            "sectionAssetId": 50,
+            "title": "No table data",
+            "text": "The empty working list preserves the selected section’s context.",
+            "wide": false,
+            "frame": {
+              "src": "/assets/aio-sections/50-empty-table.png",
+              "width": 1912,
+              "height": 1080
+            }
+          },
+          {
+            "sectionAssetId": 49,
+            "title": "Retry loading",
+            "text": "A loading error offers Reload.",
+            "wide": false,
+            "frame": {
+              "src": "/assets/aio-sections/49-alert.png",
+              "width": 296,
+              "height": 152
+            }
+          }
+        ]
+      }
+    ],
+    "featured": false
+  }
+]

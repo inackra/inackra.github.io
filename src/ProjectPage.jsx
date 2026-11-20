@@ -1,0 +1,16 @@
+import React,{lazy,Suspense} from 'react';
+import FlipText from './FlipText';
+import Arrow from './Arrow';
+const AioStory=lazy(()=>import('./aio/AioStory'));
+import './project-page.css';
+export const caseUrl=id=>`/work/${id}/`;
+export function ProjectNeighbours({id,cases,lang}){
+ const ready=cases.filter(p=>p.status==='ready'&&p.cover),index=ready.findIndex(p=>p.id===id),previous=ready[(index-1+ready.length)%ready.length],next=ready[(index+1)%ready.length];
+ return <section className="project-neighbours" aria-labelledby="project-neighbours-heading"><h2 id="project-neighbours-heading">{lang==='ru'?'Другие проекты.':'More projects.'}</h2><div className="project-neighbour-grid">{[previous,next].map((p,i)=><a className="project-neighbour" key={p.id} href={caseUrl(p.id)}>{p.cover&&<img src={p.cover.path} width={p.cover.width} height={p.cover.height} loading="lazy" alt=""/>}<span className="project-neighbour-copy"><small>{lang==='ru'?(i?'Следующий кейс':'Предыдущий кейс'):(i?'Next case':'Previous case')}</small><strong>{p.name}</strong><span className="text-action"><FlipText>{lang==='ru'?'Смотреть проект':'Explore project'}</FlipText><Arrow/></span></span></a>)}</div></section>;
+}
+function Image({asset,alt}){return <figure className="case-image"><a href={asset.path} target="_blank" rel="noreferrer"><img src={asset.path} width={asset.width} height={asset.height} alt={alt} loading="lazy" decoding="async"/><span className="image-zoom" aria-hidden="true"><Arrow/></span></a></figure>}
+export default function ProjectPage({id,cases,lang,paused}){
+ const p=cases.find(p=>p.id===id);
+ if(!p)return <section className="project-page" id="top"><h1>{lang==='ru'?'Проект не найден':'Project not found'}</h1><a className="text-action" href="/work/"><Arrow left/><FlipText>{lang==='ru'?'Все работы':'All work'}</FlipText></a></section>;
+ return <><div className="project-page" id="top"><a className="text-action" href="/work/"><Arrow left/><FlipText>{lang==='ru'?'Все работы':'All work'}</FlipText></a>{id==='aio'?<Suspense fallback={<p role="status">{lang==='ru'?'Загрузка кейса…':'Loading case study…'}</p>}><AioStory lang={lang} paused={paused}/></Suspense>:<article className="project-article dialog-content"><p className="eyebrow">{p.role||p.category}</p><h1>{p.name}</h1><p className="dialog-headline">{p.headline}</p><p className="case-period">{p.discipline||p.category}</p>{p.cover&&<Image asset={p.cover} alt={p.name}/ >}{p.status!=='ready'?<p>{lang==='ru'?'Кейс готовится к публикации.':'Case study coming soon.'}</p>:<><p className="dialog-result">{p.takeaway}</p>{p.metrics&&<div className="case-metrics">{p.metrics.map(([value,label])=><div key={label}><strong>{value}</strong><span>{label}</span></div>)}</div>}<h2>{lang==='ru'?'Контекст':'Context'}</h2><p>{p.context}</p><h2>{lang==='ru'?'Моя работа':'My contribution'}</h2><ul>{p.contribution.map(text=><li key={text}>{text}</li>)}</ul>{p.chapters?.map(section=><section className="case-chapter" key={section.title}><h2>{section.title}</h2><p>{section.text}</p><div className={`case-gallery gallery-${section.layout}`}>{section.images.map((asset,i)=><Image key={asset.path} asset={asset} alt={`${section.title} — ${i+1}`}/>)}</div></section>)}<h2>{lang==='ru'?'Результат':'Outcome'}</h2><p>{p.outcome}</p></>}</article>}</div><ProjectNeighbours id={id} cases={cases} lang={lang}/></>;
+}
