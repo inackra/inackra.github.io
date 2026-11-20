@@ -7,7 +7,8 @@
     "dev": "vite --host 0.0.0.0",
     "build": "node scripts/prepare-aio-media.mjs && vite build && node scripts/build-pages.mjs",
     "preview": "vite preview --host 0.0.0.0",
-    "test": "node scripts/check-motion.cjs && node scripts/check-wave.mjs && node scripts/check-cards.mjs && node scripts/check-palette.mjs && node scripts/check-rail.cjs && node scripts/check-enquiries.cjs && node scripts/check-routes.cjs && node scripts/check-project-pages.cjs && node scripts/check-plenum.cjs"
+    "check:media": "node scripts/check-gallery-storage.mjs",
+    "test": "node scripts/check-motion.cjs && node scripts/check-wave.mjs && node scripts/check-cards.mjs && node scripts/check-palette.mjs && node scripts/check-rail.cjs && node scripts/check-enquiries.cjs && node scripts/check-routes.cjs && node scripts/check-project-pages.cjs && node scripts/check-plenum.cjs && node scripts/check-gallery.cjs"
   },
   "dependencies": {
     "@fontsource-variable/manrope": "^5.3.0",
