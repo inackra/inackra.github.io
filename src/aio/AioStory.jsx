@@ -1,8 +1,9 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useEffect, useRef, useState, useContext } from 'react';
 const Reveal = ({
   children,
   className = ''
 }) => <div className={className}>{children}</div>;
+import {taskUrl,navigateTask,parseRoute,ordinaryClick} from '../routes';
 import { ImageLightbox } from './ImageLightbox';
 import { LanguageContext, useAioCopy } from './i18n';
 import './aio-story.css';
@@ -18,11 +19,11 @@ function TaskNavigation({
   bottom = false,
   tasks
 }) {
-  const tr = useAioCopy();
+  const tr = useAioCopy(),lang=useContext(LanguageContext);
   const controls = useRef(null),
     isFeatured = tasks.find(task => task.id === active).featured;
   const keyboard = e => {
-    if (!['ArrowLeft', 'ArrowRight', 'Home', 'End'].includes(e.key) || e.target.tagName !== 'BUTTON') return;
+    if (!['ArrowLeft', 'ArrowRight', 'Home', 'End'].includes(e.key) || !['BUTTON','A'].includes(e.target.tagName)) return;
     e.preventDefault();
     const id = adjacentTask(e.target.dataset.task, e.key);
     onSelect(id, false);
@@ -31,7 +32,7 @@ function TaskNavigation({
     if (details) details.open = true;
     next.focus();
   };
-  const buttons = items => items.map(task => <button key={task.id} data-task={task.id} aria-pressed={active === task.id} aria-controls="aio-task-panel" onClick={() => onSelect(task.id, bottom)}><FlipText>{task.label}</FlipText></button>);
+  const buttons = items => items.map(task => <a key={task.id} href={taskUrl('aio',task.id,lang)} data-task={task.id} aria-current={active === task.id?'page':undefined} aria-controls="aio-task-panel" onClick={e => {if(ordinaryClick(e)){e.preventDefault();onSelect(task.id, bottom)}}}><FlipText>{task.label}</FlipText></a>);
   return <nav className={`aio-task-navigation ${bottom ? 'aio-task-navigation-bottom' : ''}`} aria-label={bottom ? tr("Другие задачи AIO — внизу кейса") : tr("Задачи AIO")} ref={controls} onKeyDown={keyboard}>
   <p>{bottom ? tr("Как задача связана с проектом") : tr("Главные задачи")}</p>
   <div className="archive-filters" role="group" aria-label={tr("Главные задачи AIO")}>{buttons(tasks.filter(task => task.featured))}</div>
@@ -89,15 +90,14 @@ function Story({
   const tr = useAioCopy();
   const tasks = getTasks(lang),
     motion = !paused;
-  const [active, setActive] = useState(() => resolveTask(initialTask ?? (typeof location === 'undefined' ? '' : location.hash)));
+  const [active, setActive] = useState(() => resolveTask(initialTask||''));
   const [mode, setMode] = useState('weights'),
     [lightbox, setLightbox] = useState(null);
   const panel = useRef(null),
     task = tasks.find(item => item.id === active);
   useEffect(() => {
-    const restore = e => {
-      if (/^#(?:task=|aio-)/.test(location.hash) || e.type === 'popstate' && !location.hash) setActive(resolveTask(location.hash));
-    };
+    const restore = () => {const route=parseRoute(location.pathname),id=resolveTask(route.task||location.hash);setActive(id);if(!route.task&&/^#(?:task=|aio-)/.test(location.hash)){history.replaceState(null,'',taskUrl('aio',id,lang));dispatchEvent(new Event('inackra:navigate'))}};
+    restore();
     addEventListener('hashchange', restore);
     addEventListener('popstate', restore);
     return () => {
@@ -105,9 +105,6 @@ function Story({
       removeEventListener('popstate', restore);
     };
   }, []);
-  useEffect(() => {
-    document.title = `${task.label} — AIO Tech / INACKRA`;
-  }, [task.label]);
   const inspect = id => {
     const target = document.getElementById(id);
     if (!target) return;
@@ -125,10 +122,7 @@ function Story({
   const select = (id, scroll = false) => {
     const next = resolveTask(id);
     setActive(next);
-    const hash = `#task=${next}`;
-    if (location.hash !== hash) history.pushState({
-      aioTask: next
-    }, '', hash);
+    navigateTask('aio',next,lang);
     if (scroll) requestAnimationFrame(() => {
       scrollTo(panel.current,{offset:-100,immediate:!motion});
       panel.current.focus({

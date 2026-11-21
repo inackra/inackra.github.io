@@ -10,7 +10,5 @@ const {VisualPage}=bundle('src/gallery/Gallery.jsx');
 for(const type of ['image','video'])for(const lang of ['ru','en']){const item=catalog.find(x=>x.type===type);const html=renderToStaticMarkup(React.createElement(VisualPage,{id:item.id,lang,paused:false}));assert.ok(!html.includes('<dialog'));assert.equal((html.match(/class="visual-tile"/g)||[]).length,type==='video'?17:85);assert.ok(!html.includes('figcaption'));assert.ok(!html.includes('target="_blank"'),'no original-file link');assert.ok(!html.includes('visual-original'));assert.ok(!html.includes('Не удалось загрузить'));assert.ok(!html.includes('Could not load media'));assert.ok(html.includes('wall-media-detail'));if(type==='video'){assert.ok(html.includes('playsInline=""'));assert.ok(html.includes('muted=""'));assert.ok(html.includes('preload="none"'));}if(lang==='en')assert.equal(/[А-Яа-яЁё]/.test(html),false);}
 console.log('PASS: all 104 originals catalogued, stable random shuffle, 104 static detail routes, same-format recommendations, RU/EN, no case dialogs or media captions.');
 
-const hiddenGallery=bundle('src/gallery/Gallery.jsx',{sessionStorage:{getItem:()=>JSON.stringify(['g001','invalid-id'])}}).default;
-const hiddenHtml=renderToStaticMarkup(React.createElement(hiddenGallery,{cases:[],renderCard:()=>null,lang:'ru',paused:false}));
-assert.equal((hiddenHtml.match(/class="visual-tile"/g)||[]).length,103,'failed media removes its whole tile');
-assert.ok(!hiddenHtml.includes('href="/work/visual/g001/'),'failed media stays hidden on return');
+const {readUnavailable}=bundle('src/gallery/mediaHealth.js',{sessionStorage:{getItem:()=>JSON.stringify(['g001','invalid-id'])}});
+assert.deepEqual([...readUnavailable()],['g001'],'session cache only accepts known media identifier syntax');

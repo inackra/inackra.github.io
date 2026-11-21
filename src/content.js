@@ -7,10 +7,10 @@ export const content = {
     proto: 'Прототип структуры', version: 'Версия 0.1 · 17.11.2026', notes: 'Пояснения', skip: 'К содержимому',
     nav: ['Проекты', 'Сотрудничество', 'Обо мне', 'Контакт'],
     hero: {
-      label: 'Yan Kavaleu · Product Designer',
+      label: 'Yan Kavaleu · Multidisciplinary Designer',
       title: 'Превращаю сложную логику в понятные цифровые продукты.',
       text: 'Проектирую AI-продукты, SaaS и дизайн-системы. Соединяю продуктовый подход с опытом в брендинге, 3D и motion.',
-      location: 'Вильнюс, Литва · удалённое сотрудничество',
+      location: '',
       client: 'Обсудить проект', employer: 'Рассмотреть в команду',
       proof: '8 лет в дизайне · опыт в Semrush, AIO Tech, Evapolar и McCann',
       note: 'Первый экран: кто ты, какую пользу приносишь и два пути для посетителя. Оба ведут к общим кейсам, но к разным предложениям сотрудничества.'
@@ -75,13 +75,13 @@ export const content = {
     },
     about: {
       label: '03 / Обо мне', title: 'Продуктовая глубина. Визуальный кругозор.',
-      text: ['Я Ян, дизайнер из Вильнюса с 8 годами опыта в продуктовом, визуальном и бренд-дизайне.', 'Работал со сложными SaaS-сценариями в AIO Tech, создавал масштабируемые системы в Semrush и объединял бренд, веб и 3D в Evapolar. Сейчас также развиваю собственный AI-продукт Plenum.', 'Мне интересно доводить идею до поведения, которое можно проверить: проектировать сценарии, собирать функциональные прототипы и работать с разработчиками над реализацией.'],
+      text: ['Я Ян, мультидисциплинарный дизайнер с 8 годами опыта в продуктовом, визуальном и бренд-дизайне.', 'Работал со сложными SaaS-сценариями в AIO Tech, создавал масштабируемые системы в Semrush и объединял бренд, веб и 3D в Evapolar. Сейчас также развиваю собственный AI-продукт Plenum.', 'Мне интересно доводить идею до поведения, которое можно проверить: проектировать сценарии, собирать функциональные прототипы и работать с разработчиками над реализацией.'],
       tools: 'Figma · Claude · Codex · Blender · Adobe · DaVinci Resolve',
       note: 'Здесь появляется человек за работами. Позже можно добавить портрет или авторский визуал; биографию сохраняем короткой.'
     },
     team: {
       label: '04 / Для работодателей', title: 'Могу усилить продуктовую команду на стыке UX, систем и визуального дизайна.',
-      intro: 'Основной фокус — Product Designer в AI-продуктах, B2B SaaS и командах, развивающих дизайн-систему.',
+      intro: 'Соединяю продуктовый UX, визуальные системы и AI-assisted разработку.',
       strengths: ['Проектирование сложных сценариев, состояний и взаимодействий.', 'Компонентные системы и документация, поддерживающие работу команды.', 'Работа с продуктом и разработкой от обсуждения задачи до реализации.', 'Функциональные AI-прототипы и сильная визуальная база.'],
       experience: [['Semrush', 'Product Designer / Design Systems', '2025–2026'], ['AIO Tech', 'Product Designer', '2023–2025'], ['Evapolar', 'Designer — Brand, Web & Design Systems', '2022–2023'], ['McCann Worldgroup', 'Multidisciplinary Designer', '2021–2022']],
       location: 'Вильнюс, Литва · удалённая работа, офис в Литве — обсуждаемо',
@@ -109,10 +109,10 @@ export const content = {
     proto: 'Structure prototype', version: 'Version 0.1 · 17 Nov 2026', notes: 'Review notes', skip: 'Skip to content',
     nav: ['Selected work', 'Collaboration', 'About', 'Contact'],
     hero: {
-      label: 'Yan Kavaleu · Product Designer',
+      label: 'Yan Kavaleu · Multidisciplinary Designer',
       title: 'I turn complex workflows into clear digital products.',
       text: 'I design AI products, SaaS experiences and design systems, combining product thinking with a background in branding, 3D and motion.',
-      location: 'Vilnius, Lithuania · working remotely', client: 'Discuss a project', employer: 'Explore a team fit',
+      location: '', client: 'Discuss a project', employer: 'Explore a team fit',
       proof: '8 years in design · experience at Semrush, AIO Tech, Evapolar and McCann',
       note: 'The opening explains who you are, what you bring and two possible next steps. Both audiences share the same project evidence, with separate collaboration offers.'
     },
@@ -172,13 +172,13 @@ export const content = {
     },
     about: {
       label: '03 / About', title: 'Product depth. Visual range.',
-      text: ['I’m Yan, a Vilnius-based designer with 8 years of multidisciplinary experience across product, visual and brand design.', 'My work spans complex SaaS workflows at AIO Tech, scalable systems at Semrush, and brand, web and 3D at Evapolar. I’m also developing Plenum, an independent AI product.', 'I like taking ideas into behaviour we can test: mapping workflows, building functional prototypes and working with engineers on implementation.'],
+      text: ['I’m Yan, a multidisciplinary designer with 8 years of multidisciplinary experience across product, visual and brand design.', 'My work spans complex SaaS workflows at AIO Tech, scalable systems at Semrush, and brand, web and 3D at Evapolar. I’m also developing Plenum, an independent AI product.', 'I like taking ideas into behaviour we can test: mapping workflows, building functional prototypes and working with engineers on implementation.'],
       tools: 'Figma · Claude · Codex · Blender · Adobe · DaVinci Resolve',
       note: 'A short introduction to the person behind the work. A portrait or an authored visual can be added later.'
     },
     team: {
       label: '04 / For employers', title: 'Product thinking, systems and visual craft for your team.',
-      intro: 'My main focus is a Product Designer role in AI products, B2B SaaS or a team developing its design system.',
+      intro: 'I connect product UX, visual systems and AI-assisted development.',
       strengths: ['Complex user workflows, interface states and interaction design.', 'Component systems and documentation that support the team.', 'Collaboration with product and engineering through implementation.', 'Functional AI prototypes and a strong visual design foundation.'],
       experience: [['Semrush', 'Product Designer / Design Systems', '2025–2026'], ['AIO Tech', 'Product Designer', '2023–2025'], ['Evapolar', 'Designer — Brand, Web & Design Systems', '2022–2023'], ['McCann Worldgroup', 'Multidisciplinary Designer', '2021–2022']],
       location: 'Vilnius, Lithuania · remote; office-based roles in Lithuania can be discussed',

@@ -1,3 +1,4 @@
+import {homeUrl} from './routes';
 import React,{useState,useRef,useEffect,useId} from 'react';
 import FlipText from './FlipText';
 import Arrow from './Arrow';
@@ -20,7 +21,7 @@ export default function EnquiryForm({lang,intent,setIntent}){
   <label data-motion-text="true" data-motion-state="waiting" htmlFor={`${id}-message`}>{d.message}<textarea id={`${id}-message`} name="message" required minLength={10} maxLength={3000} rows={4} value={values.message} onChange={e=>setValues({...values,message:e.target.value})}/></label>
   <button data-motion-text="true" data-motion-state="waiting" className="button solid" type="submit" disabled={state==='sending'}><FlipText>{state==='sending'?d.sending:endpoint?d.submit:d.email}</FlipText><Arrow/></button>
   <p className={`enquiry-status status-${state}`} role="status">{state==='sent'?d.sent:state==='error'?d.error:endpoint?d.hint:d.fallback}</p>
-  <p className="form-privacy"><a href="/privacy/">{lang==='ru'?'Политика конфиденциальности':'Privacy policy'}</a></p>
+  <p className="form-privacy"><a href={`${homeUrl(lang)}privacy/`}>{lang==='ru'?'Политика конфиденциальности':'Privacy policy'}</a></p>
   {state==='error'&&<a className="text-action" href={`mailto:${EMAIL}`}>{EMAIL}<Arrow/></a>}
   {endpoint&&<iframe name={frameName} ref={iframe} title="Enquiry delivery" className="enquiry-frame"/>}
  </form>;

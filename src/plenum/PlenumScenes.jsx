@@ -6,10 +6,10 @@ const say=(lang,ru,en)=>lang==='en'?en:ru;
 function Action({children,onClick,disabled=false,...props}){return <button className="text-action" onClick={onClick} disabled={disabled} {...props}><FlipText>{children}</FlipText><Arrow/></button>}
 function Choices({items,value,onChange,label}){return <div className="archive-filters" role="group" aria-label={label}>{items.map(([id,text])=><button key={id} aria-pressed={value===id} onClick={()=>onChange(id)}><FlipText>{text}</FlipText></button>)}</div>}
 function CanvasScene({lang}){
- const [compact,setCompact]=useState(()=>matchMedia('(max-width:700px)').matches);
+ const [compact,setCompact]=useState(false);
  const freshNodes=()=> (compact?compactCanvasNodes:canvasNodes).map(n=>({...n}));
  const [nodes,setNodes]=useState(freshNodes),[selected,setSelected]=useState(['developers','design']),[zoom,setZoom]=useState(1),[asked,setAsked]=useState(false),drag=useRef(null),svg=useRef(null);
- useEffect(()=>{const q=matchMedia('(max-width:700px)'),resize=()=>{setCompact(q.matches);setNodes((q.matches?compactCanvasNodes:canvasNodes).map(n=>({...n})));drag.current=null};q.addEventListener('change',resize);return()=>q.removeEventListener('change',resize)},[]);
+ useEffect(()=>{const q=matchMedia('(max-width:700px)'),resize=()=>{setCompact(q.matches);setNodes((q.matches?compactCanvasNodes:canvasNodes).map(n=>({...n})));drag.current=null};resize();q.addEventListener('change',resize);return()=>q.removeEventListener('change',resize)},[]);
  const nodeWidth=compact?150:180;
  const point=e=>{const p=new DOMPoint(e.clientX,e.clientY).matrixTransform(svg.current.getScreenCTM().inverse());return {x:p.x/zoom,y:p.y/zoom}};
  const toggle=id=>{setSelected(ids=>ids.includes(id)?ids.filter(x=>x!==id):[...ids,id]);setAsked(false)};

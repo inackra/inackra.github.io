@@ -37,9 +37,10 @@ function textCloud(element){
  return {element,width,height,points:points.filter((_,i)=>i%Math.max(1,Math.ceil(points.length/2400))===0),progress:0};
 }
 
-export default function MotionField({menuCanvas,lang,paused}){
+export default function MotionField({menuCanvas,lang,paused,enabled=true}){
  const canvas=useRef(null);
  useLayoutEffect(()=>{
+  if(!enabled)return;
   const cv=canvas.current,c=cv.getContext('2d'),scope=cv.closest('.demo-root');if(!c||!scope)return;
   let width=0,height=0,raf=0,last=0,dead=false,clouds=[],trails=[],waves=[],particles=[],lastWave=0,headerBottom=0,animations=[],observers=[],fontsReady=false,input=null,cursor=null,lastTrail=0;
   const atlas=createGlyphAtlas();
@@ -145,6 +146,6 @@ export default function MotionField({menuCanvas,lang,paused}){
   document.addEventListener('pointermove',pointer,{passive:true});document.addEventListener('pointerdown',pointer,{passive:true});document.addEventListener('touchmove',touch,{passive:true});
   window.addEventListener('resize',resize,{passive:true});const visibility=()=>{if(!document.hidden)schedule()};document.addEventListener('visibilitychange',visibility);
   return()=>{dead=true;cancelAnimationFrame(raf);mutations.disconnect();observers.forEach(o=>o.disconnect());animations.forEach(a=>{a.kill()});scope.querySelectorAll('[data-motion-text]').forEach(el=>gsap.set(el,{clearProps:'filter,transform,opacity'}));document.removeEventListener('pointermove',pointer);document.removeEventListener('pointerdown',pointer);document.removeEventListener('touchmove',touch);window.removeEventListener('rail-scrub-start',settle);window.removeEventListener('resize',resize);document.removeEventListener('visibilitychange',visibility)};
- },[lang,paused]);
+ },[lang,paused,enabled]);
  return <canvas ref={canvas} className="site-binary-field" aria-hidden="true"/>;
 }

@@ -108,7 +108,7 @@ function GenericSchematic({
 }) {
   const tr = useAioCopy();
   const root = useRef(null),
-    [compact, setCompact] = useState(() => matchMedia('(max-width: 700px)').matches),
+    [compact, setCompact] = useState(false),
     [phase, setPhase] = useState(task.id === 'visits' ? 2 : 0),
     [visible, setVisible] = useState(false),
     [awake, setAwake] = useState(true),

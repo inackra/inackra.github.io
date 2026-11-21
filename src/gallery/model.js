@@ -1,8 +1,9 @@
+import {homeUrl} from '../routes';
 import catalog from './catalog.json';
 export {catalog};
 export const MEDIA_ORIGIN=import.meta.env?.VITE_MEDIA_ORIGIN||'https://media.inackra.work';
 export const mediaUrl=key=>`${MEDIA_ORIGIN}/${key}`;
-export const visualUrl=(id,filter='all')=>`/work/visual/${id}/?from=${encodeURIComponent(filter)}`;
+export const visualUrl=(id,filter='all',lang='ru')=>`${homeUrl(lang)}work/visual/${id}/?from=${encodeURIComponent(filter)}`;
 export const filters=[['all','Все','All'],['cases','Кейсы','Cases'],['image','Изображения','Images'],['video','Видео','Video']];
 export function shuffled(items,seed){
  const result=[...items];let state=seed>>>0;

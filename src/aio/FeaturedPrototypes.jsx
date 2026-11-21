@@ -149,11 +149,11 @@ export function VisitPrototype({
     [expanded, setExpanded] = useState(false),
     [record, setRecord] = useState(1),
     [speed, setSpeed] = useState(1),
-    [compact, setCompact] = useState(() => matchMedia('(max-width: 700px)').matches);
+    [compact, setCompact] = useState(false);
   useEffect(() => {
     const query = matchMedia('(max-width: 700px)'),
       update = () => setCompact(query.matches);
-    query.addEventListener('change', update);
+    update();query.addEventListener('change', update);
     return () => query.removeEventListener('change', update);
   }, []);
   return <section className="aio-prototype featured-prototype" ref={ref} aria-labelledby="aio-prototype-title" data-prototype="visit">
