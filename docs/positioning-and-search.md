@@ -2,7 +2,9 @@
 
 ## Positioning
 
-Multidisciplinary Designer. Digital products and visual systems, connecting design, AI and development. Eight years of design experience. Current AI-assisted workflow is described separately from historical client projects. Plenum remains an independent product in development; its experimental measurements retain their original limitations.
+Multidisciplinary Designer. Complex digital products and design systems that help teams work faster, connecting UX, visual design and AI-assisted development. The visual range across branding, 3D and motion supports the product work. Eight years of design experience, experience at Semrush and independent development of Plenum are visible together on the first screen. Current AI-assisted workflow is described separately from historical client projects. Plenum remains an independent product in development; its experimental measurements retain their original limitations.
+
+The company block uses ten supplied SVG logos with individual optical sizes and adaptive columns. Compact symbols retain their proportions; long and thin wordmarks receive more space and contrast. Artwork is preserved byte for byte.
 
 Home: selected product case studies, a nearby entry to the mixed visual gallery, then separate project and team enquiries. Existing graphic and motion works remain uncaptioned.
 
