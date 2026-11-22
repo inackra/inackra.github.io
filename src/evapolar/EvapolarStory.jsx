@@ -16,7 +16,7 @@ const chapters = [
 function Evidence({ name, label, cover = false }) {
   const asset = media[name];
   const img = <img src={asset.path} width={asset.width} height={asset.height} alt={cover ? '' : label} loading={cover ? 'eager' : 'lazy'} decoding="async" />;
-  if (cover) return <div className="project-cover">{img}</div>;
+  if (cover) return <figure className="project-cover">{img}</figure>;
   return <figure className="eva-evidence">
     <a href={asset.path} target="_blank" rel="noopener noreferrer" aria-label={label}>{img}</a>
     <figcaption>{label}</figcaption>
@@ -58,12 +58,12 @@ function ProcessCard({ type, copy, paused }) {
 export default function EvapolarStory({ lang, paused }) {
   const copy = evapolarCopy[lang];
   return <article className="aio-study eva-story">
-    <header className="aio-project-intro archive-page">
+    <section className="aio-project-intro archive-page" aria-labelledby="eva-title">
       <p className="eyebrow">{copy.role} · 2022–2023</p>
-      <h1>Evapolar.</h1>
+      <h1 id="eva-title">Evapolar.</h1>
       <p className="archive-intro">{copy.headline}</p>
       <p className="aio-project-context">{copy.intro}</p>
-    </header>
+    </section>
     <Evidence name="cover" cover />
     <section className="eva-chapter" aria-labelledby="eva-context-title">
       <header className="aio-task-heading">
