@@ -36,9 +36,9 @@ export const content = {
           headline: 'Системы, которые помогают выпускать материалы без постоянного участия дизайнера.',
           role: 'Product Designer / Design Systems', preview: 'Система компонентов и пример сборки страницы',
           takeaway: 'Сборка страницы в Figma: с нескольких часов до ≈15–20 минут.',
-          context: 'Масштабировать создание лендингов, писем и адаптивных материалов, сократив повторяющуюся ручную работу.',
+          context: 'Ускорить выпуск лендингов, писем и продуктовой графики после редизайна Semrush перед интеграцией с Adobe.',
           contribution: ['Создал модульную библиотеку страниц под восемь адаптивных брейкпоинтов.', 'Разработал настраиваемые шаблоны писем и адаптивные SVG-материалы.', 'Подготовил документацию и инструменты для самостоятельной работы маркетинга и контент-команд.'],
-          outcome: 'Сборка писем сократилась примерно с двух часов до десяти минут. За трёхмесячный период поддержал запуск 100+ лендингов, 500+ писем и 100+ продуктовых иллюстраций.'
+          outcome: 'В первый месяц команда выпустила 100+ лендингов и 500+ email-коммуникаций. Библиотека включала 100+ продуктовых визуализаций.'
         },
         {
           id: 'aio', name: 'AIO Tech', category: 'B2B SaaS · product UX',
@@ -137,9 +137,9 @@ export const content = {
           headline: 'Systems that help teams create materials independently.',
           role: 'Product Designer / Design Systems', preview: 'Component system and page assembly example',
           takeaway: 'Figma page assembly: from several hours to approximately 15–20 minutes.',
-          context: 'Scale the production of landing pages, emails and responsive assets while reducing repetitive design work.',
+          context: 'Speed up production of landing pages, emails and product visuals after the Semrush redesign ahead of the Adobe integration.',
           contribution: ['Created a modular page library covering eight responsive breakpoints.', 'Built configurable email templates and responsive SVG assets.', 'Documented the systems and enabled marketing and content teams to assemble materials independently.'],
-          outcome: 'Email assembly dropped from approximately two hours to ten minutes. Supported the launch of 100+ landing pages, 500+ emails and 100+ product illustrations over a three-month delivery period.'
+          outcome: 'The team released 100+ landing pages and 500+ email communications in the first month. The library included 100+ product visuals.'
         },
         {
           id: 'aio', name: 'AIO Tech', category: 'B2B SaaS · product UX',

@@ -1,0 +1,21 @@
+.semrush-story .eva-evidence img { max-height: none; }
+.semrush-story .eva-evidence + .eva-evidence,
+.semrush-story .semrush-schematic { margin-top: 20px; }
+.semrush-schematic ol { list-style: none; padding: 0; margin-bottom: 0; }
+.semrush-schematic .eva-step:first-child .eva-step-picture {
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: 1fr 1fr;
+}
+.semrush-schematic .eva-step:first-child i:last-child { grid-column: span 2; }
+.semrush-schematic .eva-step:nth-child(2) i:nth-child(2) { width: 75%; }
+.semrush-schematic .eva-step:nth-child(2) i:nth-child(3) { width: 55%; }
+.semrush-schematic .eva-step:last-child .eva-step-picture {
+  grid-template-columns: 2fr 1fr 0.7fr;
+  align-items: center;
+}
+.semrush-schematic .eva-step:last-child i { height: 70%; }
+.semrush-schematic .eva-step:last-child i:first-child { height: 100%; }
+.semrush-story .eva-impact .case-metrics { grid-template-columns: repeat(3,minmax(0,1fr)); }
+@media (max-width: 520px) {
+  .semrush-story .eva-impact .case-metrics { grid-template-columns: 1fr; }
+}
