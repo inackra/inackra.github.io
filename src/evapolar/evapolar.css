@@ -10,6 +10,7 @@
 .eva-story .archive-filters a:hover { background: #eee; color: #000; }
 .eva-chapter { margin-top: 42px; border-top: 1px solid var(--line); padding-top: 35px; }
 .eva-chapter > header { margin-bottom: 25px; }
+.eva-chapter .privacy-intro + .privacy-intro { margin-top: 1em; }
 .eva-row { display: grid; grid-template-columns: repeat(var(--eva-columns), minmax(0,1fr)); align-items: start; gap: 14px; margin-top: 14px; }
 .eva-evidence { margin: 0; min-width: 0; }
 .eva-evidence a { display: block; border-radius: 8px; overflow: hidden; background: #090909; }
