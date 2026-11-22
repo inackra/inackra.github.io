@@ -1,3 +1,5 @@
+import evapolarMedia from './evapolar/media.json';
+import {evapolarCopy} from './evapolar/copy';
 import {projectCovers} from './projectMedia';
 import sources from '../public/assets/cases/sources.json';
 
@@ -33,6 +35,10 @@ export function getCaseStudies(base,lang){
  const entries=[...base.slice(0,3),ready[lang].buburuza,...base.slice(3)];
  return entries.map(item=>{
   if(item.id==='plenum')return {...item,status:'ready',cover:projectCovers.plenum,role:'Founder / Product Designer / AI-assisted Builder',discipline:'AI product / Product Intelligence',line:lang==='ru'?'От разрозненных источников к общей модели продукта.':'From fragmented sources to a shared product model.',headline:lang==='ru'?'Спроектировал продукт, его поведение и процесс разработки с AI.':'Designed the product, its behaviour and its AI-assisted development process.',takeaway:lang==='ru'?'Холст, доказательства и контролируемые выводы в одном рабочем пространстве.':'Canvas, evidence and qualified findings in one workspace.'};
+  if(item.id==='evapolar'){
+   const copy=evapolarCopy[lang];
+   return {...item,status:'ready',cover:evapolarMedia.cover,role:copy.role,category:copy.discipline,discipline:copy.discipline,period:'2022–2023',headline:copy.headline,line:copy.headline,takeaway:lang==='ru'?'2 000+ покупателей за первые четыре месяца запуска Evapolar × Loóna.':'2,000+ customers in the first four months of the Evapolar × Loóna launch.'};
+  }
   const details=ready[lang][item.id];
   if(!details)return {...item,status:'soon',line:item.headline};
   const folder=item.id==='aio'?'allinone':item.id;

@@ -27,7 +27,7 @@ for(const file of files){
  }
  for(const img of html.matchAll(/<(?:img|image)\b[^>]*(?:src|href)="(\/[^\"]+)"/g))assert.ok(await exists(root+img[1]),path+' local evidence exists '+img[1]);
 }
-const sitemap=await read(root+'/sitemap.xml'),listed=new Set([...sitemap.matchAll(/<loc>(.*?)<\/loc>/g)].map(x=>x[1]));assert.deepEqual(listed,indexed,'sitemap includes exactly the indexable canonical pages');assert.equal(indexed.size,54);
+const sitemap=await read(root+'/sitemap.xml'),listed=new Set([...sitemap.matchAll(/<loc>(.*?)<\/loc>/g)].map(x=>x[1]));assert.deepEqual(listed,indexed,'sitemap includes exactly the indexable canonical pages');assert.equal(indexed.size,56);
 const ru=JSON.parse(await read('src/aio/tasks.ru.json')),en=JSON.parse(await read('src/aio/tasks.en.json'));
 for(const [lang,tasks] of [['ru',ru],['en',en]])for(const task of tasks){const html=await read(root+(lang==='en'?'/en':'')+`/work/aio/${task.id}/index.html`);assert.ok(html.includes(task.title.replace(/&/g,'&amp;')),task.id+' task-specific static narrative');assert.ok(html.includes('case-image-preview'),task.id+' real interface evidence');}
 const home=await read(root+'/index.html');assert.ok(home.includes('Проектирую сложные цифровые продукты и создаю дизайн-системы, которые ускоряют работу команд.'));assert.ok(home.includes('href="/work/cases/"'));assert.ok(home.includes('href="/work/"'));assert.ok(home.includes('id="contact"'));

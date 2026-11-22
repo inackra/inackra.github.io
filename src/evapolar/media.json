@@ -1,0 +1,107 @@
+{
+  "components": {
+    "path": "/assets/evapolar/components.webp",
+    "width": 2400,
+    "height": 2420
+  },
+  "cover": {
+    "path": "/assets/evapolar/cover.webp",
+    "width": 1920,
+    "height": 1080
+  },
+  "amazon-locales": {
+    "path": "/assets/evapolar/amazon-locales.webp",
+    "width": 2400,
+    "height": 1118
+  },
+  "responsive-editorial": {
+    "path": "/assets/evapolar/responsive-editorial.webp",
+    "width": 1920,
+    "height": 1752
+  },
+  "loona-offer": {
+    "path": "/assets/evapolar/loona-offer.webp",
+    "width": 1663,
+    "height": 2300
+  },
+  "amazon-energy": {
+    "path": "/assets/evapolar/amazon-energy.webp",
+    "width": 1920,
+    "height": 785
+  },
+  "layouts": {
+    "path": "/assets/evapolar/layouts.webp",
+    "width": 2400,
+    "height": 1793
+  },
+  "smart": {
+    "path": "/assets/evapolar/smart.webp",
+    "width": 1920,
+    "height": 1076
+  },
+  "amazon-variants": {
+    "path": "/assets/evapolar/amazon-variants.webp",
+    "width": 2400,
+    "height": 3709
+  },
+  "responsive-product": {
+    "path": "/assets/evapolar/responsive-product.webp",
+    "width": 2400,
+    "height": 2898
+  },
+  "loona-identity": {
+    "path": "/assets/evapolar/loona-identity.webp",
+    "width": 1840,
+    "height": 2300
+  },
+  "amazon-quiet": {
+    "path": "/assets/evapolar/amazon-quiet.webp",
+    "width": 1920,
+    "height": 1920
+  },
+  "pure": {
+    "path": "/assets/evapolar/pure.webp",
+    "width": 1920,
+    "height": 1076
+  },
+  "chill": {
+    "path": "/assets/evapolar/chill.webp",
+    "width": 1920,
+    "height": 1076
+  },
+  "amazon-assets": {
+    "path": "/assets/evapolar/amazon-assets.webp",
+    "width": 706,
+    "height": 4200
+  },
+  "loona-packaging": {
+    "path": "/assets/evapolar/loona-packaging.webp",
+    "width": 1840,
+    "height": 2300
+  },
+  "lifestyle": {
+    "path": "/assets/evapolar/lifestyle.webp",
+    "width": 1920,
+    "height": 957
+  },
+  "amazon-controls": {
+    "path": "/assets/evapolar/amazon-controls.webp",
+    "width": 1920,
+    "height": 1574
+  },
+  "loona-sleep": {
+    "path": "/assets/evapolar/loona-sleep.webp",
+    "width": 1753,
+    "height": 2300
+  },
+  "responsive-store": {
+    "path": "/assets/evapolar/responsive-store.webp",
+    "width": 2400,
+    "height": 2031
+  },
+  "render-detail": {
+    "path": "/assets/evapolar/render-detail.webp",
+    "width": 1920,
+    "height": 1121
+  }
+}

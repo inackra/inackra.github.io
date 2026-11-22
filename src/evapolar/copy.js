@@ -1,0 +1,68 @@
+export const evapolarCopy = {
+  ru: {
+    headline: 'Дизайн для DTC-магазина и Amazon',
+    intro: 'Evapolar продаёт компактные персональные охладители воздуха. Как единственный дизайнер, я отвечал за визуальные коммуникации и связал сайт, карточки товаров, кампании и упаковку общим визуальным языком.',
+    role: 'Senior Multidisciplinary Designer',
+    discipline: 'DTC / E-commerce',
+    impact: 'Результаты',
+    metrics: [
+      ['≈ $3M → $7M', 'Сезонная выручка бизнеса на Amazon'],
+      ['2 000+', 'Уникальных покупателей Evapolar × Loóna за первые четыре месяца'],
+      ['+20%', 'Рост продаж через email-кампании'],
+      ['70%+', 'Продуктовой фотографии заменили 3D-визуализацией'],
+    ],
+    note: 'Данные из презентации проекта. Рост выручки Amazon отражает работу команды, включая маркетинг и итерации на основе отзывов покупателей.',
+    schematic: 'Схема процесса',
+    play: 'Проиграть',
+    sections: {
+      store: ['Магазин и дизайн-система', 'Я создал библиотеку компонентов для сайта и применил её на страницах магазина. Общие блоки сохраняли визуальную иерархию при сборке разных страниц и адаптации под desktop, планшет и телефон.'],
+      amazon: ['Карточки и витрина Amazon', 'Вместе с маркетингом я обновил карточки товаров и витрины. Перестроил подачу продукта: изображения показывали сценарии использования, объясняли функции и выносили важные покупателю характеристики в отдельные блоки. Подготовил варианты для разных рынков.'],
+      launch: ['Запуск Evapolar × Loóna', 'Создал визуальный язык запуска, упаковку, лендинги и маркетинговые материалы. Кампания связывала лавандовый evaCHILL и год доступа к Loóna Plus одним предложением.'],
+      visual: ['Айдентика и переход на 3D', 'Я предложил и вёл переход к 3D-визуализации. Команда могла создавать новые ракурсы, объяснять устройство продукта и собирать сцены для разных моделей с меньшей зависимостью от фотосъёмок.'],
+      email: ['Email-кампании', 'Я отвечал за визуальный дизайн писем в рамках маркетинговых кампаний. По данным проекта, продажи через email выросли на 20%.'],
+    },
+    steps: {
+      store: ['Компоненты', 'Страница', 'Адаптация'],
+      amazon: ['Продукт', 'Преимущества', 'Локализация'],
+      visual: ['3D-модель', 'Ракурс', 'Сцена'],
+    },
+    evidence: {
+      components: 'Библиотека компонентов и стили сайта', layouts: 'Сетки и адаптивные правила', 'responsive-store': 'Магазин на desktop, телефоне и планшете', 'responsive-product': 'Адаптивные страницы продукта', 'responsive-editorial': 'Адаптивная редакционная страница',
+      'amazon-quiet': 'Немецкая карточка evaCHILL с визуализацией уровня шума', 'amazon-controls': 'Пояснения к панели управления evaSMART', 'amazon-locales': 'Витрины Amazon для разных рынков', 'amazon-variants': 'Рабочая матрица вариантов Amazon', 'amazon-assets': 'Библиотека материалов Amazon', 'amazon-energy': 'Сравнительный визуал для Amazon',
+      'loona-identity': 'Айдентика коллаборации Evapolar × Loóna', 'loona-packaging': 'Упаковка лавандового evaCHILL в материалах запуска', 'loona-sleep': 'Пост кампании о комфортном сне', 'loona-offer': 'Пост с предложением Loóna Plus', 'render-detail': '3D-визуализация сменного картриджа', chill: 'Продуктовая сцена evaCHILL', smart: 'Продуктовая сцена evaSMART', pure: 'Продуктовая сцена evaPURE', lifestyle: 'Графика Evapolar со сценарием использования',
+    },
+  },
+  en: {
+    headline: 'Designing for a DTC store and Amazon',
+    intro: 'Evapolar sells compact personal air coolers. As the sole designer responsible for visual communications, I brought the website, product listings, campaigns and packaging together through one visual language.',
+    role: 'Senior Multidisciplinary Designer',
+    discipline: 'DTC / E-commerce',
+    impact: 'Results',
+    metrics: [
+      ['≈ $3M → $7M', 'Seasonal Amazon revenue across the business'],
+      ['2,000+', 'Unique customers in the first four months of Evapolar × Loóna'],
+      ['+20%', 'Sales growth through email campaigns'],
+      ['70%+', 'Of product photography replaced with 3D visuals'],
+    ],
+    note: 'Figures come from the project presentation. Amazon revenue reflects the wider team’s work, including marketing and iterations informed by customer feedback.',
+    schematic: 'Process diagram',
+    play: 'Play',
+    sections: {
+      store: ['Storefront and design system', 'I built a reusable component library and applied it to the storefront. Shared sections kept the visual hierarchy consistent as pages were assembled and adapted for desktop, tablet and mobile.'],
+      amazon: ['Amazon listings and storefronts', 'I worked with marketing to refresh product listings and storefronts. I reworked the visual hierarchy around real use cases, annotated features and clear product information, then created variants for different markets.'],
+      launch: ['Evapolar × Loóna launch', 'I designed the launch identity, packaging, landing pages and campaign assets. The offer paired a lavender evaCHILL with a year of access to Loóna Plus.'],
+      visual: ['Brand identity and 3D production', 'I proposed and led the move to 3D imagery. The team could create new angles, illustrate product details and build scenes for different models with fewer dependencies on photoshoots.'],
+      email: ['Email campaigns', 'I owned the visual design of emails for marketing campaigns. Project figures show a 20% increase in sales through email campaigns.'],
+    },
+    steps: {
+      store: ['Components', 'Page', 'Breakpoints'],
+      amazon: ['Product', 'Benefits', 'Localisation'],
+      visual: ['3D model', 'Angle', 'Scene'],
+    },
+    evidence: {
+      components: 'Website component library and styles', layouts: 'Grids and responsive layout rules', 'responsive-store': 'Storefront on desktop, mobile and tablet', 'responsive-product': 'Responsive product pages', 'responsive-editorial': 'Responsive editorial page',
+      'amazon-quiet': 'German evaCHILL listing visual explaining noise levels', 'amazon-controls': 'Annotated evaSMART control panel', 'amazon-locales': 'Amazon storefronts for different markets', 'amazon-variants': 'Working matrix of Amazon variants', 'amazon-assets': 'Amazon asset library', 'amazon-energy': 'Comparison graphic for Amazon',
+      'loona-identity': 'Evapolar × Loóna collaboration identity', 'loona-packaging': 'Lavender evaCHILL packaging in the launch campaign', 'loona-sleep': 'Campaign post about sleep', 'loona-offer': 'Campaign post presenting Loóna Plus', 'render-detail': '3D render of the replaceable cartridge', chill: 'evaCHILL product scene', smart: 'evaSMART product scene', pure: 'evaPURE product scene', lifestyle: 'Evapolar lifestyle graphic',
+    },
+  },
+};
