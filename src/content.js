@@ -1,4 +1,4 @@
-export const EMAIL = 'info.inackra@gmail.com';
+export const EMAIL = 'hello@inackra.work';
 export const LINKEDIN = 'https://www.linkedin.com/in/yan-kavaleu-9879761b8/';
 export const PORTFOLIO = '/work/';
 
