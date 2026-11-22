@@ -314,8 +314,8 @@ html.is-scrubbing.lenis.lenis-stopped{overflow:hidden!important}
 .project-page .text-action,.project-neighbours .text-action,.visual-page .text-action{font-size:14px;min-height:44px;gap:12px}
 .project-page .text-action>.arrow,.project-neighbours .text-action>.arrow,.visual-page .text-action>.arrow{width:20px;height:20px}
 .aio-study .archive-filters :is(button,a){font-size:14px}
-.page-end-actions{position:relative;z-index:47;display:flex;justify-content:flex-end;padding:28px 0 50px}
-.back-to-top{min-height:44px;gap:12px;font-size:14px}
+
+
 .arrow.up{transform:rotate(-90deg)}
 .back-to-top:hover .arrow.up{transform:translateY(-3px) rotate(-90deg)}
 .case-image-preview{display:block;width:100%;padding:0;border:0;text-align:inherit}
@@ -337,7 +337,7 @@ html.is-scrubbing.lenis.lenis-stopped{overflow:hidden!important}
 .archive-filters a{text-decoration:none;color:inherit;font-family:inherit}.archive-filters a[aria-current=page]{background:#eee;color:#000;border-color:#eee}
 .hero-topline{font-size:14px;line-height:1.6}.hero-topline>span{max-width:100%}.hero-actions{flex-wrap:wrap;row-gap:16px}.hero-actions>.button,.hero-actions>.text-action{font-size:14px;min-height:44px}.hero-actions>.button{text-decoration:none}
 .carousel-controls{grid-template-columns:minmax(0,1fr) minmax(0,1fr) auto auto}.carousel-all-work,.carousel-visual-work{font-size:14px;min-height:44px;gap:12px}.carousel-dots{display:none}
-.footer-controls{flex-wrap:wrap}.footer-controls>button,.footer-controls>a{font-size:12px;min-height:44px}.footer-controls .back-to-top{gap:12px}
+.footer-controls{flex-wrap:wrap}.footer-controls>button,.footer-controls>a{font-size:12px;min-height:44px}
 html:not(.js) #boot-root{display:none}html:not(.js) .hero-line-inner,html:not(.js) .reveal{opacity:1;transform:none;filter:none}
 html:not(.js) .media-wall{display:block;columns:3;column-gap:12px}html:not(.js) .wall-cell{break-inside:avoid;margin-bottom:12px}html:not(.js) .aio-task-body{animation:none}
 a:focus-visible,button:focus-visible{outline:2px solid #eee;outline-offset:5px}
@@ -355,3 +355,8 @@ a:focus-visible,button:focus-visible{outline:2px solid #eee;outline-offset:5px}
 .brand-logo-adobe-semrush img{opacity:.8}.brand-logo-natasha-denona img,.brand-logo-le-papa img{opacity:.86}
 @media(max-width:1000px){.brand-list{grid-template-columns:repeat(3,minmax(0,1fr));column-gap:30px;row-gap:26px}}
 @media(max-width:700px){.hero-summary .hero-proof{font-size:12px;max-width:310px;margin-top:14px}.brand-list{grid-template-columns:repeat(2,minmax(0,1fr));column-gap:26px;row-gap:24px;margin-top:42px}.brand-logo{min-height:48px}.brand-logo img{width:calc(var(--logo-width)*.85)}}
+
+.floating-top{position:fixed;z-index:60;right:max(16px,env(safe-area-inset-right));bottom:max(16px,env(safe-area-inset-bottom))}
+.floating-top[hidden]{display:none}
+.floating-top .back-to-top{background:#090909}
+.floating-top .arrow{width:22px;height:22px}

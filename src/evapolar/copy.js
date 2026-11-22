@@ -13,7 +13,6 @@ export const evapolarCopy = {
     ],
     note: 'Данные из презентации проекта. Рост выручки Amazon отражает работу команды, включая маркетинг и итерации на основе отзывов покупателей.',
     schematic: 'Схема процесса',
-    play: 'Проиграть',
     sections: {
       store: ['Магазин и дизайн-система', 'Я создал библиотеку компонентов для сайта и применил её на страницах магазина. Общие блоки сохраняли визуальную иерархию при сборке разных страниц и адаптации под desktop, планшет и телефон.'],
       amazon: ['Карточки и витрина Amazon', 'Вместе с маркетингом я обновил карточки товаров и витрины. Перестроил подачу продукта: изображения показывали сценарии использования, объясняли функции и выносили важные покупателю характеристики в отдельные блоки. Подготовил варианты для разных рынков.'],
@@ -46,7 +45,6 @@ export const evapolarCopy = {
     ],
     note: 'Figures come from the project presentation. Amazon revenue reflects the wider team’s work, including marketing and iterations informed by customer feedback.',
     schematic: 'Process diagram',
-    play: 'Play',
     sections: {
       store: ['Storefront and design system', 'I built a reusable component library and applied it to the storefront. Shared sections kept the visual hierarchy consistent as pages were assembled and adapted for desktop, tablet and mobile.'],
       amazon: ['Amazon listings and storefronts', 'I worked with marketing to refresh product listings and storefronts. I reworked the visual hierarchy around real use cases, annotated features and clear product information, then created variants for different markets.'],
