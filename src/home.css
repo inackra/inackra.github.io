@@ -38,8 +38,9 @@ html.theme-swap,html.theme-swap *{transition:background-color .5s,color .5s!impo
 .home-card .case-card-body{padding:36px 34px 32px}
 .home-card .case-head h3{font-size:clamp(48px,5.6vw,84px);line-height:1.05}
 .home-card .case-bottom{margin-top:auto}
-.home-card-link:after{content:'';position:absolute;inset:0;z-index:1}
-.home-card .case-card-body{cursor:pointer}
+.home-card .case-bottom{display:flex;align-items:flex-end;justify-content:space-between;gap:24px}
+.home-card .case-line{max-width:360px}
+.home-card-link{flex:none;pointer-events:auto}
 
 /* Menu */
 .menu-about{width:min(var(--content-width),calc(100% - var(--page-gutter)*2));margin:34px auto 0;padding-right:min(240px,20%);font-size:16px;line-height:1.6;color:color-mix(in srgb,var(--fg) 55%,var(--bg));position:relative;z-index:1}
@@ -76,3 +77,16 @@ html.theme-swap,html.theme-swap *{transition:background-color .5s,color .5s!impo
 .carousel-arrows button:hover{background:var(--fg);color:var(--bg)}
 .archive-filters :is(button,a){border:0;background:color-mix(in srgb,var(--fg) 7%,var(--bg))}
 .archive-filters :is(button,a):is([aria-pressed=true],[aria-current=page]){background:var(--fg);color:var(--bg)}
+
+/* Menu links roll as whole words: per-letter cells clipped tight large type. */
+.menu-roll{position:relative;display:inline-block;overflow:hidden;line-height:1.12;padding:.06em .08em .1em 0;margin:-.06em 0 -.1em}
+.menu-roll>span{display:block;white-space:nowrap;transition:transform .6s cubic-bezier(.65,0,.35,1)}
+.menu-roll>span+span{position:absolute;left:0;top:.06em;transform:translateY(110%)}
+.menu-links>a:is(:hover,:focus-visible) .menu-roll>span:first-child{transform:translateY(-110%)}
+.menu-links>a:is(:hover,:focus-visible) .menu-roll>span+span{transform:none}
+.menu-links>a{letter-spacing:-.055em}
+@media(prefers-reduced-motion:reduce){.menu-roll>span{transition:none}}
+::view-transition-old(root),::view-transition-new(root){animation:none;mix-blend-mode:normal}
+::view-transition-new(root){z-index:2}
+@media(max-width:700px){.home-card .case-bottom{flex-direction:column;align-items:flex-start;gap:18px}}
+.demo-root .menu-links>a>span.menu-roll{font-size:inherit;letter-spacing:inherit;color:inherit}

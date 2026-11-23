@@ -4,7 +4,6 @@ import Arrow from '../Arrow';
 import Magnetic from '../Magnetic';
 import {MockStage} from './Mocks';
 import {copy,types,moods,niches,achievements,findNiche} from './data';
-import '@fontsource/cormorant-garamond/500-italic.css';
 import './studio.css';
 
 const reduced=()=>typeof matchMedia!=='undefined'&&matchMedia('(prefers-reduced-motion: reduce)').matches;
@@ -33,11 +32,12 @@ export default function Constructor({lang='ru',paused=false}){
  const d=copy[lang];
  const [step,setStep]=useState(0); // 0..2 choices, 3 generating, 4 result
  const [choice,setChoice]=useState({type:null,mood:null,niche:null});
- const [build,setBuild]=useState(0);
+ const [build,setBuild]=useState(0),[variant,setVariant]=useState(()=>Math.floor(Math.random()*3));
  const [proof,setProof]=useState(0),[phase,setPhase]=useState(0);
  const [form,setForm]=useState({task:'',contact:''}),[status,setStatus]=useState('idle');
  const top=useRef(null);
  const niche=findNiche(choice.niche);
+ const label=(list,id)=>list.find(x=>x.id===id)?.[lang]||'';
 
  // Generation: a few seconds of proof, then the mock-up.
  useEffect(()=>{
@@ -45,7 +45,8 @@ export default function Constructor({lang='ru',paused=false}){
   const fast=paused||reduced(),total=fast?1200:4600,list=achievements[lang];
   setProof(0);setPhase(0);
   const ticks=[setInterval(()=>setProof(p=>(p+1)%list.length),fast?600:1500),setInterval(()=>setPhase(p=>Math.min(p+1,d.generating.length-1)),total/d.generating.length)];
-  const done=setTimeout(()=>{setBuild(b=>b+1);setStep(4)},total);
+  // Each build moves to the next layout (the first one is random), so rebuilds never repeat.
+  const done=setTimeout(()=>{setBuild(b=>b+1);setVariant(v=>(v+1)%3);setStep(4)},total);
   return()=>{ticks.forEach(clearInterval);clearTimeout(done)};
  },[step,lang,paused,d.generating.length]);
 
@@ -91,14 +92,15 @@ export default function Constructor({lang='ru',paused=false}){
   {step===4&&<div className="studio-result">
    <div className="result-head">
     <h2 className="result-title"><Accent text={d.summary}/></h2>
-    <div className="result-actions"><span className="result-hint">{d.hint}</span><Magnetic type="button" className="mag-small" onClick={restart}><span>{d.restart}</span><Arrow/></Magnetic></div>
+    <div className="result-actions"><span className="result-hint">{d.hint}</span><Magnetic type="button" className="mag-small mag-solid" onClick={()=>go(3)}><span>{d.another}</span></Magnetic><Magnetic type="button" className="mag-small" onClick={restart}><span>{d.restart}</span><Arrow/></Magnetic></div>
    </div>
-   <MockStage key={build} type={choice.type} mood={choice.mood} niche={niche} paused={paused}/>
+   <MockStage key={build} type={choice.type} mood={choice.mood} niche={niche} paused={paused} variant={variant}/>
    <div className="order">
-    <div className="order-copy"><h2>{d.order[0]}<br/><em>{d.order[1]}</em></h2><p>{d.orderText}</p></div>
+    <div className="order-copy"><h2>{d.order[0]}<br/><em>{d.order[1]}</em></h2><p>{d.orderText}</p><ul className="order-promise">{d.promise.map(x=><li key={x}>{x}</li>)}</ul></div>
     {status==='sent'
      ?<div className="order-sent"><h3>{d.sentTitle}</h3><p>{d.sentText}</p><div className="order-sent-actions"><Magnetic as="a" className="mag-solid" href="#more"><span>{d.seeWork}</span><Arrow/></Magnetic><Magnetic type="button" onClick={restart}><span>{d.playMore}</span></Magnetic></div></div>
      :<form className="order-form" onSubmit={submit} noValidate>
+      <div className="order-brief"><span>{d.brief}</span>{[label(types,choice.type),label(moods,choice.mood),label(niches,choice.niche)].map(x=><b key={x}>{x}</b>)}</div>
       <label>{d.task}<textarea rows={3} maxLength={2000} placeholder={d.taskHint} value={form.task} onChange={e=>{setForm({...form,task:e.target.value});setStatus('idle')}}/></label>
       <label>{d.contact}<input maxLength={200} autoComplete="email" placeholder="you@mail.com / @telegram" value={form.contact} onChange={e=>{setForm({...form,contact:e.target.value});setStatus('idle')}}/></label>
       <div className="order-submit"><Magnetic type="submit" className="mag-solid"><span>{d.send}</span><Arrow/></Magnetic><span className={`order-status ${status}`} role="status">{status==='invalid'?d.required:d.demoNote}</span></div>

@@ -1,4 +1,4 @@
-import React,{useLayoutEffect,useRef} from 'react';
+import React,{useEffect,useLayoutEffect,useRef} from 'react';
 import gsap from 'gsap';
 import {createField,sampleField,prepareField} from './waveField';
 import {fieldInk,setInk,THEME_INK} from './motionPalette';
@@ -38,13 +38,17 @@ function textCloud(element){
 }
 
 export default function MotionField({menuCanvas,lang,paused,enabled=true,theme='dark'}){
- const canvas=useRef(null);
+ const canvas=useRef(null),themeRef=useRef(theme),retint=useRef();
+ themeRef.current=theme;
+ // A theme change re-inks the field in place; restarting it would replay every text reveal.
+ useEffect(()=>{retint.current?.(theme)},[theme]);
  useLayoutEffect(()=>{
   if(!enabled)return;
   const cv=canvas.current,c=cv.getContext('2d'),scope=cv.closest('.demo-root');if(!c||!scope)return;
   let width=0,height=0,raf=0,last=0,dead=false,clouds=[],trails=[],waves=[],particles=[],lastWave=0,headerBottom=0,animations=[],observers=[],fontsReady=false,input=null,cursor=null,lastTrail=0;
-  const ink=THEME_INK[theme]||THEME_INK.dark;setInk(ink);const inkText=a=>`rgba(${ink[0]},${ink[1]},${ink[2]},${a})`;
-  const atlas=createGlyphAtlas();
+  let ink=THEME_INK[themeRef.current]||THEME_INK.dark;setInk(ink);const inkText=a=>`rgba(${ink[0]},${ink[1]},${ink[2]},${a})`;
+  let atlas=createGlyphAtlas();
+  retint.current=t=>{ink=THEME_INK[t]||THEME_INK.dark;setInk(ink);atlas=createGlyphAtlas()};
   const idle=document.createElement('canvas'),idleContext=idle.getContext('2d');
   const cached=!!idleContext?.fillText;let strip=0,lastIdle=0;
   const paintIdle=(time,all=false)=>{
@@ -146,7 +150,7 @@ export default function MotionField({menuCanvas,lang,paused,enabled=true,theme='
   document.fonts.load('500 16px "Manrope Variable"').then(()=>document.fonts.ready).catch(()=>{}).then(()=>{if(!dead){fontsReady=true;scan()}});
   document.addEventListener('pointermove',pointer,{passive:true});document.addEventListener('pointerdown',pointer,{passive:true});document.addEventListener('touchmove',touch,{passive:true});
   window.addEventListener('resize',resize,{passive:true});const visibility=()=>{if(!document.hidden)schedule()};document.addEventListener('visibilitychange',visibility);
-  return()=>{dead=true;cancelAnimationFrame(raf);mutations.disconnect();observers.forEach(o=>o.disconnect());animations.forEach(a=>{a.kill()});scope.querySelectorAll('[data-motion-text]').forEach(el=>gsap.set(el,{clearProps:'filter,transform,opacity'}));document.removeEventListener('pointermove',pointer);document.removeEventListener('pointerdown',pointer);document.removeEventListener('touchmove',touch);window.removeEventListener('rail-scrub-start',settle);window.removeEventListener('resize',resize);document.removeEventListener('visibilitychange',visibility)};
- },[lang,paused,enabled,theme]);
+  return()=>{dead=true;retint.current=null;cancelAnimationFrame(raf);mutations.disconnect();observers.forEach(o=>o.disconnect());animations.forEach(a=>{a.kill()});scope.querySelectorAll('[data-motion-text]').forEach(el=>gsap.set(el,{clearProps:'filter,transform,opacity'}));document.removeEventListener('pointermove',pointer);document.removeEventListener('pointerdown',pointer);document.removeEventListener('touchmove',touch);window.removeEventListener('rail-scrub-start',settle);window.removeEventListener('resize',resize);document.removeEventListener('visibilitychange',visibility)};
+ },[lang,paused,enabled]);
  return <canvas ref={canvas} className="site-binary-field" aria-hidden="true"/>;
 }

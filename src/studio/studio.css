@@ -1,21 +1,21 @@
-/* Homepage constructor. Monochrome site tokens (--bg/--fg), Manrope, and
-   Cormorant Garamond italic as the accent family. No outlines anywhere. */
-.studio{--serif:'Cormorant Garamond',Georgia,serif;--ease:cubic-bezier(.65,0,.35,1);--out:cubic-bezier(.16,1,.3,1);--soft:color-mix(in srgb,var(--fg) 7%,var(--bg));--dim:color-mix(in srgb,var(--fg) 55%,var(--bg));position:relative;min-height:100svh;padding:120px 0 80px;display:flex;flex-direction:column;justify-content:center}
+/* Homepage constructor. Monochrome site tokens (--bg/--fg), one family
+   (Manrope): the accent word is set in the muted tone. No outlines anywhere. */
+.studio{--ease:cubic-bezier(.65,0,.35,1);--out:cubic-bezier(.16,1,.3,1);--soft:color-mix(in srgb,var(--fg) 7%,var(--bg));--dim:color-mix(in srgb,var(--fg) 55%,var(--bg));position:relative;min-height:100svh;padding:120px 0 80px;display:flex;flex-direction:column;justify-content:center}
 /* Controls and the result sit above the number field (z 46), below the header. */
 .studio-step,.studio-result{position:relative;z-index:47}
-.studio em{font-family:var(--serif);font-style:italic;font-weight:500;letter-spacing:-.025em}
+.studio em{font-style:normal;color:var(--dim)}
 
 /* Intro: everything on one centre line. */
 .studio-hero{display:flex;flex-direction:column;align-items:center;text-align:center}
 .studio h1{font-size:clamp(52px,7.4vw,124px);line-height:.98;letter-spacing:-.075em;font-weight:500;text-wrap:balance;max-width:14ch}
 .studio h1 .accent{color:var(--dim)}
-.studio h1 em{font-size:1.12em;line-height:.8;letter-spacing:-.035em;padding-right:.04em}
+
 .studio-text{max-width:520px;margin-top:28px;font-size:17px;line-height:1.6;color:var(--dim);letter-spacing:-.02em;text-wrap:balance}
 
 /* Step */
 .studio-step{display:flex;flex-direction:column;align-items:center;margin-top:64px;animation:studio-enter .7s var(--out) backwards}
 .studio-question{font-size:clamp(28px,2.6vw,40px);line-height:1.1;letter-spacing:-.055em;margin-bottom:30px}
-.studio-question em{font-size:1.15em}
+
 @keyframes studio-enter{from{opacity:0;filter:blur(10px);transform:translateY(18px)}to{opacity:1;filter:none;transform:none}}
 .studio-options{display:flex;flex-wrap:wrap;justify-content:center;gap:14px;max-width:980px}
 .studio-options .mag{animation:studio-enter .7s var(--out) backwards;animation-delay:calc(var(--i)*60ms + 120ms)}
@@ -39,12 +39,12 @@
 .mag-solid .mag-label,.mag-solid:hover .mag-label{color:var(--bg)}
 .mag-small{height:52px;padding:0 28px;border-radius:26px;font-size:15px}
 .opt-icon{width:20px;height:20px;flex:none}
-.opt-swatch{display:inline-flex;flex:none}
+.opt-swatch{display:inline-flex;flex:none;width:48px}
 .opt-swatch i{display:block;width:18px;height:18px;border-radius:50%;margin-left:-6px;box-shadow:0 0 0 2px var(--soft);transition:box-shadow .45s var(--ease),transform .45s var(--out)}
 .opt-swatch i:first-child{margin-left:0}
 .mag:hover .opt-swatch i,.mag.is-active .opt-swatch i{box-shadow:0 0 0 2px var(--fg)}
 .mag:hover .opt-swatch i:nth-child(2){transform:translateX(3px)}.mag:hover .opt-swatch i:nth-child(3){transform:translateX(6px)}
-.mag:hover .opt-swatch,.mag.is-active .opt-swatch{margin-right:6px}
+
 
 /* Generating */
 .studio-gen{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;gap:22px;min-height:calc(100svh - 200px);animation:studio-enter .6s var(--out) both}
@@ -62,15 +62,22 @@
 .studio-result{animation:studio-enter .8s var(--out) backwards}
 .result-head{display:flex;justify-content:space-between;align-items:center;gap:30px;margin-bottom:30px}
 .result-title{font-size:clamp(40px,4.6vw,72px);letter-spacing:-.065em;line-height:1}
-.result-title em{font-size:1.12em}
-.result-actions{display:flex;align-items:center;gap:26px}
+
+.result-actions{display:flex;align-items:center;flex-wrap:wrap;gap:10px}
+.result-hint{margin-right:14px}
 .result-hint{font-size:14px;color:var(--dim)}
 @media(hover:none){.result-hint{display:none}}
 
-.order{position:relative;z-index:3;display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:50px;margin:-110px 4% 0;padding:44px;background:color-mix(in srgb,color-mix(in srgb,var(--fg) 6%,var(--bg)) 94%,transparent);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);border-radius:28px;box-shadow:0 -30px 80px color-mix(in srgb,var(--bg) 40%,transparent);animation:studio-enter .9s .9s var(--out) both}
+.order{position:relative;z-index:3;display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:50px;margin:-36px 4% 0;padding:44px;background:color-mix(in srgb,color-mix(in srgb,var(--fg) 6%,var(--bg)) 94%,transparent);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);border-radius:28px;animation:studio-enter .9s .9s var(--out) both}
 .order h2{font-size:clamp(40px,4.6vw,74px);line-height:1;letter-spacing:-.065em}
-.order h2 em{font-size:1.14em;color:var(--dim)}
+
 .order-copy p{margin-top:22px;max-width:420px;font-size:15px;line-height:1.65;color:var(--dim)}
+.order-promise{list-style:none;margin:26px 0 0;padding:0;display:flex;flex-direction:column;gap:10px;font-size:14px}
+.order-promise li{display:flex;align-items:center;gap:12px}
+.order-promise li:before{content:'';width:8px;height:8px;border-radius:50%;background:var(--fg);flex:none}
+.order-brief{display:flex;flex-wrap:wrap;align-items:center;gap:8px;margin-bottom:18px;font-size:13px;color:var(--dim)}
+.order-brief span{margin-right:4px}
+.order-brief b{font-weight:500;color:var(--fg);background:color-mix(in srgb,var(--fg) 9%,var(--bg));padding:6px 12px;border-radius:999px}
 .order-form label{display:block;font-size:14px;color:var(--dim);margin-bottom:16px}
 .order-form textarea,.order-form input{display:block;width:100%;margin-top:10px;font-size:16px;line-height:1.5;color:var(--fg);background:color-mix(in srgb,var(--fg) 7%,var(--bg));border:0;border-radius:18px;padding:16px 20px;resize:none;transition:background .3s}
 .order-form textarea{min-height:96px}
@@ -91,10 +98,10 @@
 .mock small{font-size:11px;color:var(--m-muted)}
 .mock .m-display{font-weight:600;letter-spacing:-.055em;line-height:1}
 .mock.mood-bright .m-display{font-weight:800;letter-spacing:-.07em}
-.mock.mood-twist .m-display{font-family:'Cormorant Garamond',Georgia,serif;font-style:italic;font-weight:500;letter-spacing:-.03em}
+.mock.mood-twist .m-display{font-weight:300;letter-spacing:-.065em}
 .mock .m-display em{font-style:normal;color:var(--m-muted)}
 .mock.mood-bright .m-display em{color:var(--m-ink)}
-.mock.mood-twist .m-display em{font-style:italic;color:var(--m-accent)}
+.mock.mood-twist .m-display em{color:var(--m-accent)}
 .mock.mood-strict .m-display em{color:var(--m-accent)}
 
 .m-in{animation:m-rise .8s var(--out,cubic-bezier(.16,1,.3,1)) both;animation-delay:calc(var(--i,0)*80ms + 200ms)}

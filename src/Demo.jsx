@@ -1,4 +1,5 @@
 import React,{useState,useRef,useEffect} from 'react';
+import {flushSync} from 'react-dom';
 import MotionField from './MotionField';
 import FlipText from './FlipText';
 import CaseCard from './CaseCard';
@@ -44,7 +45,15 @@ export default function Demo({initialPath='/',ready=true}){
  const [theme,setTheme]=useState('dark');
  useEffect(()=>{const t=document.documentElement.dataset.theme;if(t==='light'||t==='dark')setTheme(t);else if(matchMedia('(prefers-color-scheme: light)').matches)setTheme('light')},[]);
  useEffect(()=>{document.documentElement.dataset.theme=theme},[theme]);
- const toggleTheme=()=>{const next=theme==='dark'?'light':'dark',html=document.documentElement;html.classList.add('theme-swap');setTimeout(()=>html.classList.remove('theme-swap'),650);setTheme(next);try{localStorage.setItem('inackra-theme',next)}catch{}};
+ // The new theme rises over the page like the button fill: a wide ellipse from the bottom edge.
+ const toggleTheme=()=>{
+  const next=theme==='dark'?'light':'dark',html=document.documentElement;
+  try{localStorage.setItem('inackra-theme',next)}catch{}
+  const apply=()=>{flushSync(()=>setTheme(next));html.dataset.theme=next};
+  if(!document.startViewTransition||paused||matchMedia('(prefers-reduced-motion: reduce)').matches){html.classList.add('theme-swap');setTimeout(()=>html.classList.remove('theme-swap'),650);apply();return}
+  const swap=document.startViewTransition(apply);
+  swap.ready.then(()=>html.animate({clipPath:['ellipse(160% 0% at 50% 100%)','ellipse(160% 82% at 50% 100%)','ellipse(160% 210% at 50% 100%)']},{duration:1000,easing:'cubic-bezier(.65,0,.35,1)',pseudoElement:'::view-transition-new(root)'})).catch(()=>{});
+ };
  const [menu,setMenu]=useState(false);
  const [paused,setPaused]=useState(false);
  const [showTop,setShowTop]=useState(false);
@@ -83,12 +92,12 @@ export default function Demo({initialPath='/',ready=true}){
    <a className="wordmark" href={archive||privacy||casePage?homeUrl(lang):'#top'} aria-label="INACKRA — на главную"><img src="/assets/inackra.svg" width="180" height="37" alt="INACKRA"/></a>
    <div className="header-controls"><div className="language" aria-label="Language"><a aria-current={lang==='ru'?'page':undefined} href={languageUrl(path,'ru')}>RU</a><a aria-current={lang==='en'?'page':undefined} href={languageUrl(path,'en')}>EN</a></div><Magnetic className="menu-toggle mag-small" aria-label={menu?d.close:d.menu} strength={14} textStrength={8} aria-expanded={menu} aria-controls="site-menu" onClick={()=>setMenu(!menu)}><span>{menu?d.close:d.menu}</span><span className={`menu-dots${menu?' open':''}`} aria-hidden="true"><i/><i/></span></Magnetic></div>
   </header>
-  {menu&&<nav className="menu-panel" id="site-menu"><canvas ref={menuCanvas} className="menu-binary-field" aria-hidden="true"/><div className="menu-links">{[[workUrl(lang),d.allWork,false],[workUrl(lang,'cases'),d.products,false],['/assets/Yan-Kavaleu-CV.pdf','CV',true]].map(([href,label,file])=><a data-motion-text="true" data-motion-state="waiting" key={label} href={href} onClick={()=>setMenu(false)} download={file||undefined}><FlipText>{label}</FlipText><Arrow down={file}/></a>)}</div><p className="menu-about" data-motion-text="true" data-motion-state="waiting">{d.aboutText}</p><div className="menu-bottom"><a data-motion-text="true" data-motion-state="waiting" href={`mailto:${EMAIL}`}>{EMAIL}</a><a data-motion-text="true" data-motion-state="waiting" href={LINKEDIN} target="_blank" rel="noreferrer">LinkedIn<Arrow/></a></div></nav>}
+  {menu&&<nav className="menu-panel" id="site-menu"><canvas ref={menuCanvas} className="menu-binary-field" aria-hidden="true"/><div className="menu-links">{[[workUrl(lang),d.allWork,false],[workUrl(lang,'cases'),d.products,false],['/assets/Yan-Kavaleu-CV.pdf','CV',true]].map(([href,label,file])=><a data-motion-text="true" data-motion-state="waiting" key={label} href={href} onClick={()=>setMenu(false)} download={file||undefined}><span className="menu-roll"><span>{label}</span><span aria-hidden="true">{label}</span></span><Arrow down={file}/></a>)}</div><p className="menu-about" data-motion-text="true" data-motion-state="waiting">{d.aboutText}</p><div className="menu-bottom"><a data-motion-text="true" data-motion-state="waiting" href={`mailto:${EMAIL}`}>{EMAIL}</a><a data-motion-text="true" data-motion-state="waiting" href={LINKEDIN} target="_blank" rel="noreferrer">LinkedIn<Arrow/></a></div></nav>}
   <main id="main">{visualId?<VisualPage id={visualId} lang={lang} paused={paused||menu}/>:casePage?<ProjectPage id={caseId} initialTask={route.task} cases={cases} lang={lang} paused={paused||menu}/>:privacy?<PrivacyPage lang={lang}/>:archive?<Gallery initialFilter={route.filter} cases={cases} renderCard={renderCard} lang={lang} paused={paused||menu}/>:<>{/* Home: the constructor, then two doors into the work. */}
    <Constructor lang={lang} paused={paused||menu}/>
    <section id="more" className="home-more" aria-label={d.moreLabel}><div className="home-cards">{[[workUrl(lang),d.allWork,d.allWorkMeta,d.allWorkLine,d.allWorkOpen],[workUrl(lang,'cases'),d.products,d.productsMeta,d.productsLine,d.productsOpen]].map(([href,title,meta,line,open],i)=><CaseCard key={href} id={`home-${i?'products':'work'}`} className="home-card" paused={paused||menu}>
     <div className="case-head"><div className="case-meta"><span data-motion-text="true" data-motion-state="waiting">{String(i+1).padStart(2,'0')} / 02</span><span data-motion-text="true" data-motion-state="waiting">{meta}</span></div><h3 id={`home-${i?'products':'work'}-title`} data-motion-text="true" data-motion-state="waiting">{title}</h3></div>
-    <div className="case-bottom"><p data-motion-text="true" data-motion-state="waiting" className="case-line">{line}</p><a data-motion-text="true" data-motion-state="waiting" className="case-open home-card-link" href={href}><FlipText>{open}</FlipText><Arrow/></a></div>
+    <div className="case-bottom"><p data-motion-text="true" data-motion-state="waiting" className="case-line">{line}</p><Magnetic as="a" className="mag-small mag-solid home-card-link" href={href}><span>{open}</span><Arrow/></Magnetic></div>
    </CaseCard>)}</div></section>
   </>}</main>
   <footer className="site-footer"><a href={homeUrl(lang)} className="footer-name" aria-label="INACKRA — на главную"><img src="/assets/inackra.svg" width="180" height="37" alt="INACKRA"/></a><span data-motion-text="true" data-motion-state="waiting">{d.footer}<br/>© 2026</span><div className="footer-controls"><a href={`${homeUrl(lang)}privacy/`}><FlipText>{lang==='ru'?'Конфиденциальность':'Privacy'}</FlipText></a><button data-motion-text="true" data-motion-state="waiting" aria-pressed={paused} onClick={()=>setPaused(!paused)}><FlipText>{paused?d.resume:d.pause}</FlipText></button></div></footer>
