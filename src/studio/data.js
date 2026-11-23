@@ -1,0 +1,134 @@
+// Content for the homepage constructor (/demo/). The mock-ups are assembled
+// from parts: product type (layout) × mood (theme) × niche (copy, data, accent).
+
+export const copy={
+ ru:{
+  label:'Yan Kavaleu / Конструктор продукта',
+  title:['Собери продукт.','За минуту.'],
+  text:'Три шага, и ты увидишь, как может выглядеть твой продукт. Настоящий я соберу под ключ: продукт, бренд и рабочий прототип.',
+  steps:['Что делаем?','Какое настроение?','Для какой сферы?'],
+  next:'Дальше',build:'Собрать',back:'Назад',presets:'Или начни с готового',
+  generating:['Собираю палитру','Подбираю шрифты','Раскладываю сетку','Оживляю экраны'],
+  meanwhile:'Пока собирается:',
+  summary:'Твой продукт',edit:'Изменить',restart:'Собрать заново',
+  order:['Ну что,','заказываем?'],orderText:'Это 10 секунд машины. Настоящий продукт сделаю с исследованием, брендом и прототипом. Опиши задачу, я отвечу в течение дня.',
+  task:'Коротко о задаче',taskHint:'Например: MVP финтех-приложения, запуск весной',contact:'Почта или Telegram',send:'Отправить',
+  sentTitle:'Принял.',sentText:'Твоя сборка и описание у меня. Отвечу в течение дня.',seeWork:'Посмотреть работы',playMore:'Собрать ещё',
+  required:'Заполни задачу и контакт',demoNote:'Демо: отправка пока не подключена.',
+  hint:'Наведи курсор на макет',
+ },
+ en:{
+  label:'Yan Kavaleu / Product builder',
+  title:['Build a product.','In a minute.'],
+  text:'Three steps to see how your product could look. The real one I build end to end: product, brand and a working prototype.',
+  steps:['What are we making?','Pick a mood','Pick a field'],
+  next:'Next',build:'Build it',back:'Back',presets:'Or start from a preset',
+  generating:['Mixing the palette','Pairing fonts','Laying out the grid','Bringing screens to life'],
+  meanwhile:'While it builds:',
+  summary:'Your product',edit:'Change',restart:'Start over',
+  order:['Shall we','make it real?'],orderText:'That was 10 seconds of a machine. The real product comes with research, a brand and a prototype. Describe the task, I reply within a day.',
+  task:'The task in short',taskHint:'E.g. a fintech app MVP, launching in spring',contact:'Email or Telegram',send:'Send',
+  sentTitle:'Got it.',sentText:'Your build and notes are with me. I’ll reply within a day.',seeWork:'See my work',playMore:'Build another',
+  required:'Add the task and a contact',demoNote:'Demo: sending is not connected yet.',
+  hint:'Move the cursor over the mock-up',
+ },
+};
+
+export const types=[
+ {id:'site',ru:'Сайт',en:'Website',noteRu:'Лендинг или сайт продукта',noteEn:'Landing or product site'},
+ {id:'app',ru:'Мобильное приложение',en:'Mobile app',noteRu:'iOS и Android',noteEn:'iOS and Android'},
+ {id:'saas',ru:'Инструмент',en:'SaaS tool',noteRu:'SaaS, дашборд, админка',noteEn:'SaaS, dashboard, admin'},
+];
+
+export const moods=[
+ {id:'strict',ru:'Сдержанно',en:'Calm',noteRu:'Чисто, точно, по-швейцарски',noteEn:'Clean, precise, Swiss'},
+ {id:'bright',ru:'Смело',en:'Bold',noteRu:'Громкий цвет и крупный шрифт',noteEn:'Loud colour, big type'},
+ {id:'twist',ru:'С изюминкой',en:'Twisted',noteRu:'Тёмный, тёплый, с характером',noteEn:'Dark, warm, with character'},
+];
+
+export const presets=[
+ {ru:'AI-ассистент',en:'AI assistant',type:'saas',mood:'strict',niche:'ai'},
+ {ru:'Крипто-кошелёк',en:'Crypto wallet',type:'app',mood:'bright',niche:'crypto'},
+ {ru:'Трэвел-сервис',en:'Travel service',type:'site',mood:'twist',niche:'travel'},
+ {ru:'Интернет-магазин',en:'Online store',type:'site',mood:'bright',niche:'ecom'},
+ {ru:'Банк в телефоне',en:'Mobile bank',type:'app',mood:'twist',niche:'fintech'},
+];
+
+// Proof shown while the mock-up "builds". Figures from the case studies.
+export const achievements={
+ ru:[
+  ['$3M → $7M','выручка Evapolar на Amazon после ребрендинга'],
+  ['15 минут','вместо нескольких часов на лендинг в Semrush'],
+  ['800+','макетов за 3 месяца: лендинги, визуалы и рассылки Semrush'],
+  ['2 000+','покупателей Evapolar × Loóna за первые 4 месяца'],
+  ['8 лет','в продуктах, брендинге и моушене'],
+ ],
+ en:[
+  ['$3M → $7M','Evapolar revenue on Amazon after the rebrand'],
+  ['15 min','instead of hours to build a Semrush landing page'],
+  ['800+','layouts in 3 months: Semrush landings, visuals, emails'],
+  ['2,000+','Evapolar × Loóna customers in the first 4 months'],
+  ['8 years','across product, brand and motion'],
+ ],
+};
+
+// Accent per mood: calm = quiet brand colour on paper, bold = the background
+// itself, twisted = a warm highlight on near-black.
+export const niches=[
+ {id:'ai',ru:'AI',en:'AI',accent:{strict:'#3b5bfd',bright:'#c6f432',twist:'#e8b27a'},
+  name:'Lumen',domain:'lumen.ai',headline:['Ask anything.','Get answers with sources.'],
+  sub:'An assistant that reads your documents and shows where every answer comes from.',cta:'Try Lumen',nav:['Product','Use cases','Pricing'],
+  hello:'Good morning, Anna',metric:{label:'Answers this week',value:1284,delta:'+18%'},
+  series:[18,22,20,31,28,36,34,45,41,52,58,66],
+  list:[['Contract review, Q4','12 sources','2m'],['Onboarding policy','4 sources','1h'],['Vendor risk summary','9 sources','3h']],
+  kpis:[['Docs indexed','12.4k'],['Avg. answer','3.2s'],['Accuracy','98%']],
+  side:['Assistant','Documents','Sources','Team','Settings'],features:['Cited answers','Private by default','Works in Slack'],
+  icons:['spark','docs','search','user'],toast:['Answer ready','Contract review, Q4']},
+ {id:'fintech',ru:'Финтех',en:'Fintech',accent:{strict:'#0f8a5f',bright:'#8b6cff',twist:'#d9c27a'},
+  name:'Rivo',domain:'rivo.money',headline:['Money that','moves with you.'],
+  sub:'Cards, savings and transfers in one calm app. No fees hiding in small print.',cta:'Open account',nav:['Cards','Savings','Business'],
+  hello:'Hi, Mark',metric:{label:'Balance',value:12480.2,prefix:'$',decimals:2,delta:'+$1,240'},
+  series:[40,42,38,47,52,49,58,61,57,66,72,78],
+  list:[['Salary','Today','+$4,200'],['Spotify','Yesterday','−$11.99'],['Coffee Lab','Mon','−$4.50']],
+  kpis:[['Revenue','$84.2k'],['Active cards','2,310'],['Churn','1.2%']],
+  side:['Overview','Cards','Payments','Customers','Settings'],features:['Instant transfers','Virtual cards','Smart savings'],
+  icons:['home','card','swap','user'],toast:['Payment received','+$4,200 from Acme']},
+ {id:'crypto',ru:'Крипто',en:'Crypto',accent:{strict:'#e0761a',bright:'#ff6a3d',twist:'#9fd3a8'},
+  name:'Kairo',domain:'kairo.xyz',headline:['Trade crypto','without the noise.'],
+  sub:'One wallet, live prices and alerts that only fire when it matters.',cta:'Get the app',nav:['Markets','Wallet','Earn'],
+  hello:'Portfolio',metric:{label:'BTC / USD',value:67412,prefix:'$',delta:'+2.4%'},
+  series:[52,48,55,50,61,58,54,63,70,66,74,71],
+  list:[['ETH','Ethereum','$3,512'],['SOL','Solana','$172.4'],['TON','Toncoin','$6.91']],
+  kpis:[['Volume 24h','$4.1M'],['Traders','18.6k'],['Fees saved','$92k']],
+  side:['Markets','Wallet','Orders','Alerts','Settings'],features:['Self-custody','Price alerts','Zero-fee swaps'],
+  icons:['chart','swap','card','user'],toast:['Alert','BTC crossed $67k']},
+ {id:'travel',ru:'Трэвел',en:'Travel',accent:{strict:'#1f7a8c',bright:'#ffd23f',twist:'#e39b7b'},
+  name:'Nomi',domain:'nomi.travel',headline:['Trips planned','in minutes.'],
+  sub:'Flights, stays and a day-by-day plan that adapts when plans change.',cta:'Plan a trip',nav:['Destinations','Stays','Guides'],
+  hello:'Where next, Lea?',metric:{label:'Days to Lisbon',value:12,delta:'Oct 12'},
+  series:[20,24,30,28,40,48,55,62,58,50,44,38],
+  list:[['Lisbon','4 nights · Oct 12','$640'],['Kyoto','7 nights · Nov 3','$1,380'],['Tbilisi','3 nights · Dec 1','$410']],
+  kpis:[['Bookings','3,920'],['Avg. trip','5.4 days'],['Rating','4.9']],
+  side:['Trips','Bookings','Guests','Partners','Settings'],features:['Smart itineraries','Price tracking','Offline maps'],
+  icons:['map','heart','search','user'],toast:['Price dropped','Lisbon, −$84']},
+ {id:'health',ru:'Здоровье',en:'Health',accent:{strict:'#d2435b',bright:'#ff9cc0',twist:'#b9d4a3'},
+  name:'Pulse',domain:'pulse.health',headline:['Sleep better.','Every night.'],
+  sub:'A gentle coach that turns your sleep data into one small change a day.',cta:'Start free',nav:['How it works','Science','Plans'],
+  hello:'Morning, Sam',metric:{label:'Sleep score',value:86,delta:'+6'},
+  series:[62,70,66,74,71,78,75,80,77,83,81,86],
+  list:[['Deep sleep','Last night','1h 52m'],['REM','Last night','2h 05m'],['Resting HR','Average','54 bpm']],
+  kpis:[['Active users','42k'],['Avg. score','81'],['Retention','74%']],
+  side:['Today','Sleep','Habits','Coach','Settings'],features:['Sleep coaching','Habit streaks','Wearable sync'],
+  icons:['heart','chart','spark','user'],toast:['New record','Deep sleep +18 min']},
+ {id:'ecom',ru:'E-commerce',en:'E-commerce',accent:{strict:'#8a5a3c',bright:'#4ad0ff',twist:'#e7c9a9'},
+  name:'Forma',domain:'forma.store',headline:['Objects for','slow living.'],
+  sub:'Ceramics, linen and wood from small studios across Europe.',cta:'Shop now',nav:['Shop','Studios','Journal'],
+  hello:'New in',metric:{label:'Orders today',value:128,delta:'+24%'},
+  series:[30,34,29,41,45,43,52,49,60,64,61,72],
+  list:[['Stone Vase','Studio Aro','$64'],['Linen Throw','Lino','$120'],['Oak Tray','Woodlab','$48']],
+  kpis:[['Revenue','$38.9k'],['Orders','1,204'],['Avg. order','$72']],
+  side:['Orders','Products','Customers','Studios','Settings'],features:['Free returns','Small studios','Carbon-neutral'],
+  icons:['bag','heart','search','user'],toast:['New order','Stone Vase × 2']},
+];
+
+export const findNiche=id=>niches.find(n=>n.id===id)||niches[0];
