@@ -68,7 +68,7 @@
 .result-hint{font-size:14px;color:var(--dim)}
 @media(hover:none){.result-hint{display:none}}
 
-.order{position:relative;z-index:3;display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:50px;margin:-36px 4% 0;padding:44px;background:color-mix(in srgb,color-mix(in srgb,var(--fg) 6%,var(--bg)) 94%,transparent);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);border-radius:28px;animation:studio-enter .9s .9s var(--out) both}
+.order{position:relative;z-index:3;display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:50px;margin:24px 0 0;padding:44px;background:color-mix(in srgb,color-mix(in srgb,var(--fg) 6%,var(--bg)) 94%,transparent);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);border-radius:28px;animation:studio-enter .9s .9s var(--out) both}
 .order h2{font-size:clamp(40px,4.6vw,74px);line-height:1;letter-spacing:-.065em}
 
 .order-copy p{margin-top:22px;max-width:420px;font-size:15px;line-height:1.65;color:var(--dim)}
@@ -92,6 +92,8 @@
 
 /* ── Mock-ups ─────────────────────────────────────────────────────────── */
 .m-stage{position:relative;perspective:1800px}
+.m-stage *,.m-stage *:before,.m-stage *:after{box-sizing:border-box}
+.m-stage :is(h4,p,ol,ul){margin:0}
 .m-tilt{transform-style:preserve-3d;will-change:transform;transform-origin:50% 50%}
 .mock{transform-origin:0 0;font-family:'Manrope Variable',Manrope,sans-serif;color:var(--m-ink);letter-spacing:-.02em;line-height:1.35;font-size:14px}
 .mock b{font-weight:600}
@@ -239,7 +241,7 @@
 .m-tabbar span{width:48px;height:36px;display:grid;place-items:center;border-radius:12px;color:var(--m-muted)}
 .m-tabbar .on{background:var(--m-accent);color:var(--m-on-accent)}
 .mood-bright .m-tabbar .on{background:#0b0b0b;color:var(--m-hl)}
-.m-toast-app{left:18px;right:18px;top:52px}
+.m-toast-app{left:18px;right:18px;top:auto;bottom:92px}
 
 /* Website on a phone */
 .m-msite{gap:16px}
@@ -299,7 +301,7 @@
 .motion-paused .studio .m-in,.motion-paused .studio .m-line,.motion-paused .studio .m-area,.motion-paused .studio .m-dot,.motion-paused .studio .m-toast,.motion-paused .studio .studio-step,.motion-paused .studio .studio-options .mag,.motion-paused .studio .gen-bar i,.motion-paused .studio .order{animation-play-state:running;animation-duration:.01ms;animation-delay:0ms}
 
 @media(max-width:1000px){
- .order{grid-template-columns:1fr;gap:28px;margin:-60px 0 0}
+ .order{grid-template-columns:1fr;gap:28px;margin:20px 0 0}
 }
 @media(max-width:700px){
  .studio{padding:104px 0 56px;justify-content:flex-start}
