@@ -1,7 +1,7 @@
 import React,{useLayoutEffect,useRef} from 'react';
 import gsap from 'gsap';
 import {createField,sampleField,prepareField} from './waveField';
-import {fieldInk} from './motionPalette';
+import {fieldInk,setInk,THEME_INK} from './motionPalette';
 import {createGlyphAtlas,drawGlyph} from './glyphAtlas';
 const clamp=(n,a=0,b=1)=>Math.max(a,Math.min(b,n));
 const noise=n=>{const v=Math.sin(n*127.1+311.7)*43758.5453;return v-Math.floor(v)};
@@ -37,12 +37,13 @@ function textCloud(element){
  return {element,width,height,points:points.filter((_,i)=>i%Math.max(1,Math.ceil(points.length/2400))===0),progress:0};
 }
 
-export default function MotionField({menuCanvas,lang,paused,enabled=true}){
+export default function MotionField({menuCanvas,lang,paused,enabled=true,theme='dark'}){
  const canvas=useRef(null);
  useLayoutEffect(()=>{
   if(!enabled)return;
   const cv=canvas.current,c=cv.getContext('2d'),scope=cv.closest('.demo-root');if(!c||!scope)return;
   let width=0,height=0,raf=0,last=0,dead=false,clouds=[],trails=[],waves=[],particles=[],lastWave=0,headerBottom=0,animations=[],observers=[],fontsReady=false,input=null,cursor=null,lastTrail=0;
+  const ink=THEME_INK[theme]||THEME_INK.dark;setInk(ink);const inkText=a=>`rgba(${ink[0]},${ink[1]},${ink[2]},${a})`;
   const atlas=createGlyphAtlas();
   const idle=document.createElement('canvas'),idleContext=idle.getContext('2d');
   const cached=!!idleContext?.fillText;let strip=0,lastIdle=0;
@@ -76,14 +77,14 @@ export default function MotionField({menuCanvas,lang,paused,enabled=true}){
      if(time-lastWave>=100){waves.push({x:cursor.x,y:cursor.y,time,strength:width>=700?(.48+speed*.10):(.58+speed*.18),dirX:distance?(cursor.x-oldX)/distance:0,dirY:distance?(cursor.y-oldY)/distance:0});lastWave=time;}
     }
     trails=trails.filter(p=>time-p.time<1900);waves=waves.filter(p=>time-p.time<2100);
-    if(cached){if(time-lastIdle>100){paintIdle(time);lastIdle=time}c.drawImage(idle,0,0,idle.width,idle.height,0,0,width,height)}
+    // The resting field stays invisible; only the wave around the pointer shows.
     c.textAlign='center';c.textBaseline='middle';
     let lit=0,bent=0;const buckets=new Map(),frame=prepareField(time,waves,trails,width);
     for(const particle of particles){
      if(cached&&(particle.x<frame.bounds.left||particle.x>frame.bounds.right||particle.y<frame.bounds.top||particle.y>frame.bounds.bottom))continue;
      const p=sampleField(particle,time,waves,trails,width,frame);
      if(p.light>.18)lit++;if(Math.abs(p.z)>3)bent++;
-     if(cached&&p.light<.018&&Math.abs(p.z)<1.2)continue;
+     if(p.light<.018&&Math.abs(p.z)<1.2)continue;
      if(atlas)drawGlyph(c,atlas,p);else{const size=(Math.round(p.size*10)/10).toFixed(1);if(!buckets.has(size))buckets.set(size,[]);buckets.get(size).push(p);}
     }
     for(const [size,points] of buckets){c.font=`${size}px monospace`;for(const p of points){c.fillStyle=fieldInk(p);c.fillText(String(p.bit),p.x,p.y)}}
@@ -100,7 +101,7 @@ export default function MotionField({menuCanvas,lang,paused,enabled=true}){
       const spread=(1-assemble)*20;
       const x=rect.left+point.x*rect.width/cloud.width+(point.seed-.5)*spread;
       const y=rect.top+point.y*rect.height/cloud.height+(noise(point.seed*54)-.5)*spread;
-      c.fillStyle=`rgba(245,245,245,${(fade*(.4+point.seed*.5)).toFixed(3)})`;
+      c.fillStyle=inkText((fade*(.4+point.seed*.5)).toFixed(3));
       c.fillText(String(Math.floor(time/90+point.seed*20)%2),x,y);
      }
     }
@@ -146,6 +147,6 @@ export default function MotionField({menuCanvas,lang,paused,enabled=true}){
   document.addEventListener('pointermove',pointer,{passive:true});document.addEventListener('pointerdown',pointer,{passive:true});document.addEventListener('touchmove',touch,{passive:true});
   window.addEventListener('resize',resize,{passive:true});const visibility=()=>{if(!document.hidden)schedule()};document.addEventListener('visibilitychange',visibility);
   return()=>{dead=true;cancelAnimationFrame(raf);mutations.disconnect();observers.forEach(o=>o.disconnect());animations.forEach(a=>{a.kill()});scope.querySelectorAll('[data-motion-text]').forEach(el=>gsap.set(el,{clearProps:'filter,transform,opacity'}));document.removeEventListener('pointermove',pointer);document.removeEventListener('pointerdown',pointer);document.removeEventListener('touchmove',touch);window.removeEventListener('rail-scrub-start',settle);window.removeEventListener('resize',resize);document.removeEventListener('visibilitychange',visibility)};
- },[lang,paused,enabled]);
+ },[lang,paused,enabled,theme]);
  return <canvas ref={canvas} className="site-binary-field" aria-hidden="true"/>;
 }

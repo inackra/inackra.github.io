@@ -2,7 +2,7 @@ import assert from 'node:assert/strict';
 import {readFile,readdir,stat} from 'node:fs/promises';
 const origin='https://inackra.work',root='dist';
 async function pages(dir){const result=[];for(const name of await readdir(dir)){const file=`${dir}/${name}`;if((await stat(file)).isDirectory())result.push(...await pages(file));else if(name==='index.html')result.push(file)}return result;}
-const files=await pages(root),indexed=new Set();assert.equal(files.length,266,'both languages include every case, task, filter and media route, plus the /demo/ preview');
+const files=await pages(root),indexed=new Set();assert.equal(files.length,264,'both languages include every case, task, filter and media route');
 const read=file=>readFile(file,'utf8'),exists=async file=>{try{await stat(file);return true}catch{return false}};
 for(const file of files){
  const html=await read(file),path=file.slice(root.length).replace(/index\.html$/,''),en=path.startsWith('/en/');
@@ -30,6 +30,6 @@ for(const file of files){
 const sitemap=await read(root+'/sitemap.xml'),listed=new Set([...sitemap.matchAll(/<loc>(.*?)<\/loc>/g)].map(x=>x[1]));assert.deepEqual(listed,indexed,'sitemap includes exactly the indexable canonical pages');assert.equal(indexed.size,56);
 const ru=JSON.parse(await read('src/aio/tasks.ru.json')),en=JSON.parse(await read('src/aio/tasks.en.json'));
 for(const [lang,tasks] of [['ru',ru],['en',en]])for(const task of tasks){const html=await read(root+(lang==='en'?'/en':'')+`/work/aio/${task.id}/index.html`);assert.ok(html.includes(task.title.replace(/&/g,'&amp;')),task.id+' task-specific static narrative');assert.ok(html.includes('case-image-preview'),task.id+' real interface evidence');}
-const home=await read(root+'/index.html');assert.ok(home.includes('Проектирую сложные цифровые продукты и создаю дизайн-системы, которые ускоряют работу команд.'));assert.ok(home.includes('href="/work/cases/"'));assert.ok(home.includes('href="/work/"'));assert.ok(home.includes('id="contact"'));
+const home=await read(root+'/index.html');assert.ok(home.includes('Три шага, и ты увидишь, как может выглядеть твой продукт.'));assert.ok(home.includes('href="/work/cases/"'));assert.ok(home.includes('href="/work/"'));
 assert.ok((await read(root+'/404.html')).includes('noindex,follow'));assert.ok((await read(root+'/robots.txt')).includes('Sitemap: '+origin+'/sitemap.xml'));
 console.log(`PASS: ${files.length} readable static pages, ${indexed.size} canonical indexable URLs, bilingual alternates, task evidence, valid internal links, structured data and genuine 404.`);

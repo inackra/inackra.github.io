@@ -3,14 +3,13 @@
 
 export const copy={
  ru:{
-  label:'Yan Kavaleu / Конструктор продукта',
   title:['Собери продукт.','За минуту.'],
   text:'Три шага, и ты увидишь, как может выглядеть твой продукт. Настоящий я соберу под ключ: продукт, бренд и рабочий прототип.',
   steps:['Что делаем?','Какое настроение?','Для какой сферы?'],
-  next:'Дальше',build:'Собрать',back:'Назад',presets:'Или начни с готового',
+  build:'Собрать',back:'Назад',
   generating:['Собираю палитру','Подбираю шрифты','Раскладываю сетку','Оживляю экраны'],
-  meanwhile:'Пока собирается:',
-  summary:'Твой продукт',edit:'Изменить',restart:'Собрать заново',
+  meanwhile:'Пока собирается',
+  summary:'Твой продукт',restart:'Собрать заново',
   order:['Ну что,','заказываем?'],orderText:'Это 10 секунд машины. Настоящий продукт сделаю с исследованием, брендом и прототипом. Опиши задачу, я отвечу в течение дня.',
   task:'Коротко о задаче',taskHint:'Например: MVP финтех-приложения, запуск весной',contact:'Почта или Telegram',send:'Отправить',
   sentTitle:'Принял.',sentText:'Твоя сборка и описание у меня. Отвечу в течение дня.',seeWork:'Посмотреть работы',playMore:'Собрать ещё',
@@ -18,14 +17,13 @@ export const copy={
   hint:'Наведи курсор на макет',
  },
  en:{
-  label:'Yan Kavaleu / Product builder',
   title:['Build a product.','In a minute.'],
   text:'Three steps to see how your product could look. The real one I build end to end: product, brand and a working prototype.',
   steps:['What are we making?','Pick a mood','Pick a field'],
-  next:'Next',build:'Build it',back:'Back',presets:'Or start from a preset',
+  build:'Build it',back:'Back',
   generating:['Mixing the palette','Pairing fonts','Laying out the grid','Bringing screens to life'],
-  meanwhile:'While it builds:',
-  summary:'Your product',edit:'Change',restart:'Start over',
+  meanwhile:'While it builds',
+  summary:'Your product',restart:'Start over',
   order:['Shall we','make it real?'],orderText:'That was 10 seconds of a machine. The real product comes with research, a brand and a prototype. Describe the task, I reply within a day.',
   task:'The task in short',taskHint:'E.g. a fintech app MVP, launching in spring',contact:'Email or Telegram',send:'Send',
   sentTitle:'Got it.',sentText:'Your build and notes are with me. I’ll reply within a day.',seeWork:'See my work',playMore:'Build another',
@@ -41,17 +39,9 @@ export const types=[
 ];
 
 export const moods=[
- {id:'strict',ru:'Сдержанно',en:'Calm',noteRu:'Чисто, точно, по-швейцарски',noteEn:'Clean, precise, Swiss'},
- {id:'bright',ru:'Смело',en:'Bold',noteRu:'Громкий цвет и крупный шрифт',noteEn:'Loud colour, big type'},
- {id:'twist',ru:'С изюминкой',en:'Twisted',noteRu:'Тёмный, тёплый, с характером',noteEn:'Dark, warm, with character'},
-];
-
-export const presets=[
- {ru:'AI-ассистент',en:'AI assistant',type:'saas',mood:'strict',niche:'ai'},
- {ru:'Крипто-кошелёк',en:'Crypto wallet',type:'app',mood:'bright',niche:'crypto'},
- {ru:'Трэвел-сервис',en:'Travel service',type:'site',mood:'twist',niche:'travel'},
- {ru:'Интернет-магазин',en:'Online store',type:'site',mood:'bright',niche:'ecom'},
- {ru:'Банк в телефоне',en:'Mobile bank',type:'app',mood:'twist',niche:'fintech'},
+ {id:'strict',ru:'Сдержанно',en:'Calm',noteRu:'Чисто, точно, по-швейцарски',noteEn:'Clean, precise, Swiss',swatch:['#f4f3ef','#121212','#3b5bfd']},
+ {id:'bright',ru:'Смело',en:'Bold',noteRu:'Громкий цвет и крупный шрифт',noteEn:'Loud colour, big type',swatch:['#c6f432','#ff6a3d','#0b0b0b']},
+ {id:'twist',ru:'С изюминкой',en:'Twisted',noteRu:'Тёмный, тёплый, с характером',noteEn:'Dark, warm, with character',swatch:['#12110f','#e8b27a','#f2ebe0']},
 ];
 
 // Proof shown while the mock-up "builds". Figures from the case studies.
@@ -129,6 +119,24 @@ export const niches=[
   kpis:[['Revenue','$38.9k'],['Orders','1,204'],['Avg. order','$72']],
   side:['Orders','Products','Customers','Studios','Settings'],features:['Free returns','Small studios','Carbon-neutral'],
   icons:['bag','heart','search','user'],toast:['New order','Stone Vase × 2']},
+ {id:'realty',ru:'Недвижимость',en:'Real estate',accent:{strict:'#2f5d50',bright:'#ff7a59',twist:'#c9a26b'},
+  name:'Doma',domain:'doma.homes',headline:['Find a home','that fits.'],
+  sub:'Verified listings, honest prices and viewings booked in two taps.',cta:'Find a home',nav:['Buy','Rent','Sell'],
+  hello:'Saved homes',metric:{label:'Viewings this week',value:14,delta:'+5'},
+  series:[22,26,25,31,35,33,40,44,42,49,53,58],
+  list:[['Riverside loft','2 bd · 84 m²','$1,950'],['Old Town flat','1 bd · 52 m²','$1,240'],['Garden house','4 bd · 160 m²','$3,400']],
+  kpis:[['Listings','8,420'],['Viewings','1,130'],['Avg. days','21']],
+  side:['Listings','Viewings','Clients','Agents','Settings'],features:['Verified listings','3D tours','Instant viewings'],
+  icons:['home','heart','map','user'],toast:['Viewing booked','Riverside loft, 18:30']},
+ {id:'food',ru:'Еда',en:'Food',accent:{strict:'#c2410c',bright:'#ffcf33',twist:'#e0a458'},
+  name:'Bowl',domain:'bowl.kitchen',headline:['Dinner,','sorted.'],
+  sub:'Fresh meals from local kitchens, delivered warm in under 30 minutes.',cta:'Order now',nav:['Menu','Kitchens','Plans'],
+  hello:'Hungry, Nina?',metric:{label:'Orders today',value:342,delta:'+12%'},
+  series:[18,24,40,36,28,30,46,62,58,44,38,50],
+  list:[['Green bowl','Tofu · 520 kcal','$11'],['Ramen','Pork · 680 kcal','$14'],['Poke','Salmon · 490 kcal','$13']],
+  kpis:[['Orders','9,840'],['Avg. time','24 min'],['Rating','4.8']],
+  side:['Orders','Menu','Couriers','Kitchens','Settings'],features:['30-minute delivery','Local kitchens','No hidden fees'],
+  icons:['bag','heart','map','user'],toast:['On the way','Courier is 4 min away']},
 ];
 
 export const findNiche=id=>niches.find(n=>n.id===id)||niches[0];
