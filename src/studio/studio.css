@@ -325,3 +325,5 @@
 @media(max-width:700px){.share-menu{right:auto;left:0}}
 .studio .result-shared h1.result-title{font-size:clamp(40px,4.6vw,72px);line-height:1;margin:0}
 .result-shared{align-items:flex-end}
+.share-below{display:flex;justify-content:center;margin-top:28px}
+.share-below .share-menu{left:50%;right:auto;transform:translateX(-50%);top:calc(100% + 10px)}
