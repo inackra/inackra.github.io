@@ -15,6 +15,11 @@ export const copy={
   sentTitle:'Принял.',sentText:'Твоя сборка и описание у меня. Отвечу в течение дня.',seeWork:'Посмотреть работы',playMore:'Собрать ещё',
   required:'Опиши задачу (хотя бы пару слов) и оставь почту',sending:'Отправляю…',failed:'Не получилось отправить. Напиши мне на почту:',mailNote:'Откроется почта с готовым письмом.',privacy:'Почта нужна только для ответа на заявку.',
   hint:'Наведи курсор на макет',
+  share:'Поделиться',shareCopy:'Скопировать ссылку',shareCopied:'Ссылка скопирована',shareMore:'Ещё…',
+  shareText:'Собрал макет своего продукта за минуту. Собери свой:',
+  sharedTitle:'Этот макет собрали за минуту',sharedText:'Тип, настроение и сфера — три клика. Собери свой или закажи такой продукт.',
+  buildOwn:'Собрать свой',wantThis:'Хочу такой продукт',
+  ogCta:['Собери свой продукт','за минуту'],
  },
  en:{
   title:['Build a product.','In a minute.'],
@@ -29,6 +34,11 @@ export const copy={
   sentTitle:'Got it.',sentText:'Your build and notes are with me. I’ll reply within a day.',seeWork:'See my work',playMore:'Build another',
   required:'Describe the task (a few words) and leave your email',sending:'Sending…',failed:'Could not send it. Email me at:',mailNote:'Your email app opens with a ready letter.',privacy:'Your email is used only to reply.',
   hint:'Move the cursor over the mock-up',
+  share:'Share',shareCopy:'Copy link',shareCopied:'Link copied',shareMore:'More…',
+  shareText:'I built a mock-up of my product in a minute. Build yours:',
+  sharedTitle:'This mock-up took a minute to build',sharedText:'Type, mood and field: three clicks. Build your own or order a product like this.',
+  buildOwn:'Build your own',wantThis:'I want this product',
+  ogCta:['Build your product','in a minute'],
  },
 };
 
@@ -140,3 +150,12 @@ export const niches=[
 ];
 
 export const findNiche=id=>niches.find(n=>n.id===id)||niches[0];
+
+// Shared builds: /b/<type>-<variant>-<mood>-<niche>/ opens the same mock-up, already built.
+export const shareCode=({type,mood,niche},variant)=>`${type}-${variant}-${mood}-${niche}`;
+export function parseShare(code=''){
+ const [type,v,mood,niche]=String(code).split('-');
+ if(!types.some(t=>t.id===type)||!moods.some(m=>m.id===mood)||!niches.some(n=>n.id===niche)||!/^[0-2]$/.test(v||''))return null;
+ return {type,mood,niche,variant:+v};
+}
+export const allShareCodes=()=>types.flatMap(t=>[0,1,2].flatMap(v=>moods.flatMap(m=>niches.map(n=>shareCode({type:t.id,mood:m.id,niche:n.id},v)))));

@@ -2,7 +2,9 @@ import assert from 'node:assert/strict';
 import {readFile,readdir,stat} from 'node:fs/promises';
 const origin='https://inackra.work',root='dist';
 async function pages(dir){const result=[];for(const name of await readdir(dir)){const file=`${dir}/${name}`;if((await stat(file)).isDirectory())result.push(...await pages(file));else if(name==='index.html')result.push(file)}return result;}
-const files=await pages(root),indexed=new Set();assert.equal(files.length,264,'both languages include every case, task, filter and media route');
+const files=await pages(root),indexed=new Set();const shared=files.filter(f=>/\/b\/[^/]+\/index\.html$/.test(f));assert.equal(shared.length,432,'every constructor build has a share page in both languages');
+for(const file of shared){const html=await readFile(file,'utf8'),image=html.match(/property="og:image" content="https:\/\/inackra\.work(\/og\/[^"]+)"/)?.[1];assert.ok(html.includes('content="noindex,follow"'),`${file} is not indexed`);assert.ok(image,`${file} has a share cover`);await stat(root+image);}
+assert.equal(files.length,264+432,'both languages include every case, task, filter and media route');
 const read=file=>readFile(file,'utf8'),exists=async file=>{try{await stat(file);return true}catch{return false}};
 for(const file of files){
  const html=await read(file),path=file.slice(root.length).replace(/index\.html$/,''),en=path.startsWith('/en/');
