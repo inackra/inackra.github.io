@@ -89,7 +89,7 @@ export default function Demo({initialPath='/',ready=true}){
 
     <div className="case-bottom"><div><p data-motion-text="true" data-motion-state="waiting" className="case-line">{item.line}</p><p data-motion-text="true" data-motion-state="waiting" className="case-outcome">{item.status==='ready'?item.takeaway:soonText}</p></div>{item.status==='ready'?<a data-motion-text="true" data-motion-state="waiting" className="case-open" href={caseUrl(item.id,lang)}><FlipText>{d.explore}</FlipText><Arrow/></a>:<a data-motion-text="true" data-motion-state="waiting" className="case-open case-soon" href={caseUrl(item.id,lang)}><FlipText>Soon</FlipText><Arrow/></a>}</div>
    </CaseCard>;
- return <div className="demo-root" data-layout={archive||casePage||services?'centered':privacy?'rail':'home'} onContextMenu={e=>{if(e.target.closest?.('img,video,.wall-media,.case-image,.project-cover,.image-lightbox,.case-artwork,.project-neighbour'))e.preventDefault()}} onDragStart={e=>{if(e.target.closest?.('img,video,.wall-media,.case-image,.project-cover'))e.preventDefault()}} data-motion={paused?'off':'on'}>
+ return <div className="demo-root" data-layout={archive||casePage?'centered':privacy?'rail':'home'} onContextMenu={e=>{if(e.target.closest?.('img,video,.wall-media,.case-image,.project-cover,.image-lightbox,.case-artwork,.project-neighbour'))e.preventDefault()}} onDragStart={e=>{if(e.target.closest?.('img,video,.wall-media,.case-image,.project-cover'))e.preventDefault()}} data-motion={paused?'off':'on'}>
   <MotionField menuCanvas={menuCanvas} lang={lang} paused={paused} enabled={ready} theme={theme}/>
   <a className="skip" href="#main">{t.skip}</a>
   <header className="site-header">
