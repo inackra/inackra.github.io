@@ -1,20 +1,20 @@
 /* One button language for the whole site (the homepage constructor pills):
    a soft pill whose fill rises from below on hover and leaves through the top.
    pills.js adds the magnetic pull and drives --fy; without it, CSS still fills on hover. */
-.demo-root :is(.text-action:not(summary),.aio-support-navigation>summary,.case-open,.button,.archive-filters :is(a,button),.footer-controls>:is(a,button),.copy-link){
+.demo-root :is(.text-action:not(summary),.aio-support-navigation>summary,.case-open,.button,.archive-filters :is(a,button),.footer-controls>:is(a,button),.menu-bottom>a,.copy-link,.pill){
  position:relative;isolation:isolate;overflow:hidden;display:inline-flex;align-items:center;justify-content:center;gap:10px;
- min-height:44px;height:auto;padding:10px 20px;border:0!important;border-radius:999px;
- font-size:14px;line-height:1.2;letter-spacing:-.02em;white-space:nowrap;text-decoration:none;
+ min-height:48px;height:auto;padding:12px 22px;border:0!important;border-radius:999px;
+ font-size:15px;line-height:1.2;font-weight:500;letter-spacing:-.02em;white-space:nowrap;text-decoration:none;
  color:var(--fg);background:color-mix(in srgb,var(--fg) 7%,var(--bg));
  transition:color .45s cubic-bezier(.65,0,.35,1);-webkit-mask-image:-webkit-radial-gradient(white,black);cursor:pointer}
-.demo-root :is(.text-action:not(summary),.aio-support-navigation>summary,.case-open,.button,.archive-filters :is(a,button),.footer-controls>:is(a,button),.copy-link)::before{
+.demo-root :is(.text-action:not(summary),.aio-support-navigation>summary,.case-open,.button,.archive-filters :is(a,button),.footer-controls>:is(a,button),.menu-bottom>a,.copy-link,.pill)::before{
  content:'';position:absolute;z-index:-1;left:-25%;top:-50%;width:150%;height:200%;border-radius:50%;
  background:var(--fg);transform:translateY(var(--fy,-76%));pointer-events:none}
-html:not(.pills-js) .demo-root :is(.text-action:not(summary),.aio-support-navigation>summary,.case-open,.button,.archive-filters :is(a,button),.footer-controls>:is(a,button),.copy-link)::before{transform:translateY(76%);transition:transform .6s cubic-bezier(.65,0,.35,1)}
-html:not(.pills-js) .demo-root :is(.text-action:not(summary),.aio-support-navigation>summary,.case-open,.button,.archive-filters :is(a,button),.footer-controls>:is(a,button),.copy-link):hover::before{transform:none}
-.demo-root :is(.text-action:not(summary),.aio-support-navigation>summary,.case-open,.button,.archive-filters :is(a,button),.footer-controls>:is(a,button),.copy-link):is(:hover,.pill-on){color:var(--bg)}
-.demo-root :is(.text-action:not(summary),.aio-support-navigation>summary,.case-open,.button,.archive-filters :is(a,button),.footer-controls>:is(a,button),.copy-link):focus-visible{outline:none;box-shadow:0 0 0 3px color-mix(in srgb,var(--fg) 30%,transparent)}
-.demo-root :is(.text-action:not(summary),.aio-support-navigation>summary,.case-open,.button,.archive-filters :is(a,button)) .arrow{width:18px;height:18px;flex:none}
+html:not(.pills-js) .demo-root :is(.text-action:not(summary),.aio-support-navigation>summary,.case-open,.button,.archive-filters :is(a,button),.footer-controls>:is(a,button),.menu-bottom>a,.copy-link,.pill)::before{transform:translateY(76%);transition:transform .6s cubic-bezier(.65,0,.35,1)}
+html:not(.pills-js) .demo-root :is(.text-action:not(summary),.aio-support-navigation>summary,.case-open,.button,.archive-filters :is(a,button),.footer-controls>:is(a,button),.menu-bottom>a,.copy-link,.pill):hover::before{transform:none}
+.demo-root :is(.text-action:not(summary),.aio-support-navigation>summary,.case-open,.button,.archive-filters :is(a,button),.footer-controls>:is(a,button),.menu-bottom>a,.copy-link,.pill):is(:hover,.pill-on){color:var(--bg)}
+.demo-root :is(.text-action:not(summary),.aio-support-navigation>summary,.case-open,.button,.archive-filters :is(a,button),.footer-controls>:is(a,button),.menu-bottom>a,.copy-link,.pill):focus-visible{outline:none;box-shadow:0 0 0 3px color-mix(in srgb,var(--fg) 30%,transparent)}
+.demo-root :is(.text-action:not(summary),.aio-support-navigation>summary,.case-open,.button,.archive-filters :is(a,button),.footer-controls>:is(a,button),.menu-bottom>a,.pill) :is(.arrow,.icon){width:18px;height:18px;flex:none}
 .demo-root :is(.text-action:not(summary),.aio-support-navigation>summary,.case-open):hover .arrow{transform:none}
 /* Selected chips and primary buttons are solid; their fill is a lighter tone. */
 .demo-root :is(.button.solid,.archive-filters :is(button[aria-pressed=true],a[aria-current=page])){background:var(--fg);color:var(--bg)}
@@ -22,11 +22,20 @@ html:not(.pills-js) .demo-root :is(.text-action:not(summary),.aio-support-naviga
 .demo-root .archive-filters small{opacity:.55;margin-left:6px;font-size:11px}
 .demo-root .archive-filters :is(a,button){padding:10px 18px}
 .demo-root .project-page .archive-filters button,.demo-root .archive-filters button{white-space:nowrap;text-align:center}
-.demo-root .footer-controls>:is(a,button){min-height:40px;padding:8px 16px;font-size:12px}
+/* Footer and menu contacts use the same pill; icons sit before the label. */
+.demo-root :is(.footer-controls,.menu-bottom)>:is(a,button){min-height:48px;padding:12px 22px 12px 18px;font-size:15px;color:var(--fg);gap:10px;border-bottom:0}
+.demo-root :is(.footer-controls,.menu-bottom)>:is(a,button):is(:hover,.pill-on){color:var(--bg)}
+.demo-root :is(.footer-controls,.menu-bottom) .icon{width:20px;height:20px}
+.demo-root .footer-controls>.pill-quiet,.demo-root .footer-controls>button{background:transparent;color:color-mix(in srgb,var(--fg) 60%,var(--bg))}
+.demo-root .site-footer .footer-controls{flex-direction:row;flex-wrap:wrap;justify-content:flex-end;align-items:center;gap:10px;max-width:620px}
+.demo-root .menu-bottom{justify-content:flex-start;flex-wrap:wrap;gap:10px}
+.demo-root .menu-bottom>a:last-child{font-size:15px;color:var(--fg)}
+.demo-root .menu-bottom>a:last-child:is(:hover,.pill-on){color:var(--bg)}
+.demo-root .menu-bottom .arrow{width:18px}
 /* Case cards: the open link is a pill sitting on the card. */
 .demo-root .case-open{width:auto;min-width:0;margin-top:0;justify-content:center}
 .demo-root .case-bottom .case-open{flex:none}
-@media(max-width:700px){.demo-root :is(.text-action:not(summary),.aio-support-navigation>summary,.case-open,.button,.archive-filters :is(a,button)){font-size:13px;padding:9px 16px}}
+@media(max-width:700px){.demo-root :is(.text-action:not(summary),.aio-support-navigation>summary,.case-open,.button,.archive-filters :is(a,button),.footer-controls>:is(a,button),.menu-bottom>a,.pill){font-size:14px;min-height:44px;padding:10px 18px}.demo-root .site-footer .footer-controls{justify-content:flex-start;max-width:none}.demo-root .menu-bottom{flex-direction:row}}
 /* Round icon buttons get the same fill. */
 .demo-root .carousel-arrows button{position:relative;isolation:isolate;overflow:hidden;border:0;background:color-mix(in srgb,var(--fg) 8%,var(--bg));transition:color .45s}
 .demo-root .carousel-arrows button::before{content:'';position:absolute;z-index:-1;inset:-30%;border-radius:50%;background:var(--fg);transform:translateY(var(--fy,-100%))}
