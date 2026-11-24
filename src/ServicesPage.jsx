@@ -5,6 +5,7 @@ import Magnetic from './Magnetic';
 import {homeUrl,workUrl} from './routes';
 import {EMAIL,TELEGRAM,TELEGRAM_HANDLE} from './content';
 import {achievements} from './studio/data';
+import {pop} from './confetti';
 import './services.css';
 
 // Services as plans, in the manner of a calm pricing page: plans side by side on
@@ -77,6 +78,7 @@ function Calendar({plan,d,paused}){
   const io=new IntersectionObserver(([e])=>{if(e.isIntersecting){setStage('is-in');io.disconnect()}},{threshold:.25});
   io.observe(el);return()=>io.disconnect();
  },[]);
+ const tap=e=>{if(!paused)pop(e.clientX,e.clientY)};
  // Working days 0–19 map onto real dates: weekends stay in the grid, so the
  // numbers run without gaps and a task over a weekend reads as one bar.
  const cal=i=>7*Math.floor(i/5)+i%5,weeks=[0,1,2,3],days7=[0,1,2,3,4,5,6];
@@ -91,19 +93,17 @@ function Calendar({plan,d,paused}){
    <div className="pl-cal-days" aria-hidden="true">{d.days.map((x,i)=><span key={x} className={i>4?'is-off':''}>{x}</span>)}</div>
    {weeks.map(w=><div className="pl-week" key={w} role="group" aria-label={`${d.week} ${w+1}`}>
     {days7.map(i=><span className={`pl-day${i>4?' is-off':''}`} key={i} style={{gridColumn:i+1}}>{7*w+i+1}</span>)}
-    {seg(w).map(e=><span key={e.k} className={cls(e)} style={{gridColumn:`${e.a+1} / ${e.b+1}`,gridRow:e.lane+2,'--c':e.color,'--t':e.color===C.yellow?'#1d1d1f':'#fff','--i':e.i}}><span>{e.label}</span></span>)}
+    {seg(w).map(e=><span key={e.k} className={cls(e)} onClick={tap} style={{gridColumn:`${e.a+1} / ${e.b+1}`,gridRow:e.lane+2,'--c':e.color,'--t':e.color===C.yellow?'#1d1d1f':'#fff','--i':e.i}}><span>{e.label}</span></span>)}
    </div>)}
   </div>
-  {/* Phone: a schedule, each week a block with days running down and events as vertical bars. */}
-  <div className="pl-agenda" aria-hidden="true">
-   {weeks.map(w=><div className="pl-aw" key={w}>
-    <h3>{d.week} {w+1}</h3>
-    <div className="pl-aw-grid">
-     {days7.map(i=><span className={`pl-aw-day${i>4?' is-off':''}`} key={i} style={{gridRow:i+1}}><b>{7*w+i+1}</b>{d.days[i]}</span>)}
-     {seg(w).map(e=><span key={e.k} className={`${cls(e)} pl-ev-v`} style={{gridRow:`${e.a+1} / ${e.b+1}`,gridColumn:e.lane+2,'--c':e.color,'--t':e.color===C.yellow?'#1d1d1f':'#fff','--i':e.i}}><span>{e.label}</span></span>)}
-    </div>
-   </div>)}
-  </div>
+  {/* Phone: one continuous schedule, days running down and events as vertical bars;
+      a quiet week label sits on each Monday. */}
+  <div className="pl-agenda" aria-hidden="true"><div className="pl-aw-grid">
+   {weeks.flatMap(w=>days7.map(i=><span className={`pl-aw-day${i>4?' is-off':''}${i===0?' is-mon':''}`} key={w*7+i} style={{gridRow:w*7+i+1}}>
+    {i===0&&<small>{d.week} {w+1}</small>}<b>{7*w+i+1}</b>{d.days[i]}</span>))}
+   {plan.ev.map(([label,start,len,lane,color],k)=><span key={k} className="pl-ev pl-ev-v" onClick={tap}
+    style={{gridRow:`${cal(start)+1} / ${cal(start+len-1)+2}`,gridColumn:lane+2,'--c':color,'--t':color===C.yellow?'#1d1d1f':'#fff','--i':start+lane*1.5}}><span>{label}</span></span>)}
+  </div></div>
  </div>;
 }
 
