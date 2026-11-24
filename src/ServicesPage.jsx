@@ -5,7 +5,7 @@ import Magnetic from './Magnetic';
 import {homeUrl,workUrl} from './routes';
 import {EMAIL,TELEGRAM,TELEGRAM_HANDLE} from './content';
 import {achievements} from './studio/data';
-import {celebrate,pop} from './confetti';
+import {pop} from './confetti';
 import './services.css';
 
 // Services as plans, in the manner of a calm pricing page: plans side by side on
@@ -34,7 +34,6 @@ const copy={
    {id:'sprint',name:'Спринт MVP',price:'от $3 500',per:'за спринт',note:'3–4 недели: от идеи до продукта, готового к разработке',cta:'Обсудить спринт',items:['Исследование и сценарии','Все экраны продукта','Прототип на коде','Логотип и мини-айдентика','Дизайн-система','Лендинг','Моушн и 3D','Передача в разработку']},
   ],
   calTitle:'Месяц в календаре',days:['Пн','Вт','Ср','Чт','Пт','Сб','Вс'],week:'Неделя',
-  done:['Все задачи готовы','Все задачи готовы','MVP готов к разработке'],
   calNote:'Задачи для примера. Настоящий план собираем вместе в первый день.',
   cal:[
    {lead:'Одна задача за раз: следующая начинается, когда готова предыдущая.',lanes:1,ev:[['Лендинг',0,4,0,C.blue],['Онбординг',4,4,0,C.orange],['Экран оплаты',8,3,0,C.green],['Баннеры',11,2,0,C.purple],['Дашборд',13,5,0,C.red],['Правки',18,2,0,C.yellow],]},
@@ -53,7 +52,6 @@ const copy={
    {id:'sprint',name:'MVP sprint',price:'from $3,500',per:'per sprint',note:'3–4 weeks: from an idea to a product ready for development',cta:'Discuss the sprint',items:['Research and flows','Every product screen','Coded prototype','Logo and mini identity','Design system','Landing page','Motion and 3D','Developer handoff']},
   ],
   calTitle:'A month on the calendar',days:['Mon','Tue','Wed','Thu','Fri','Sat','Sun'],week:'Week',
-  done:['Every task done','Every task done','MVP ready for development'],
   calNote:'Sample tasks. We put the real plan together on day one.',
   cal:[
    {lead:'One task at a time: the next starts when the previous one is done.',lanes:1,ev:[['Landing page',0,4,0,C.blue],['Onboarding',4,4,0,C.orange],['Checkout',8,3,0,C.green],['Banners',11,2,0,C.purple],['Dashboard',13,5,0,C.red],['Revisions',18,2,0,C.yellow],]},
@@ -71,8 +69,8 @@ const useIso=typeof window==='undefined'?useEffect:useLayoutEffect;
 
 // One plan as four working weeks. Events that cross a weekend split into
 // segments, as in a month view; bars draw in, in order, once in view.
-function Calendar({plan,d,paused,done}){
- const ref=useRef(null),end=useRef(null),[stage,setStage]=useState('');
+function Calendar({plan,d,paused}){
+ const ref=useRef(null),[stage,setStage]=useState('');
  useIso(()=>{
   const el=ref.current;if(!el)return;
   if(paused||matchMedia('(prefers-reduced-motion: reduce)').matches)return;
@@ -80,15 +78,6 @@ function Calendar({plan,d,paused,done}){
   const io=new IntersectionObserver(([e])=>{if(e.isIntersecting){setStage('is-in');io.disconnect()}},{threshold:.25});
   io.observe(el);return()=>io.disconnect();
  },[]);
- // Reaching the end of the month, once the bars have drawn in, closes it with confetti.
- useEffect(()=>{
-  if(stage!=='is-in'||paused)return;
-  const last=Math.max(...plan.ev.map(([,st,,lane])=>st+lane*1.5))*70+700;
-  let timer=0,fired=false;
-  const io=new IntersectionObserver(([e])=>{if(e.isIntersecting&&!fired){fired=true;timer=setTimeout(()=>celebrate(done),last);io.disconnect()}},{rootMargin:'0px 0px -40px 0px'});
-  if(end.current)io.observe(end.current);
-  return()=>{io.disconnect();clearTimeout(timer)};
- },[stage]);
  const tap=e=>{if(!paused)pop(e.clientX,e.clientY)};
  // Working days 0–19 map onto real dates: weekends stay in the grid, so the
  // numbers run without gaps and a task over a weekend reads as one bar.
@@ -115,7 +104,6 @@ function Calendar({plan,d,paused,done}){
    {plan.ev.map(([label,start,len,lane,color],k)=><span key={k} className="pl-ev pl-ev-v" onClick={tap}
     style={{gridRow:`${cal(start)+1} / ${cal(start+len-1)+2}`,gridColumn:lane+2,'--c':color,'--t':color===C.yellow?'#1d1d1f':'#fff','--i':start+lane*1.5}}><span>{label}</span></span>)}
   </div></div>
-  <div ref={end} className="pl-cal-end"/>
  </div>;
 }
 
@@ -176,7 +164,7 @@ export default function ServicesPage({lang,paused}){
     <p className="pl-cal-price" aria-live="polite"><strong>{d.plans[pick].price}</strong> <span>{d.plans[pick].per}</span></p>
    </div>
    <p className="pl-cal-lead">{d.cal[pick].lead}</p>
-   <Calendar key={pick} plan={d.cal[pick]} d={d} paused={paused} done={d.done[pick]}/>
+   <Calendar key={pick} plan={d.cal[pick]} d={d} paused={paused}/>
    <p className="pl-cal-note">{d.calNote}</p>
   </section>
 

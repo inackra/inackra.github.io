@@ -1,6 +1,5 @@
-// "Task done" confetti: a small canvas burst with no library. celebrate() fires
-// party poppers from both bottom corners with 🎉 emoji (the right ones mirrored)
-// and a short caption; pop() is a little burst at a point, for taps on bars.
+// A small canvas confetti burst with no library; pop() fires one at a point,
+// for taps on the calendar bars.
 const COLORS=['#FF453A','#FF9F0A','#FFD60A','#30D158','#40C8E0','#0A84FF','#BF5AF2'];
 const still=()=>typeof matchMedia!=='undefined'&&matchMedia('(prefers-reduced-motion: reduce)').matches;
 
@@ -31,17 +30,4 @@ function burst(sources,life){
 export function pop(x,y){
  if(still())return;
  burst([{x,y,angle:-Math.PI/2,spread:2.4,speed:9,count:26}],1100);
-}
-
-export function celebrate(text){
- if(still())return;
- const w=innerWidth,h=innerHeight,speed=Math.min(26,14+h/70);
- burst([{x:0,y:h,angle:-Math.PI/3,spread:.9,speed,count:90},{x:w,y:h,angle:-Math.PI*2/3,spread:.9,speed,count:90}],2600);
- const box=document.createElement('div');box.className='confetti-layer';box.setAttribute('aria-hidden','true');
- // Two poppers on each side; the right-hand ones are mirrored to face inward.
- box.innerHTML=[['l',0],['l',1],['r',0],['r',1]].map(([s,i])=>`<span class="confetti-emoji is-${s}" style="--n:${i}">🎉</span>`).join('');
- const note=document.createElement('p');note.className='confetti-note';note.setAttribute('role','status');note.textContent=text;
- box.appendChild(note);document.body.appendChild(box);
- setTimeout(()=>box.classList.add('is-out'),2000);
- setTimeout(()=>box.remove(),2600);
 }
