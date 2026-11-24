@@ -18,7 +18,7 @@
 .pl-items li{display:flex;align-items:flex-start;gap:10px;font-size:15px;line-height:1.4}
 .pl-check{flex:none;width:17px;height:17px;margin-top:1px;fill:none;stroke:currentColor;stroke-width:1.3;stroke-linecap:round;stroke-linejoin:round}
 .pl-check circle{stroke:color-mix(in srgb,var(--fg) 35%,var(--bg))}
-.demo-root .pl-cta{width:100%;justify-content:space-between}
+.demo-root .pl-cta{align-self:flex-start}
 .demo-root .pl-cta-solid{background:var(--fg);color:var(--bg)}
 .demo-root .pl-cta-solid::before{background:color-mix(in srgb,var(--fg) 72%,var(--bg))}
 
@@ -35,6 +35,7 @@
 .pl-table th:first-child{padding-left:0;width:34%}
 .pl-group th{padding-top:34px;font-size:13px;color:var(--dim);border-bottom-color:transparent}
 .pl-table .pl-check{width:18px;height:18px}
+.pl-table tbody:last-child tr:last-child>*{border-bottom:0}
 .pl-dash{color:color-mix(in srgb,var(--fg) 28%,var(--bg))}
 
 /* Proof */
@@ -43,7 +44,16 @@
 .pl-metrics>div{border-top:1px solid var(--line);padding-top:14px;min-width:0}
 .pl-metrics dt{font-size:clamp(28px,3.4vw,42px);letter-spacing:-.055em;line-height:1.1}
 .pl-metrics dd{margin:8px 0 0;font-size:14px;line-height:1.5;color:var(--dim)}
-.pl-logos{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:30px 24px}
+.pl-logos{overflow:hidden;-webkit-mask-image:linear-gradient(90deg,transparent,#000 8%,#000 92%,transparent);mask-image:linear-gradient(90deg,transparent,#000 8%,#000 92%,transparent)}
+.pl-logos-track{--gap:64px;display:flex;align-items:center;gap:var(--gap);width:max-content;padding:12px 0;animation:pl-marquee 38s linear infinite}
+.pl-logos:hover .pl-logos-track{animation-play-state:paused}
+.pl-logo{flex:none;display:flex;align-items:center;height:44px}
+.pl-logo img{display:block;height:var(--h,26px);width:auto;opacity:.85}
+/* Optical sizes: wide wordmarks a little lower, square marks a little taller. */
+.pl-logo-adobe-semrush{--h:20px}.pl-logo-le-papa{--h:19px}.pl-logo-natasha-denona{--h:15px}
+.pl-logo-buburuza,.pl-logo-evapolar{--h:28px}.pl-logo-lg,.pl-logo-instant-funding{--h:36px}
+@keyframes pl-marquee{to{transform:translateX(calc(-50% - var(--gap)/2))}}
+@media(prefers-reduced-motion:reduce){.pl-logos-track{animation:none}}
 :root[data-theme=light] .pl-logos img{filter:invert(1)}
 .pl-review{margin:0;padding:18px 0;border-top:1px solid var(--line)}
 .pl-review blockquote{margin:0 0 10px;font-size:19px;line-height:1.55}
@@ -64,7 +74,7 @@
  .pl-price strong{font-size:52px}
  .pl-items{gap:16px;align-content:start}
  .pl-items li{font-size:17px}
- .pl-tabs{display:flex}
+ .pl-tabs{display:flex;position:sticky;top:64px;z-index:3;margin:0 -16px 8px;padding:10px 16px;background:var(--bg);border-bottom:1px solid var(--line)}
  /* Phone: the table shows the label and the picked plan only. */
  .pl-table,.pl-table tbody{display:block;width:100%}
  .pl-table thead{display:none}
@@ -75,6 +85,7 @@
  .pl-table td:not(.is-pick){display:none}
  .pl-table td{text-align:right;flex:none;max-width:45%}
  .pl-metrics{grid-template-columns:1fr 1fr}
- .pl-logos{grid-template-columns:repeat(2,minmax(0,1fr))}
- .pl-actions{flex-direction:column;align-items:stretch}
+ .pl-logos-track{--gap:44px;animation-duration:30s}
+ .pl-actions{flex-direction:column;align-items:flex-start}
+ .pl-table tbody:last-child tr:last-child{border-bottom:0}
 }

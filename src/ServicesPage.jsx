@@ -11,7 +11,7 @@ import './services.css';
 // hairlines (one full screen each on a phone), then a comparison table.
 
 // Clients shown on the old portfolio homepage (logos in /assets/companies).
-const clients=[['adobe-semrush','Adobe × Semrush',190],['mccann','McCann',132],['evapolar','Evapolar',130],['buburuza','Buburuza',124],['natasha-denona','Natasha Denona',180],['palindrom','Palindrom',142],['12k','12K',136],['le-papa','Le Papa',166],['lg','LG',38],['instant-funding','Instant Funding',43]];
+const clients=[['adobe-semrush','Adobe × Semrush'],['mccann','McCann'],['evapolar','Evapolar'],['buburuza','Buburuza'],['natasha-denona','Natasha Denona'],['palindrom','Palindrom'],['12k','12K'],['le-papa','Le Papa'],['lg','LG'],['instant-funding','Instant Funding']];
 
 // Testimonials appear only once clients have sent them: [quote, name, role and company].
 export const testimonials={ru:[],en:[]};
@@ -23,13 +23,13 @@ const copy={
   lead:'Дизайн по подписке. Фиксированная цена в месяц, задачи по очереди, пауза в любой момент.',
   plans:[
    {id:'lite',name:'Lite',price:'$1 500',per:'в месяц',note:'Одна задача в работе',cta:'Обсудить Lite',items:['Интерфейсы, UI и UX','Лендинги и сайты','Прототипы','Общение в Telegram','Пауза и отмена в любой момент']},
-   {id:'pro',name:'Pro',price:'$2 900',per:'в месяц',note:'Две задачи параллельно',cta:'Обсудить Pro',solid:true,items:['Всё из Lite','Бренд и айдентика','Дизайн-система','Моушн и 3D','Две задачи одновременно']},
-   {id:'sprint',name:'Спринт MVP',price:'от $3 500',per:'разово',note:'2–3 недели, один продукт',cta:'Обсудить спринт',items:['Исследование и сценарии','Интерфейс ключевых экранов','Прототип на коде','Передача в разработку','Общение в Telegram']},
+   {id:'pro',name:'Pro',price:'$2 700',per:'в месяц',note:'Две задачи параллельно',cta:'Обсудить Pro',solid:true,items:['Интерфейсы, UI и UX','Лендинги и сайты','Прототипы','Бренд и айдентика','Дизайн-система','Моушн и 3D','Общение в Telegram','Пауза и отмена в любой момент']},
+   {id:'sprint',name:'Спринт MVP',price:'от $3 500',per:'разово',note:'2–3 недели, 5–7 крупных задач',cta:'Обсудить спринт',items:['Исследование и сценарии','Интерфейс ключевых экранов','Прототип на коде','Сайт и лендинги','Бренд и айдентика','Дизайн-система','Моушн и 3D','Передача в разработку']},
   ],
   compareTitle:'Сравнение',
   groups:[
-   ['Формат',[['Оплата','Помесячно','Помесячно','Разово'],['Задач в работе','1','2','1 продукт'],['Срок','Пока нужно','Пока нужно','2–3 недели'],['Пауза и отмена',true,true,false]]],
-   ['Дизайн',[['Интерфейсы, UI и UX',true,true,true],['Лендинги и сайты',true,true,false],['Прототип на коде',true,true,true],['Бренд и айдентика',false,true,false],['Дизайн-система',false,true,false],['Моушн и 3D',false,true,false]]],
+   ['Формат',[['Оплата','Помесячно','Помесячно','Разово'],['Задач в работе','1','2','5–7 крупных'],['Срок','Пока нужно','Пока нужно','2–3 недели'],['Пауза и отмена',true,true,false]]],
+   ['Дизайн',[['Интерфейсы, UI и UX',true,true,true],['Лендинги и сайты',true,true,true],['Прототип на коде',true,true,true],['Бренд и айдентика',false,true,true],['Дизайн-система',false,true,true],['Моушн и 3D',false,true,true]]],
    ['Работа',[['Общение в Telegram',true,true,true],['Файлы и исходники у тебя',true,true,true],['Передача в разработку',true,true,true]]],
   ],
   proofTitle:'Что уже получалось',clientsTitle:'С кем работал',reviewsTitle:'Отзывы',
@@ -40,13 +40,13 @@ const copy={
   lead:'Design on a subscription. A fixed monthly price, tasks in a queue, pause any time.',
   plans:[
    {id:'lite',name:'Lite',price:'$1,500',per:'per month',note:'One task at a time',cta:'Discuss Lite',items:['Interfaces, UI and UX','Landing pages and websites','Prototypes','Telegram','Pause or cancel any time']},
-   {id:'pro',name:'Pro',price:'$2,900',per:'per month',note:'Two tasks in parallel',cta:'Discuss Pro',solid:true,items:['Everything in Lite','Brand and identity','Design system','Motion and 3D','Two tasks at once']},
-   {id:'sprint',name:'MVP sprint',price:'from $3,500',per:'one-off',note:'2–3 weeks, one product',cta:'Discuss the sprint',items:['Research and flows','Key screens','Coded prototype','Developer handoff','Telegram']},
+   {id:'pro',name:'Pro',price:'$2,700',per:'per month',note:'Two tasks in parallel',cta:'Discuss Pro',solid:true,items:['Interfaces, UI and UX','Landing pages and websites','Prototypes','Brand and identity','Design system','Motion and 3D','Telegram','Pause or cancel any time']},
+   {id:'sprint',name:'MVP sprint',price:'from $3,500',per:'one-off',note:'2–3 weeks, 5–7 major tasks',cta:'Discuss the sprint',items:['Research and flows','Key screens','Coded prototype','Website and landing pages','Brand and identity','Design system','Motion and 3D','Developer handoff']},
   ],
   compareTitle:'Compare',
   groups:[
-   ['Format',[['Billing','Monthly','Monthly','One-off'],['Tasks in progress','1','2','1 product'],['Length','As long as needed','As long as needed','2–3 weeks'],['Pause and cancel',true,true,false]]],
-   ['Design',[['Interfaces, UI and UX',true,true,true],['Landing pages and websites',true,true,false],['Coded prototype',true,true,true],['Brand and identity',false,true,false],['Design system',false,true,false],['Motion and 3D',false,true,false]]],
+   ['Format',[['Billing','Monthly','Monthly','One-off'],['Tasks in progress','1','2','5–7 major'],['Length','As long as needed','As long as needed','2–3 weeks'],['Pause and cancel',true,true,false]]],
+   ['Design',[['Interfaces, UI and UX',true,true,true],['Landing pages and websites',true,true,true],['Coded prototype',true,true,true],['Brand and identity',false,true,true],['Design system',false,true,true],['Motion and 3D',false,true,true]]],
    ['Work',[['Telegram',true,true,true],['Files and sources stay yours',true,true,true],['Developer handoff',true,true,true]]],
   ],
   proofTitle:'What it has done before',clientsTitle:'Worked with',reviewsTitle:'Testimonials',
@@ -98,7 +98,7 @@ export default function ServicesPage({lang}){
 
   <section className="pl-section" aria-labelledby="pl-clients">
    <h2 id="pl-clients">{d.clientsTitle}</h2>
-   <div className="pl-logos" role="list">{clients.map(([slug,name,width])=><div className={`brand-logo brand-logo-${slug}`} role="listitem" key={slug}><img src={`/assets/companies/${slug}.svg`} alt={name} style={{'--logo-width':`${width}px`}} loading="lazy" decoding="async"/></div>)}</div>
+   <div className="pl-logos" role="list"><div className="pl-logos-track">{[0,1].map(k=>clients.map(([slug,name])=><div className={`pl-logo pl-logo-${slug}`} role={k?undefined:'listitem'} aria-hidden={k?true:undefined} key={slug+k}><img src={`/assets/companies/${slug}.svg`} alt={k?'':name} loading="lazy" decoding="async"/></div>))}</div></div>
   </section>
 
   {reviews.length>0&&<section className="pl-section" aria-labelledby="pl-reviews"><h2 id="pl-reviews">{d.reviewsTitle}</h2>
