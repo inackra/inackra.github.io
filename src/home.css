@@ -1,0 +1,94 @@
+/* Header, homepage and theme switch (constructor homepage, 2026-11).
+   Loaded after demo.css; the side rail is gone, so nothing reserves room for it. */
+
+/* Header: theme + name on the left, the mark in the centre, language and menu on the right. */
+.demo-root>.site-header,.demo-root[data-layout]>.site-header{display:grid;grid-template-columns:1fr auto 1fr;align-items:center;gap:24px;height:76px;padding-inline:32px}
+.header-left{display:flex;align-items:center;gap:18px;min-width:0}
+.header-id{display:flex;flex-direction:column;font-size:13px;line-height:1.3;letter-spacing:-.01em;white-space:nowrap;min-width:0}
+.header-id b{font-weight:500}
+.header-id span{color:color-mix(in srgb,var(--fg) 55%,var(--bg))}
+.demo-root>.site-header .wordmark img{width:104px}
+.demo-root>.site-header .header-controls{justify-self:end;gap:18px}
+.demo-root>.site-header .language{gap:2px}
+.demo-root>.site-header .language a{min-height:40px;padding:0 8px;font-size:13px;color:color-mix(in srgb,var(--fg) 45%,var(--bg));transition:color .3s}
+.demo-root>.site-header .language a:hover,.demo-root>.site-header .language a[aria-current=page]{color:var(--fg)}
+.demo-root>.site-header .menu-toggle{height:40px;min-height:40px;padding:0 18px;border-radius:20px;font-size:13px;gap:0;background:color-mix(in srgb,var(--fg) 7%,var(--bg))}
+.menu-toggle .mag-label{gap:10px}
+.menu-dots{display:inline-flex;flex-direction:column;gap:4px;width:14px}
+.menu-dots i{display:block;height:1.5px;background:currentColor;transition:transform .45s cubic-bezier(.65,0,.35,1)}
+.menu-dots.open i:first-child{transform:translateY(2.75px) rotate(45deg)}
+.menu-dots.open i:last-child{transform:translateY(-2.75px) rotate(-45deg)}
+
+/* Theme switch: two icons with a disc that slides under the current one. */
+.theme-toggle{position:relative;flex:none;display:inline-flex;align-items:center;width:72px;height:40px;padding:0 4px;border-radius:20px;background:color-mix(in srgb,var(--fg) 7%,var(--bg));isolation:isolate}
+.theme-toggle>i{position:absolute;z-index:-1;left:4px;top:4px;width:32px;height:32px;border-radius:50%;background:var(--fg);transition:transform .55s cubic-bezier(.65,0,.35,1)}
+.theme-toggle[data-theme-state=dark]>i{transform:translateX(32px)}
+.theme-toggle svg{width:32px;height:32px;padding:8px;fill:none;stroke:currentColor;stroke-width:1.6;stroke-linecap:round;color:color-mix(in srgb,var(--fg) 55%,var(--bg));transition:color .45s}
+.theme-toggle[data-theme-state=light] svg:first-of-type,.theme-toggle[data-theme-state=dark] svg:last-of-type{color:var(--bg)}
+.theme-toggle:hover svg{color:var(--fg)}
+.theme-toggle[data-theme-state=light]:hover svg:first-of-type,.theme-toggle[data-theme-state=dark]:hover svg:last-of-type{color:var(--bg)}
+.theme-toggle:focus-visible{outline:none;box-shadow:0 0 0 3px color-mix(in srgb,var(--fg) 30%,transparent)}
+html.theme-swap,html.theme-swap *{transition:background-color .5s,color .5s!important}
+
+/* Homepage width: wider than the reading column so the mock-up can breathe. */
+.demo-root[data-layout=home]>main,.demo-root[data-layout=home]>.site-footer{width:min(1120px,calc(100% - 64px));margin-inline:auto}
+.home-more{padding:40px 0 30px}
+.home-cards{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+.home-cards>.case-card{height:460px;min-height:0;max-height:none}
+.home-card .case-card-body{padding:36px 34px 32px}
+.home-card .case-head h3{font-size:clamp(48px,5.6vw,84px);line-height:1.05}
+.home-card .case-bottom{margin-top:auto}
+.home-card .case-bottom{display:flex;align-items:flex-end;justify-content:space-between;gap:24px}
+.home-card .case-line{max-width:360px}
+.home-card-link{flex:none;pointer-events:auto}
+
+/* Menu */
+.menu-about{width:min(var(--content-width),calc(100% - var(--page-gutter)*2));margin:34px auto 0;padding-right:min(240px,20%);font-size:16px;line-height:1.6;color:color-mix(in srgb,var(--fg) 55%,var(--bg));position:relative;z-index:1}
+
+/* No outlines on shared controls. */
+.button,.text-action{border:0}
+.button{background:color-mix(in srgb,var(--fg) 7%,var(--bg))}
+
+@media(max-width:1000px){
+ .header-id{display:none}
+}
+@media(max-width:700px){
+ .demo-root>.site-header,.demo-root[data-layout]>.site-header{height:64px;padding-inline:16px;gap:10px}
+ .demo-root>.site-header .wordmark img{width:88px}
+ .demo-root>.site-header .header-controls{gap:6px}
+ .demo-root>.site-header .language a{padding:0 5px;font-size:12px}
+ .demo-root>.site-header .menu-toggle{padding:0 14px}
+ .menu-toggle .mag-label>span:first-child{display:none}
+ .theme-toggle{width:64px;height:36px}
+ .theme-toggle>i{width:28px;height:28px}
+ .theme-toggle[data-theme-state=dark]>i{transform:translateX(28px)}
+ .theme-toggle svg{width:28px;height:28px;padding:7px}
+ .demo-root>main,.demo-root>.site-footer,.demo-root[data-layout=home]>main,.demo-root[data-layout=home]>.site-footer{width:calc(100% - 32px);margin-inline:auto}
+ .home-cards{grid-template-columns:1fr;gap:12px}
+ .home-cards>.case-card{height:360px}
+ .home-card .case-card-body{padding:26px 22px 24px}
+ .home-card .case-head h3{font-size:13vw}
+ .menu-about{width:calc(100% - 44px);font-size:15px}
+}
+
+/* No outlines anywhere: links go plain, round controls get a soft fill. */
+.case-open,.text-action,.menu-links>a,.footer-controls button,.email-link,.more-work>a{border:0!important}
+.carousel-arrows button{border:0;background:color-mix(in srgb,var(--fg) 8%,var(--bg))}
+.carousel-arrows button:hover{background:var(--fg);color:var(--bg)}
+.archive-filters :is(button,a){border:0;background:color-mix(in srgb,var(--fg) 7%,var(--bg))}
+.archive-filters :is(button,a):is([aria-pressed=true],[aria-current=page]){background:var(--fg);color:var(--bg)}
+
+/* Menu links roll as whole words: per-letter cells clipped tight large type. */
+.menu-roll{position:relative;display:inline-block;overflow:hidden;line-height:1.12;padding:.06em .08em .1em 0;margin:-.06em 0 -.1em}
+.menu-roll>span{display:block;white-space:nowrap;transition:transform .6s cubic-bezier(.65,0,.35,1)}
+.menu-roll>span+span{position:absolute;left:0;top:.06em;transform:translateY(110%)}
+.menu-links>a:is(:hover,:focus-visible) .menu-roll>span:first-child{transform:translateY(-110%)}
+.menu-links>a:is(:hover,:focus-visible) .menu-roll>span+span{transform:none}
+.menu-links>a{letter-spacing:-.055em}
+@media(prefers-reduced-motion:reduce){.menu-roll>span{transition:none}}
+::view-transition-old(root),::view-transition-new(root){animation:none;mix-blend-mode:normal}
+::view-transition-new(root){z-index:2}
+@media(max-width:700px){.home-card .case-bottom{flex-direction:column;align-items:flex-start;gap:18px}}
+.demo-root .menu-links>a>span.menu-roll{font-size:inherit;letter-spacing:inherit;color:inherit}
+/* The header is solid: the page (and the mock-up) never shows through it. */
+.demo-root>.site-header{background:var(--bg)}

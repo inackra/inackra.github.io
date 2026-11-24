@@ -1,0 +1,231 @@
+/* Layout variants and graphic parts for the constructor mock-ups. */
+.mock{--a1:var(--m-accent);--a2:var(--m-ink);--a3:var(--m-ink);--a-panel:var(--m-soft)}
+.mock.mood-bright{--a1:#0b0b0b;--a2:#ffffff;--a3:#0b0b0b;--a-panel:rgba(255,255,255,.35)}
+.mock.mood-twist{--a1:var(--m-hl);--a2:var(--m-ink);--a3:var(--m-hl);--a-panel:var(--m-surface)}
+
+/* Website: editorial */
+.m-ed-grid{flex:1;min-height:0;display:grid;grid-template-columns:200px 1fr 1fr;gap:34px;align-items:center;padding:10px 0}
+.m-ed-side{display:flex;flex-direction:column;gap:22px;align-self:stretch;justify-content:center}
+.m-ed-side>b{font-size:22px;letter-spacing:-.04em}
+.m-ed-index{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:14px;font-size:14px;font-weight:600}
+.m-ed-index li{display:flex;flex-direction:column;gap:4px;padding-top:12px;border-top:1px solid var(--m-line)}
+.m-ed-copy{display:flex;flex-direction:column;align-items:flex-start;gap:18px}
+.m-ed-copy h4{font-size:54px}
+.m-ed-copy p{font-size:15px;line-height:1.5;color:var(--m-muted)}
+.m-ed-stats{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;padding-top:16px;border-top:1px solid var(--m-line)}
+.m-ed-stats div{display:flex;align-items:baseline;gap:12px}
+.m-ed-stats{padding-bottom:4px}
+.m-ed-stats b{font-size:34px}
+
+/* App screens */
+.m-ph-product{gap:12px}
+.m-ph-product h4{font-size:30px;line-height:1}
+.m-ph-cta{justify-content:center;width:100%;height:50px;border-radius:16px}
+.m-ph-feed{gap:14px}
+.m-stories{display:flex;gap:8px;justify-content:space-between;margin:0 -18px;padding:0 18px;overflow:hidden}
+.m-stories span{display:flex;flex-direction:column;align-items:center;gap:6px;font-size:10px;color:var(--m-muted);flex:none}
+.m-stories i{width:48px;height:48px;border-radius:50%;display:grid;place-items:center;background:var(--m-soft);color:var(--m-ink);box-shadow:0 0 0 2px var(--m-bg),0 0 0 4px var(--m-line)}
+.m-stories i.on{box-shadow:0 0 0 2px var(--m-bg),0 0 0 4px var(--a1)}
+.m-tiles{display:grid;grid-template-columns:1fr 1fr;grid-auto-rows:122px;gap:10px}
+.m-tile-wide{grid-column:1/-1;grid-row:span 1;padding:10px 14px 4px;gap:0}
+.m-tile-wide .m-row{padding:6px 0}
+.m-tile-wide .m-row-icon{width:28px;height:28px}
+.m-stories span{width:50px;text-align:center;white-space:nowrap}
+.m-tile{position:relative;overflow:hidden;border-radius:22px;padding:14px;background:var(--m-surface);display:flex;flex-direction:column;gap:4px;box-shadow:0 0 0 1px var(--m-line)}
+.mood-bright .m-tile{box-shadow:none}
+.m-tile .m-big{font-size:26px;margin:0}
+.m-tile b.m-display{font-size:28px}
+.m-tile .m-delta{align-self:flex-start;margin-top:auto}
+.m-tile-hl{background:var(--m-accent);color:var(--m-on-accent)}
+.mock .m-tile-hl small{color:inherit;opacity:.75}
+.mock .m-tile-hl .m-delta{background:rgba(255,255,255,.2);color:inherit}
+.mood-bright .m-tile-hl{background:#0b0b0b;color:var(--m-hl)}
+.m-tile-ink{background:var(--m-ink);color:var(--m-bg);justify-content:flex-end}
+.mock .m-tile-ink small{color:inherit;opacity:.65}
+.m-tile .m-bars{margin-top:auto;height:40px}
+
+/* Charts */
+.m-bars{display:flex;align-items:flex-end;gap:4px;height:100%}
+.m-bars i{flex:1;border-radius:4px 4px 2px 2px;background:var(--m-hl);transform-origin:bottom;animation:m-grow .9s cubic-bezier(.16,1,.3,1) both;animation-delay:calc(var(--i)*50ms + 700ms)}
+.m-bars i:nth-child(odd){opacity:.55}
+.mood-bright .m-bars i{background:#0b0b0b}
+.m-hero-card .m-bars{height:64px;margin:8px 0 10px}
+.m-hero-card .m-bars i{background:currentColor}
+@keyframes m-grow{from{transform:scaleY(0)}}
+.m-donut{width:130px;height:130px;display:block;margin:6px auto;transform:rotate(-90deg)}
+.m-donut circle{fill:none;stroke-width:16;animation:m-fade .8s .8s both;opacity:0}
+.m-donut .d0{stroke:var(--a1)}.m-donut .d1{stroke:var(--m-ink)}.m-donut .d2{stroke:var(--m-muted);opacity:.5}
+.m-legend{display:flex;flex-direction:column;gap:6px;font-size:11px;color:var(--m-muted)}
+.m-legend span{display:flex;align-items:center;gap:8px}
+.m-legend i{width:8px;height:8px;border-radius:50%}
+.m-legend .d0{background:var(--a1)}.m-legend .d1{background:var(--m-ink)}.m-legend .d2{background:var(--m-muted)}
+
+/* SaaS: board */
+.m-top .m-faces{margin-right:8px}
+.m-banner{position:relative;flex:none;height:150px;border-radius:18px;background:var(--m-accent);color:var(--m-on-accent);padding:22px 26px;display:flex;justify-content:space-between;overflow:hidden}
+.mood-bright .m-banner{background:#0b0b0b;color:var(--m-hl)}
+.mock .m-banner small{color:inherit;opacity:.7;font-size:12px}
+.m-banner h4{font-size:36px;margin-top:8px;max-width:460px}
+.mock .m-banner h4 em{color:inherit!important;opacity:.6}
+.m-board{flex:1;min-height:0;display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
+.m-col{background:var(--m-soft);border-radius:16px;padding:12px;display:flex;flex-direction:column;gap:8px;overflow:hidden}
+.mood-bright .m-col{background:rgba(11,11,11,.05)}
+.m-col-head{display:flex;justify-content:space-between;align-items:center;font-size:12px;padding:2px 4px}
+.m-task{background:var(--m-surface);border-radius:12px;padding:10px 12px;display:flex;flex-direction:column;gap:6px;box-shadow:0 1px 0 var(--m-line)}
+.m-task b{font-size:13px}
+.m-task-top{display:flex;justify-content:space-between;align-items:center;gap:8px}
+.m-task-foot{display:flex;justify-content:space-between;align-items:center}
+.m-task .m-faces i{width:18px;height:18px}
+.m-tag{align-self:flex-start;font-size:10px;font-weight:600;padding:3px 8px;border-radius:999px;background:var(--m-soft)}
+.m-tag.t0{background:var(--a1);color:var(--m-on-accent)}
+.mood-bright .m-tag.t0{color:var(--m-hl)}
+.m-task .m-kpi-bar{margin-top:2px}
+
+/* SaaS: insights */
+.m-top .m-segment{width:180px}
+.m-ins{flex:1;min-height:0;display:grid;grid-template-columns:1.2fr 1fr 1fr;grid-template-rows:1fr 1fr;grid-template-areas:"hero donut bars" "hero donut top";gap:12px}
+.m-ins .m-card{padding:16px 18px;display:flex;flex-direction:column;min-height:0;overflow:hidden;position:relative}
+.m-ins-hero{grid-area:hero;background:var(--m-accent)!important;color:var(--m-on-accent);box-shadow:none!important}
+.mood-bright .m-ins-hero{background:#0b0b0b!important;color:var(--m-hl)}
+.mock .m-ins-hero small{color:inherit;opacity:.75;font-size:12px}
+.m-ins-hero strong{font-size:58px;margin-top:8px}
+.mock .m-ins-hero .m-delta{align-self:flex-start;margin-top:10px;background:rgba(255,255,255,.18);color:inherit}
+.m-ins-hero .m-chart-wrap{flex:1;min-height:0;margin:16px 0}
+.m-ins-hero .m-line{stroke:currentColor}.m-ins-hero .m-area{fill:currentColor;fill-opacity:.12}.m-ins-hero .m-dot{background:currentColor}
+.m-ins-sub{display:grid;grid-template-columns:1fr 1fr;gap:10px;padding-top:12px;border-top:1px solid currentColor;border-color:rgba(255,255,255,.2)}
+.m-ins-sub span{display:flex;flex-direction:column;gap:2px}
+.m-ins-sub b{font-size:22px;letter-spacing:-.05em}
+.m-ins-donut{grid-area:donut}
+.m-donut-wrap{position:relative;flex:1;display:grid;place-items:center;min-height:0}
+.m-ins-donut .m-donut{width:180px;height:180px;margin:0}
+.m-donut-total{position:absolute;display:flex;flex-direction:column;align-items:center;font-size:30px;letter-spacing:-.05em}
+.m-donut-total small{font-size:11px;letter-spacing:0;font-weight:500}
+.m-ins-bars{grid-area:bars}.m-ins-top{grid-area:top}
+.m-ins-bars .m-bars{flex:1;margin-top:12px}
+.m-ins-bars .m-card-head b{color:var(--m-ink);font-size:16px}
+.m-ins-top .m-rows{margin-top:6px}.m-ins-top .m-row{padding:6px 0}.m-ins-top .m-row-icon{width:26px;height:26px;border-radius:8px}
+.m-legend b{margin-left:auto;color:var(--m-ink);font-weight:600}
+.m-ins-donut .m-legend{gap:8px;font-size:12px}
+
+/* Phone companions */
+.m-ph-saas{gap:12px}
+.m-kpi-pair{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.m-kpi-pair .m-card{padding:12px 14px;display:flex;flex-direction:column;gap:2px}
+.m-kpi-pair b{font-size:22px;letter-spacing:-.05em}
+
+
+
+/* Content cards (no illustrations: the mock-ups are filled with UI). */
+.m-badge{font-size:11px;font-weight:700;letter-spacing:-.02em;color:var(--m-ink)}
+.mood-strict .m-badge,.mood-twist .m-badge{color:var(--m-accent)}
+.m-notes{display:flex;flex-direction:column;gap:10px}
+.m-note{padding:14px 16px;display:flex;flex-direction:column;gap:4px}
+.mock .m-note small{font-size:11px;font-weight:600;color:var(--m-accent)}
+.mock.mood-bright .m-note small{color:var(--m-ink)}
+.m-note b{font-size:15px;letter-spacing:-.02em}
+.m-note p{font-size:12px;line-height:1.45;color:var(--m-muted)}
+.m-quote{padding:18px;display:flex;flex-direction:column;gap:12px}
+.m-stars{font-size:12px;letter-spacing:2px;color:var(--m-accent)}
+.mood-bright .m-stars{color:var(--m-ink)}
+.m-quote p{font-size:16px;line-height:1.4;letter-spacing:-.02em;color:var(--m-ink);font-weight:500}
+.m-quote-by{display:flex;gap:10px;align-items:center}
+.m-quote-by>span:last-child{display:flex;flex-direction:column}
+.m-quote-by b{font-size:13px}
+.m-mix{padding:16px 18px;display:flex;flex-direction:column;gap:10px}
+.m-mix-row>span{display:flex;justify-content:space-between;font-size:12px}
+.mock .m-mix-row small{font-size:12px;font-weight:600;color:var(--m-ink)}
+.m-mix-row>i{display:block;height:8px;border-radius:4px;background:var(--m-soft);margin-top:5px;overflow:hidden}
+.m-mix-row>i>i{display:block;height:100%;border-radius:4px;background:var(--a1);transform-origin:left;animation:m-growx .9s .8s cubic-bezier(.16,1,.3,1) both}
+.m-mix-row>i>i.d1{background:var(--m-ink)}.m-mix-row>i>i.d2{background:var(--m-muted)}
+@keyframes m-growx{from{transform:scaleX(0)}}
+.m-kpi-row{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
+.m-kpi-row div{display:flex;flex-direction:column;gap:2px;min-width:0}
+.m-kpi-row b{font-size:28px;white-space:nowrap}
+.m-kpi-card{padding:16px 18px}
+.m-kpi-card .m-kpi-row b,.m-kpi-sm b{font-size:22px}
+.m-list-card{padding:14px 18px 6px}
+.m-list-card .m-rows{margin-top:6px}
+
+/* Website: showcase (second layout) */
+.m-pp-hero{flex:1;min-height:0;display:grid;grid-template-columns:1.15fr .85fr;gap:40px;align-items:center}
+.m-pp-copy{display:flex;flex-direction:column;align-items:flex-start;gap:18px}
+.m-pp-copy h4{font-size:64px;line-height:.95}
+.mock.mood-twist .m-pp-copy h4{font-size:70px;line-height:.92}
+.m-pp-copy p{font-size:15px;line-height:1.5;color:var(--m-muted);max-width:440px}
+.m-pp-copy .m-kpi-row{width:100%;margin-top:8px;padding-top:16px;border-top:1px solid var(--m-line)}
+.m-pp-side{display:flex;flex-direction:column;gap:12px}
+.m-pp-side .m-metric-card{width:100%}
+.m-pp-side .m-metric-card .m-chart-wrap{height:84px}
+.m-pp-notes{flex-direction:row;margin-top:14px}
+.m-pp-notes .m-note{flex:1}
+
+/* Website: editorial cards */
+.m-ed-cards{display:flex;flex-direction:column;gap:12px}
+.m-ed-toast{display:flex;align-items:center;gap:10px;padding:12px 14px;font-size:12px}
+.m-ed-toast b,.m-ed-toast small{display:block}
+
+/* App stage: cards on both sides of the phone */
+.m-app-col{position:absolute;z-index:3;top:50%;transform:translateY(-50%);width:290px;display:flex;flex-direction:column;gap:14px}
+.m-app-col.left{left:52px}.m-app-col.right{right:52px}
+.m-app-col .m-metric-card{width:100%}
+.m-app-col .m-metric-card .m-chart-wrap{height:70px}
+
+/* App screens: product */
+.m-ph-product{gap:12px}
+.m-ph-product .m-hero-card .m-chart-wrap{height:52px}
+.m-ph-product h4{font-size:26px;line-height:1}
+.m-ph-notes{gap:8px}
+.m-ph-notes .m-note{padding:10px 14px;gap:2px}
+.m-ph-notes .m-note b{font-size:14px}
+.m-ph-notes .m-note p{font-size:11px}
+.m-ph-cta{justify-content:center;width:100%;height:48px;border-radius:16px;flex:none}
+
+/* App screens: feed tiles */
+.mock .m-stories i{font-size:11px;font-weight:700;font-style:normal}
+.m-tile-mix{padding:12px 14px;gap:7px;justify-content:center}
+.m-tile-mix .m-card-head{display:none}
+.m-tile-mix .m-mix-row>i{height:6px;margin-top:4px}
+.m-tile-ink{justify-content:flex-start;gap:2px}
+.m-ink-top{display:flex;justify-content:space-between;align-items:center;margin-bottom:auto}
+.mock .m-tile-ink .m-badge{background:rgba(255,255,255,.12);color:inherit}
+.mock.mood-strict .m-tile-ink .m-badge,.mock.mood-bright .m-tile-ink .m-badge{background:rgba(255,255,255,.14)}
+.mock .m-tile-ink .m-delta{margin:0;background:var(--m-hl);color:#0b0b0b}
+.m-tile-ink strong{font-size:22px}
+
+/* SaaS banner numbers */
+.m-banner-kpis{display:flex;gap:30px;align-self:flex-end;flex:none}
+.m-banner-kpis span{display:flex;flex-direction:column;gap:2px}
+.m-banner-kpis b{font-size:28px;letter-spacing:-.05em}
+.mock .m-banner-kpis small{color:inherit;opacity:.7}
+
+/* Website on a phone */
+.m-msite-more{display:flex;flex-direction:column;gap:12px;margin-top:2px}
+.m-msite-more .m-metric-card{width:100%;padding:14px 16px 6px}
+.m-msite-more .m-metric-card .m-chart-wrap{height:60px;margin-top:6px}
+.m-msite-more .m-list-card{padding:10px 16px 4px}
+.m-msite-more .m-kpi-row{padding-top:12px;border-top:1px solid var(--m-line)}
+.m-msite-notes{gap:8px}
+.m-msite-notes .m-note{padding:10px 14px;gap:2px}
+
+/* Phones on a phone screen: no drop shadow (it reads as a grey box when clipped). */
+.m-app-stage.compact .m-phone{box-shadow:none}
+.m-feature{align-items:flex-start}
+.m-feature>span:last-child{display:flex;flex-direction:column;gap:2px}
+.mock .m-feature small{font-weight:500;line-height:1.4}
+.m-msite-more,.m-msite-notes{flex:1;min-height:0}
+.m-msite-more .m-grow{flex:1;min-height:0;display:flex;flex-direction:column}
+.m-msite-more .m-metric-card.m-grow .m-chart-wrap{flex:1;min-height:50px;height:auto}
+.m-msite-more .m-quote.m-grow{justify-content:space-between}
+.m-msite-more .m-quote.m-grow p{font-size:19px}
+.m-msite-notes .m-note{flex:1;justify-content:center}
+.m-msite-more{padding-bottom:18px}.m-msite-notes{padding-bottom:18px}
+.m-msite-notes .m-note p{font-size:11px;line-height:1.4}
+.m-msite-notes .m-note b{font-size:14px}
+.m-ph-product{gap:10px}
+.m-ph-product .m-hero-card{padding:14px 16px 6px}
+.m-ph-product .m-hero-card .m-chart-wrap{height:40px;margin-top:4px}
+.m-ph-notes .m-note{padding:9px 14px}
+.m-msite-more .m-quote.m-grow{justify-content:center;gap:20px}
+.m-msite-more .m-quote.m-grow p{font-size:21px;line-height:1.3}
+.m-board .m-task{padding:14px 14px 12px;gap:10px}
+.m-col-add{margin-top:auto;height:38px;border-radius:12px;display:grid;place-items:center;font-size:12px;color:var(--m-muted);box-shadow:inset 0 0 0 1px var(--m-line)}
