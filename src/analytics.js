@@ -17,8 +17,20 @@ export function visitSource(){try{return sessionStorage.getItem(SOURCE_KEY)||''}
 
 export function track(name,data){try{window.umami?.track(name,data)}catch{}}
 
+// Owner's own visits: open any page once with ?umami=ignore on each device and browser
+// (?umami=track turns counting back on). Umami's script skips tracking when this flag is set.
+function ownerOptOut(){
+ try{
+  const q=new URLSearchParams(location.search).get('umami');
+  if(q==='ignore')localStorage.setItem('umami.disabled','1');
+  if(q==='track')localStorage.removeItem('umami.disabled');
+  return localStorage.getItem('umami.disabled')==='1';
+ }catch{return false}
+}
+
 export function initAnalytics(){
  rememberSource();
+ if(ownerOptOut())return;
  // Contact clicks anywhere on the site: email and Telegram.
  document.addEventListener('click',e=>{const a=e.target.closest?.('a[href]');if(!a)return;const href=a.getAttribute('href');if(href.startsWith('mailto:'))track('contact',{channel:'email'});else if(/^https:\/\/t\.me\/Jo1_Se/.test(href))track('contact',{channel:'telegram'});else if(href.includes('linkedin.com/in/'))track('contact',{channel:'linkedin'})},{capture:true});
  if(!UMAMI_ID||location.hostname!=='inackra.work')return;
