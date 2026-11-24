@@ -48,6 +48,11 @@ export default function Constructor({lang='ru',paused=false,shared=null}){
  // Share sits 24px above the bottom of what reads as the mock-up: the phone on small screens, the canvas otherwise.
  const stageRef=useRef(null);
  useEffect(()=>{if(initial)track('shared_view',{build:shared})},[]);
+ // Shared build → own build: counted once per visit, whichever way the visitor gets
+ // into the generator (the "build your own" button, any restart, or a link to the home page).
+ const toBuilder=useRef(false);
+ const intoBuilder=from=>{if(!via.current||toBuilder.current)return;toBuilder.current=true;track('shared_to_builder',{build:via.current,from})};
+ useEffect(()=>{if(!initial)return;const click=e=>{const a=e.target.closest?.('a[href]');if(!a)return;try{const u=new URL(a.href,location.href);if(u.origin===location.origin&&/^\/(en\/)?$/.test(u.pathname))intoBuilder('link')}catch{}};document.addEventListener('click',click,{capture:true});return()=>document.removeEventListener('click',click,{capture:true})},[]);
  useEffect(()=>{const el=stageRef.current;if(!el||step!==4)return;const place=()=>{const mock=el.querySelector('.mock'),phone=el.querySelector('.m-app-stage.compact .m-phone');if(!mock)return;const bottom=(phone||mock).getBoundingClientRect().bottom,stage=el.getBoundingClientRect().bottom;el.style.setProperty('--share-gap',`${Math.round(stage-bottom+24)}px`)};place();const ro=new ResizeObserver(place);ro.observe(el);const t=setTimeout(place,900);return()=>{ro.disconnect();clearTimeout(t)}},[step,build,variant,choice.type]);
  const [proof,setProof]=useState(0),[phase,setPhase]=useState(0);
  const [form,setForm]=useState({task:'',contact:''}),[status,setStatus]=useState('idle');
@@ -71,7 +76,7 @@ export default function Constructor({lang='ru',paused=false,shared=null}){
  const go=n=>{setStep(n);setShareOpen(false);if(n<4&&viewing){setViewing(false);if(location.pathname.includes('/b/'))history.replaceState(null,'',homeUrl(lang))}scrollTop()};
  // Types and moods move on by themselves; a short pause lets the fill land.
  const pick=(key,v,next)=>{setChoice(c=>({...c,[key]:v}));track(`pick_${key}`,{[key]:v});if(next!=null)setTimeout(()=>go(next),reduced()?0:320)};
- const restart=(from='restart')=>{track(from);setChoice({type:null,mood:null,niche:null});setStatus('idle');go(0)};
+ const restart=(from='restart')=>{track(from);intoBuilder(from);setChoice({type:null,mood:null,niche:null});setStatus('idle');go(0)};
  const link=step===4&&choice.type?ORIGIN+shareUrl(shareCode(choice,variant),lang):'';
  const shareTo=where=>{const text=d.shareText,u=encodeURIComponent(link),t=encodeURIComponent(text);return {tg:`https://t.me/share/url?url=${u}&text=${t}`,in:`https://www.linkedin.com/sharing/share-offsite/?url=${u}`,x:`https://x.com/intent/post?text=${t}&url=${u}`}[where]};
  const copyLink=async()=>{track('share',{channel:'copy'});try{await navigator.clipboard.writeText(link)}catch{const a=document.createElement('textarea');a.value=link;document.body.append(a);a.select();try{document.execCommand('copy')}catch{}a.remove()}setCopied(true);setTimeout(()=>setCopied(false),2200)};
