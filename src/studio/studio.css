@@ -297,7 +297,7 @@
  .studio-step{margin-top:44px;width:100%}
  .studio-question{margin-bottom:22px}
  .studio-options{gap:10px}
- .options-type,.options-mood{flex-direction:column;align-items:stretch;width:100%}
+ .options-type,.options-mood{flex-direction:column;align-items:center;width:100%}
  .mag{height:60px;padding:0 30px;font-size:16px}
  .options-niche .mag{height:52px;padding:0 22px;font-size:15px}
  .mag-small{height:48px;padding:0 22px;font-size:14px}
