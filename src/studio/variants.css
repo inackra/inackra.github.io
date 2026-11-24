@@ -270,3 +270,8 @@
 .mock .m-tile-ink.with-photo{position:relative;overflow:hidden;background:#0b0b0b;color:#fff}
 .mock .m-tile-ink .m-tile-bg{position:absolute;inset:0;opacity:.5;border-radius:0}
 .mock .m-tile-ink.with-photo>:not(.m-tile-bg){position:relative}
+/* Story circles: never squeezed by the flex column, always 1:1 */
+.mock .m-stories{flex:none}
+.mock .m-stories>span{flex:none;height:auto;min-height:0}
+.mock .m-stories i{flex:0 0 44px;width:44px;height:44px;min-width:44px;min-height:44px;aspect-ratio:1/1;box-sizing:border-box}
+.mock .m-stories i>.m-photo{width:100%;height:100%;object-fit:cover;border-radius:50%}
