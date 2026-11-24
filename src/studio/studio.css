@@ -325,5 +325,9 @@
 @media(max-width:700px){.share-menu{right:auto;left:0}}
 .studio .result-shared h1.result-title{font-size:clamp(40px,4.6vw,72px);line-height:1;margin:0}
 .result-shared{align-items:flex-end}
-.share-below{display:flex;justify-content:center;margin-top:28px}
-.share-below .share-menu{left:50%;right:auto;transform:translateX(-50%);top:calc(100% + 10px)}
+.result-stage{position:relative}
+/* Share floats on the mock-up, bottom centre; its menu opens upwards over the mock-up */
+.result-stage{margin-bottom:40px}
+.share-below{position:absolute;z-index:6;left:50%;bottom:0;transform:translate(-50%,50%)}
+.share-below .share-menu{left:50%;right:auto;transform:translateX(-50%);top:auto;bottom:calc(100% + 10px)}
+@media(max-width:700px){.result-stage{margin-bottom:36px}.share-below .share-menu{left:50%;right:auto}}

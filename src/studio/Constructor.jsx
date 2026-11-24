@@ -119,8 +119,9 @@ export default function Constructor({lang='ru',paused=false,shared=null}){
     <div className="result-actions"><span className="result-hint">{d.hint}</span><Magnetic type="button" className="mag-small mag-solid" onClick={()=>go(3)}><span>{d.another}</span></Magnetic><Magnetic type="button" className="mag-small" onClick={restart}><span>{d.restart}</span><Arrow/></Magnetic>
     </div>
    </div>}
+   <div className="result-stage">
    <MockStage key={build} type={choice.type} mood={choice.mood} niche={niche} paused={paused} variant={variant}/>
-   {!viewing&&<div className="share share-below"><Magnetic type="button" className="mag-small" aria-expanded={shareOpen} aria-controls="share-menu" onClick={()=>setShareOpen(o=>!o)}><span>{d.share}</span></Magnetic>
+   {!viewing&&<div className="share share-below"><Magnetic type="button" className="mag-solid share-btn" aria-expanded={shareOpen} aria-controls="share-menu" onClick={()=>setShareOpen(o=>!o)}><span>{d.share}</span></Magnetic>
       {shareOpen&&<div className="share-menu" id="share-menu" role="menu">
        <button type="button" role="menuitem" onClick={copyLink}>{copied?d.shareCopied:d.shareCopy}</button>
        <a role="menuitem" href={shareTo('tg')} target="_blank" rel="noreferrer">Telegram</a>
@@ -129,7 +130,8 @@ export default function Constructor({lang='ru',paused=false,shared=null}){
        {typeof navigator!=='undefined'&&navigator.share&&<button type="button" role="menuitem" onClick={nativeShare}>{d.shareMore}</button>}
        <span className="share-url">{link.replace('https://','')}</span>
       </div>}
-     </div>}
+   </div>}
+   </div>
    <div className="order">
     <div className="order-copy"><h2>{d.order[0]}<br/><em>{d.order[1]}</em></h2><p>{d.orderText}</p><ul className="order-promise">{d.promise.map(x=><li key={x}>{x}</li>)}</ul></div>
     {status==='sent'
