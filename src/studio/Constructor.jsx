@@ -44,6 +44,9 @@ export default function Constructor({lang='ru',paused=false,shared=null}){
  // A visitor who came by someone's link: the first result is that build, the enquiry says so.
  const [viewing,setViewing]=useState(Boolean(initial));const via=useRef(initial?shared:null);
  const [shareOpen,setShareOpen]=useState(false),[copied,setCopied]=useState(false);
+ // Share sits 24px above the bottom of what reads as the mock-up: the phone on small screens, the canvas otherwise.
+ const stageRef=useRef(null);
+ useEffect(()=>{const el=stageRef.current;if(!el||step!==4)return;const place=()=>{const mock=el.querySelector('.mock'),phone=el.querySelector('.m-app-stage.compact .m-phone');if(!mock)return;const bottom=(phone||mock).getBoundingClientRect().bottom,stage=el.getBoundingClientRect().bottom;el.style.setProperty('--share-gap',`${Math.round(stage-bottom+24)}px`)};place();const ro=new ResizeObserver(place);ro.observe(el);const t=setTimeout(place,900);return()=>{ro.disconnect();clearTimeout(t)}},[step,build,variant,choice.type]);
  const [proof,setProof]=useState(0),[phase,setPhase]=useState(0);
  const [form,setForm]=useState({task:'',contact:''}),[status,setStatus]=useState('idle');
  const top=useRef(null),sendForm=useRef(null),pending=useRef(null),timer=useRef(null);
@@ -119,7 +122,7 @@ export default function Constructor({lang='ru',paused=false,shared=null}){
     <div className="result-actions"><span className="result-hint">{d.hint}</span><Magnetic type="button" className="mag-small mag-solid" onClick={()=>go(3)}><span>{d.another}</span></Magnetic><Magnetic type="button" className="mag-small" onClick={restart}><span>{d.restart}</span><Arrow/></Magnetic>
     </div>
    </div>}
-   <div className="result-stage">
+   <div className="result-stage" ref={stageRef}>
    <MockStage key={build} type={choice.type} mood={choice.mood} niche={niche} paused={paused} variant={variant}/>
    {!viewing&&<div className="share share-below"><Magnetic type="button" className="mag-solid share-btn" aria-expanded={shareOpen} aria-controls="share-menu" onClick={()=>setShareOpen(o=>!o)}><span>{d.share}</span></Magnetic>
       {shareOpen&&<div className="share-menu" id="share-menu" role="menu">
