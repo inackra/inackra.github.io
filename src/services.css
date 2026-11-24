@@ -1,6 +1,6 @@
 /* Services as plans: plans side by side on hairlines (one full screen each on
    a phone), a comparison table, then proof. Site tokens only, no cards. */
-.services-page{--soft:color-mix(in srgb,var(--fg) 10%,var(--bg));--dim:color-mix(in srgb,var(--fg) 55%,var(--bg));padding:130px 0 40px}
+.services-page{position:relative;z-index:47;--soft:color-mix(in srgb,var(--fg) 10%,var(--bg));--dim:color-mix(in srgb,var(--fg) 55%,var(--bg));padding:130px 0 40px}
 .pl-hero{padding:36px 0 56px;border-bottom:1px solid var(--line)}
 .pl-hero h1{font-size:clamp(56px,8vw,104px);line-height:1;letter-spacing:-.07em}
 .pl-hero p{margin-top:20px;max-width:560px;font-size:18px;line-height:1.55;color:var(--dim)}
@@ -33,32 +33,39 @@
 .pl-cal-note{margin-top:18px;font-size:13px;color:var(--dim)}
 
 /* Calendar: four working weeks, a month view with Apple-coloured events. */
-.pl-cal{--row:34px;border-top:1px solid var(--line)}
-.pl-cal-days,.pl-week{display:grid;grid-template-columns:repeat(5,minmax(0,1fr))}
+.pl-cal{--row:38px;border-top:1px solid var(--line)}
+.pl-cal-days,.pl-week{display:grid;grid-template-columns:repeat(5,minmax(0,1fr)) repeat(2,minmax(0,.45fr))}
+.pl-cal-days .is-off,.pl-day.is-off{color:color-mix(in srgb,var(--fg) 35%,var(--bg))}
+.pl-day.is-off{background:color-mix(in srgb,var(--fg) 3%,var(--bg))}
 .pl-cal-days span{padding:10px 10px 8px;font-size:12px;color:var(--dim);text-align:right}
-.pl-week{grid-template-rows:34px repeat(var(--lanes),var(--row)) 14px;row-gap:5px;border-top:1px solid var(--line)}
+.pl-week{grid-template-rows:34px repeat(var(--lanes),var(--row)) 12px;row-gap:2px;border-top:1px solid var(--line)}
 .pl-day{grid-row:1/-1;padding:8px 10px 0;font-size:14px;text-align:right;color:color-mix(in srgb,var(--fg) 70%,var(--bg));border-left:1px solid var(--line)}
 .pl-day:first-child{border-left:0}
-.pl-ev{position:relative;z-index:1;min-width:0;margin:0 3px;padding:0 10px 0 12px;display:block;line-height:var(--row);overflow:hidden;white-space:nowrap;text-overflow:ellipsis;border-radius:7px;font-size:13px;font-weight:500;letter-spacing:-.01em;
- background:color-mix(in srgb,var(--c) 22%,var(--bg));color:color-mix(in srgb,var(--c) 45%,var(--fg))}
-.pl-ev::before{content:'';position:absolute;left:0;top:0;bottom:0;width:3px;background:var(--c)}
-.pl-ev-cont{border-top-left-radius:0;border-bottom-left-radius:0;margin-left:0}
-.pl-ev-cont::before{display:none}
-.pl-cal.is-wait .pl-ev{clip-path:inset(0 100% 0 0)}
+.pl-ev{position:relative;z-index:1;min-width:0;margin:3px 4px;padding:0 14px;display:flex;align-items:center;border-radius:999px;font-size:13px;font-weight:600;letter-spacing:-.01em;
+ background:var(--c);color:var(--t,#fff);box-shadow:inset 0 1px 0 rgb(255 255 255/.28),inset 0 -2px 0 rgb(0 0 0/.08),0 6px 14px -8px var(--c);
+ transition:transform .35s cubic-bezier(.3,1.6,.5,1),box-shadow .35s;cursor:default}
+.pl-ev>span{min-width:0;overflow:hidden;white-space:nowrap;text-overflow:ellipsis}
+.pl-ev:hover{transform:translateY(-2px) scale(1.015);box-shadow:inset 0 1px 0 rgb(255 255 255/.3),inset 0 -2px 0 rgb(0 0 0/.08),0 12px 22px -10px var(--c)}
+.pl-ev:active{transform:scale(.97)}
+.pl-ev-cont{border-top-left-radius:6px;border-bottom-left-radius:6px;margin-left:0}
+.pl-ev-more{border-top-right-radius:6px;border-bottom-right-radius:6px;margin-right:0}
+.pl-cal.is-wait .pl-ev{clip-path:inset(-30px 100% -30px -30px)}
 .pl-cal.is-in .pl-ev{animation:pl-ev-in .55s cubic-bezier(.2,.7,.2,1) both;animation-delay:calc(var(--i) * 70ms)}
-@keyframes pl-ev-in{from{clip-path:inset(0 100% 0 0)}to{clip-path:inset(0 0 0 0)}}
-@keyframes pl-ev-down{from{clip-path:inset(0 0 100% 0)}to{clip-path:inset(0 0 0 0)}}
+@keyframes pl-ev-in{from{clip-path:inset(-30px 100% -30px -30px)}to{clip-path:inset(-30px -30px -30px -30px)}}
+@keyframes pl-ev-down{from{clip-path:inset(-30px -30px 100% -30px)}to{clip-path:inset(-30px -30px -30px -30px)}}
 .pl-agenda{display:none}
 .pl-aw h3{font-size:15px;font-weight:500;letter-spacing:-.02em;padding:22px 0 10px}
-.pl-aw-grid{display:grid;grid-template-columns:52px repeat(var(--lanes),minmax(0,1fr));grid-template-rows:repeat(5,46px);column-gap:6px}
+.pl-aw-grid{display:grid;grid-template-columns:52px repeat(var(--lanes),minmax(0,1fr));grid-template-rows:repeat(5,46px) 30px 30px;column-gap:6px}
 .pl-aw-day{grid-column:1/-1;display:flex;align-items:baseline;gap:6px;padding-top:7px;border-top:1px solid var(--line);font-size:12px;color:var(--dim)}
+.pl-aw-day.is-off{color:color-mix(in srgb,var(--fg) 35%,var(--bg))}
+.pl-aw-day.is-off b{color:inherit;font-size:14px}
 .pl-aw-day b{font-size:17px;font-weight:500;color:var(--fg);min-width:20px}
-.pl-aw-grid .pl-ev-v{margin:4px 0;padding:8px 10px 8px 12px;line-height:1.3;white-space:normal;border-radius:8px;font-size:13px}
-.pl-ev-v>span{display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden}
-.pl-aw-grid .pl-ev-v.pl-ev-cont{border-radius:0 0 8px 8px;margin:0 0 4px}
-.pl-aw-grid .pl-ev-v.pl-ev-cont::before{display:block}
-.pl-ev-v.pl-ev-cont>span{opacity:.75}
-.pl-cal.is-wait .pl-ev-v{clip-path:inset(0 0 100% 0)}
+.pl-aw-grid .pl-ev-v{margin:4px 0;padding:10px 12px;align-items:flex-start;border-radius:18px;font-size:14px;line-height:1.25}
+.pl-aw-grid .pl-ev-v>span{white-space:normal;display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical}
+.pl-aw-grid .pl-ev-v.pl-ev-cont{margin-top:0;border-top-left-radius:6px;border-top-right-radius:6px}
+.pl-aw-grid .pl-ev-v.pl-ev-more{margin-bottom:0;border-bottom-left-radius:6px;border-bottom-right-radius:6px}
+.pl-aw-grid .pl-ev-v.pl-ev-cont>span{opacity:.8}
+.pl-cal.is-wait .pl-ev-v{clip-path:inset(-30px -30px 100% -30px)}
 .pl-cal.is-in .pl-ev-v{animation-name:pl-ev-down}
 .demo-root .pl-tabs .pill{min-height:42px;padding:8px 18px;font-size:14px}
 .demo-root .pl-tabs .pill[aria-selected=true]{background:var(--fg);color:var(--bg)}
@@ -112,8 +119,6 @@
  .pl-cal{--row:30px}
  .pl-cal-days span{padding:8px 6px 6px;font-size:11px}
  .pl-day{padding:6px 6px 0;font-size:12px}
- .pl-ev{margin:0 2px;padding:0 6px 0 8px;font-size:11px;border-radius:5px}
- .pl-ev-cont{margin-left:0}
   .pl-cal-lead{font-size:16px}
  .pl-actions{flex-direction:column;align-items:flex-start}
  }
