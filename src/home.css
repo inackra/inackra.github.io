@@ -90,3 +90,5 @@ html.theme-swap,html.theme-swap *{transition:background-color .5s,color .5s!impo
 ::view-transition-new(root){z-index:2}
 @media(max-width:700px){.home-card .case-bottom{flex-direction:column;align-items:flex-start;gap:18px}}
 .demo-root .menu-links>a>span.menu-roll{font-size:inherit;letter-spacing:inherit;color:inherit}
+/* The header is solid: the page (and the mock-up) never shows through it. */
+.demo-root>.site-header{background:var(--bg)}

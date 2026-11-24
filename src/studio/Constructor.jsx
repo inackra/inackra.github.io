@@ -4,6 +4,12 @@ import Arrow from '../Arrow';
 import Magnetic from '../Magnetic';
 import {MockStage} from './Mocks';
 import {copy,types,moods,niches,achievements,findNiche} from './data';
+import {EMAIL} from '../content';
+
+// Same delivery as the old contact form: a Google Apps Script web app that writes
+// a row to Ян's private sheet. Without it the form opens a prepared email instead.
+const endpoint=import.meta.env.VITE_ENQUIRY_ENDPOINT||'';
+const isEmail=v=>/^\S+@\S+\.\S+$/.test(v);
 import './studio.css';
 
 const reduced=()=>typeof matchMedia!=='undefined'&&matchMedia('(prefers-reduced-motion: reduce)').matches;
@@ -35,7 +41,8 @@ export default function Constructor({lang='ru',paused=false}){
  const [build,setBuild]=useState(0),[variant,setVariant]=useState(()=>Math.floor(Math.random()*3));
  const [proof,setProof]=useState(0),[phase,setPhase]=useState(0);
  const [form,setForm]=useState({task:'',contact:''}),[status,setStatus]=useState('idle');
- const top=useRef(null);
+ const top=useRef(null),sendForm=useRef(null),pending=useRef(null),timer=useRef(null);
+ useEffect(()=>{const receive=e=>{if(!/^https:\/\/(script\.google\.com|[a-z0-9-]+\.googleusercontent\.com)$/.test(e.origin)||e.data?.type!=='inackra-enquiry'||e.data?.id!==pending.current)return;clearTimeout(timer.current);pending.current=null;if(e.data.ok){setStatus('sent');setForm({task:'',contact:''})}else setStatus('failed')};addEventListener('message',receive);return()=>{removeEventListener('message',receive);clearTimeout(timer.current)}},[]);
  const niche=findNiche(choice.niche);
  const label=(list,id)=>list.find(x=>x.id===id)?.[lang]||'';
 
@@ -56,12 +63,16 @@ export default function Constructor({lang='ru',paused=false}){
  const pick=(key,v,next)=>{setChoice(c=>({...c,[key]:v}));if(next!=null)setTimeout(()=>go(next),reduced()?0:320)};
  const restart=()=>{setChoice({type:null,mood:null,niche:null});setStatus('idle');go(0)};
  const submit=e=>{
-  e.preventDefault();
-  if(form.task.trim().length<3||form.contact.trim().length<3){setStatus('invalid');return}
-  // The handler (e.g. Cloudflare Worker → Telegram bot) is connected later.
-  const payload={...choice,task:form.task.trim(),contact:form.contact.trim(),lang,source:'constructor'};
-  if(typeof console!=='undefined')console.info('[constructor] enquiry (not sent, demo)',payload);
-  setStatus('sent');setForm({task:'',contact:''});
+  e.preventDefault();if(status==='sending')return;
+  const task=form.task.trim(),contact=form.contact.trim();
+  if(task.length<10||!isEmail(contact)){setStatus('invalid');return}
+  const brief=[label(types,choice.type),label(moods,choice.mood),label(niches,choice.niche)].join(' / ');
+  const message=`${lang==='ru'?'Сборка':'Build'}: ${brief}\n\n${task}`;
+  if(!endpoint){location.href=`mailto:${EMAIL}?subject=${encodeURIComponent(lang==='ru'?'Заявка с конструктора':'Constructor enquiry')}&body=${encodeURIComponent(`${message}\n\n${contact}`)}`;return}
+  const f=sendForm.current,id=crypto.randomUUID?.()||`${Date.now().toString(36)}-${Math.random().toString(36).slice(2)}${Math.random().toString(36).slice(2)}`;
+  f.elements.requestId.value=id;f.elements.email.value=contact;f.elements.message.value=message;f.elements.lang.value=lang;
+  pending.current=id;setStatus('sending');f.submit();
+  timer.current=setTimeout(()=>{pending.current=null;setStatus('failed')},25000);
  };
 
  const row=(key,list,next,icon)=><div className={`studio-options options-${key}`} role="group" aria-label={d.steps[step]}>
@@ -102,9 +113,11 @@ export default function Constructor({lang='ru',paused=false}){
      :<form className="order-form" onSubmit={submit} noValidate>
       <div className="order-brief"><span>{d.brief}</span>{[label(types,choice.type),label(moods,choice.mood),label(niches,choice.niche)].map(x=><b key={x}>{x}</b>)}</div>
       <label>{d.task}<textarea rows={3} maxLength={2000} placeholder={d.taskHint} value={form.task} onChange={e=>{setForm({...form,task:e.target.value});setStatus('idle')}}/></label>
-      <label>{d.contact}<input maxLength={200} autoComplete="email" placeholder="you@mail.com / @telegram" value={form.contact} onChange={e=>{setForm({...form,contact:e.target.value});setStatus('idle')}}/></label>
-      <div className="order-submit"><Magnetic type="submit" className="mag-solid"><span>{d.send}</span><Arrow/></Magnetic><span className={`order-status ${status}`} role="status">{status==='invalid'?d.required:d.demoNote}</span></div>
+      <label>{d.contact}<input maxLength={200} type="email" autoComplete="email" placeholder="you@mail.com" value={form.contact} onChange={e=>{setForm({...form,contact:e.target.value});setStatus('idle')}}/></label>
+      <div className="order-submit"><Magnetic type="submit" className="mag-solid"><span>{d.send}</span><Arrow/></Magnetic><span className={`order-status ${status}`} role="status">{status==='invalid'?d.required:status==='sending'?d.sending:status==='failed'?<>{d.failed} <a href={`mailto:${EMAIL}`}>{EMAIL}</a></>:endpoint?d.privacy:d.mailNote}</span></div>
      </form>}
+    {endpoint&&<form ref={sendForm} action={endpoint} method="POST" target="constructor-send" hidden aria-hidden="true"><input name="requestId"/><input name="intent" defaultValue="project"/><input name="name" defaultValue="Constructor"/><input name="email"/><textarea name="message"/><input name="lang"/><input name="website"/></form>}
+    {endpoint&&<iframe name="constructor-send" title="send" hidden/>}
    </div>
   </div>}
  </section>;

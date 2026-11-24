@@ -71,17 +71,16 @@ function SiteMock({niche,mood}){
      <div className="m-actions m-in" style={rise(4)}><span className="m-btn">{niche.cta}<span className="m-arrow">→</span></span><span className="m-btn m-btn-ghost">See how it works</span></div>
     </div>
     <div className="m-site-visual">
-     <span className={`m-shape m-shape-${mood}`}/>
      <div className="m-card m-metric-card m-in" style={rise(3)}>
       <div className="m-card-head"><span>{niche.metric.label}</span><span className="m-delta">{niche.metric.delta}</span></div>
       <strong className="m-big"><Count {...niche.metric}/></strong>
       <Chart series={niche.series} width={320} height={120}/>
-      <div className="m-rows">{niche.list.slice(0,2).map(([t,m,v],i)=><div className="m-row" key={t}><span className="m-row-icon"><Icon name={niche.icons[i]} size={15}/></span><span className="m-row-text"><b>{t}</b><small>{m}</small></span><span className="m-row-value">{v}</span></div>)}</div>
+      <div className="m-rows">{niche.list.map((r,i)=><Row key={r[0]} row={r}/>)}</div>
      </div>
      <Toast niche={niche} className="m-toast-site"/>
     </div>
    </div>
-   <div className="m-features">{niche.features.map((f,i)=><div className="m-feature m-in" key={f} style={rise(6+i)}><span className="m-row-icon"><Icon name={niche.icons[i]} size={16}/></span>{f}</div>)}</div>
+   <div className="m-features">{niche.features.map((f,i)=><div className="m-feature m-in" key={f} style={rise(6+i)}><span className="m-row-icon m-badge">0{i+1}</span><span><b>{f}</b><small>{niche.notes[i]}</small></span></div>)}</div>
   </div>
  </div>;
 }
@@ -99,7 +98,7 @@ function Phone({niche}){
     <Chart series={niche.series} width={280} height={84}/>
    </div>
    <div className="m-segment m-in" style={rise(2)}><span className="on">Week</span><span>Month</span><span>Year</span></div>
-   <div className="m-rows">{niche.list.map(([t,m,v],i)=><div className="m-row m-in" key={t} style={rise(3+i)}><span className="m-row-icon"><Icon name={niche.icons[i%3]} size={16}/></span><span className="m-row-text"><b>{t}</b><small>{m}</small></span><span className="m-row-value">{v}</span></div>)}</div>
+   <div className="m-rows">{niche.list.map((r,i)=><Row key={r[0]} row={r}/>)}</div>
    <div className="m-tabbar">{niche.icons.map((icon,i)=><span key={icon} className={i?'':'on'}><Icon name={icon} size={20}/></span>)}</div>
   </div>
  </div>;
@@ -113,21 +112,17 @@ function MobileSite({niche,mood,variant=0}){
   <h4 className="m-display m-in" style={rise(2)}>{niche.headline[0]}<br/><em>{niche.headline[1]}</em></h4>
   <p className="m-in" style={rise(3)}>{niche.sub}</p>
   <span className="m-btn m-in" style={rise(4)}>{niche.cta}<span className="m-arrow">→</span></span>
-  {variant===2?<div className="m-msite-ed m-in" style={rise(5)}><div className="m-ed-art"><Art niche={niche}/><span className="m-ph-tag">{niche.kpis[0][1]} {niche.kpis[0][0].toLowerCase()}</span></div></div>:variant?<div className="m-msite-visual m-msite-art m-in" style={rise(5)}><Art niche={niche}/><Sticker text={niche.cta} className="m-pp-sticker"/></div>:<div className="m-msite-visual m-in" style={rise(5)}><span className={`m-shape m-shape-${mood}`}/><div className="m-card m-metric-card"><div className="m-card-head"><span>{niche.metric.label}</span><span className="m-delta">{niche.metric.delta}</span></div><strong className="m-big"><Count {...niche.metric}/></strong><Chart series={niche.series} width={260} height={80}/></div></div>}
+  {variant===2?<div className="m-msite-more"><Kpis niche={niche} className="m-kpi-sm"/><Quote niche={niche} className="m-in m-grow" style={rise(7)}/></div>:variant?<Notes niche={niche} className="m-msite-notes" start={5}/>:<div className="m-msite-more"><MetricCard niche={niche} className="m-in m-grow" style={rise(5)} w={260} h={70}/><Kpis niche={niche} className="m-kpi-sm"/></div>}
  </div></div></div>;
 }
 const PHONES=[Phone,PhoneProduct,PhoneFeed];
-function AppMock({niche,mood,compact,variant=0}){
+function AppMock({niche,compact,variant=0}){
  const Screen=PHONES[variant]||Phone;
  if(compact)return <div className="m-app-stage compact"><Screen niche={niche}/></div>;
  return <div className={`m-app-stage m-app-v${variant}`}>
-  {variant===0&&<><span className="m-poster m-display" aria-hidden="true">{niche.name}</span><span className="m-shape m-shape-app"/></>}
-  {variant===1&&<><Art niche={niche} className="m-app-bgart"/><Sticker text={niche.features[1]} className="m-app-sticker"/></>}
-  {variant===2&&<><Marquee items={[niche.name,...niche.features]} className="m-app-band b1"/><Marquee items={[niche.headline[0],niche.headline[1]]} className="m-app-band b2"/></>}
-  <div className="m-float m-float-left m-in" style={rise(5)}><span className="m-row-icon"><Icon name={niche.icons[0]} size={16}/></span>{niche.features[0]}</div>
+  <div className="m-app-col left">{variant===1?<><ListCard niche={niche} className="m-in" style={rise(5)}/><Mix niche={niche} className="m-in" style={rise(6)}/></>:variant===2?<Notes niche={niche} start={5}/>:<><Quote niche={niche} className="m-in" style={rise(5)}/><Mix niche={niche} className="m-in" style={rise(6)}/></>}</div>
   <Screen niche={niche}/>
-  <div className="m-float m-float-right m-in" style={rise(6)}><span className="m-row-icon"><Icon name={niche.icons[1]} size={16}/></span>{niche.features[1]}</div>
-  <Deco mood={mood} niche={niche} sticker/>
+  <div className="m-app-col right">{variant===1?<><Quote niche={niche} className="m-in" style={rise(8)}/><div className="m-card m-kpi-card m-in" style={rise(9)}><Kpis niche={niche}/></div></>:variant===2?<><Quote niche={niche} className="m-in" style={rise(7)}/><div className="m-card m-kpi-card m-in" style={rise(8)}><Kpis niche={niche}/></div></>:<><div className="m-card m-kpi-card m-in" style={rise(7)}><Kpis niche={niche}/></div><Notes niche={{...niche,features:niche.features.slice(0,2)}} start={8}/></>}</div>
  </div>;
 }
 
@@ -147,7 +142,7 @@ function SaasMock({niche}){
     <div className="m-kpis">{niche.kpis.map(([l,v],i)=><div className="m-card m-kpi m-in" key={l} style={rise(1+i)}><small>{l}</small><b>{v}</b><span className="m-kpi-bar"><i style={{width:`${48+i*17}%`}}/></span></div>)}</div>
     <div className="m-panels">
      <div className="m-card m-chart-card m-in" style={rise(4)}><div className="m-card-head"><span>{niche.metric.label}</span><span className="m-delta">{niche.metric.delta}</span></div><strong className="m-big"><Count {...niche.metric}/></strong><Chart series={niche.series} width={520} height={150} labels/><div className="m-months">{['Jan','Mar','May','Jul','Sep','Nov'].map(m=><span key={m}>{m}</span>)}</div></div>
-     <div className="m-card m-list-card m-in" style={rise(5)}><div className="m-card-head"><span>Recent</span><span className="m-link">View all</span></div><div className="m-rows">{niche.list.map(([t,m,v],i)=><div className="m-row" key={t}><span className="m-row-icon"><Icon name={niche.icons[i%3]} size={15}/></span><span className="m-row-text"><b>{t}</b><small>{m}</small></span><span className="m-row-value">{v}</span></div>)}</div></div>
+     <div className="m-card m-list-card m-in" style={rise(5)}><div className="m-card-head"><span>Recent</span><span className="m-link">View all</span></div><div className="m-rows">{niche.list.map((r,i)=><Row key={r[0]} row={r}/>)}</div></div>
     </div>
    </div>
   </div>
@@ -155,111 +150,50 @@ function SaasMock({niche}){
  </div>;
 }
 
-// ── Graphic parts: a niche illustration and mood ornaments ───────────────
-// Built from flat geometry so it reads as graphic design, not stock art.
-// Colours: a1 = main shape, a2 = counter shape, a3 = line (set per mood in CSS).
-const star='M200 112C208 176 224 192 288 200C224 208 208 224 200 288C192 224 176 208 112 200C176 192 192 176 200 112Z';
-export function Art({niche,className=''}){
- const id=niche.id;let body;
- if(id==='ai')body=<>
-  <circle cx="200" cy="200" r="168" className="a3 dash"/>
-  <g className="art-spin"><ellipse cx="200" cy="200" rx="176" ry="64" className="a3" transform="rotate(-24 200 200)"/><circle cx="355" cy="130" r="13" className="a1"/></g>
-  <g className="art-spin rev"><ellipse cx="200" cy="200" rx="176" ry="64" className="a3" transform="rotate(30 200 200)"/><circle cx="60" cy="125" r="9" className="a2"/></g>
-  <circle cx="200" cy="200" r="74" className="a1"/>
-  <g transform="translate(100 100) scale(.5)"><path d={star} className="a2 art-pulse"/></g>
- </>;
- else if(id==='fintech')body=<>
-  <rect x="60" y="112" width="280" height="176" rx="24" className="a2" transform="rotate(-16 200 200)"/>
-  <rect x="60" y="112" width="280" height="176" rx="24" className="a3f" transform="rotate(-6 200 200)"/>
-  <g className="art-float"><rect x="60" y="112" width="280" height="176" rx="24" className="a1" transform="rotate(6 200 200)"/>
-  <g transform="rotate(6 200 200)"><rect x="88" y="146" width="44" height="34" rx="7" className="a2"/><circle cx="270" cy="250" r="22" className="a2" opacity=".9"/><circle cx="298" cy="250" r="22" className="a2" opacity=".55"/><rect x="88" y="236" width="120" height="10" rx="5" className="a2" opacity=".6"/></g></g>
- </>;
- else if(id==='crypto')body=<>
-  <g className="art-spin slow"><circle cx="200" cy="40" r="16" className="a2"/><circle cx="360" cy="200" r="11" className="a1"/><circle cx="60" cy="290" r="20" className="a3f"/></g>
-  <circle cx="200" cy="200" r="132" className="a1"/>
-  <circle cx="200" cy="200" r="104" className="a2l"/>
-  <path d="M200 120l70 40v80l-70 40-70-40v-80z" className="a2"/>
-  <path d="M182 160v80M182 160h26a18 18 0 0 1 0 36h-26M182 196h32a22 22 0 0 1 0 44h-32" className="a1l"/>
- </>;
- else if(id==='travel')body=<>
-  <rect x="80" y="60" width="240" height="300" rx="120" className="a2"/>
-  <circle cx="200" cy="200" r="70" className="a1 art-sun"/>
-  <path d="M80 250c40-20 80 20 120 0s80-20 120 0M80 285c40-20 80 20 120 0s80-20 120 0M80 320c40-20 80 20 120 0s80-20 120 0" className="a3"/>
-  <path d="M20 330C90 220 150 120 330 70" className="a3 dash art-path"/>
-  <path d="M330 70l-26 2 10 18z" className="a1"/>
- </>;
- else if(id==='health')body=<>
-  {[150,112,74].map((r,i)=><circle key={r} cx="200" cy="200" r={r} className={`ring r${i}`} pathLength="100"/>)}
-  <path d="M30 200h90l20-50 30 100 26-120 26 90 18-20h130" className="a3 art-path"/>
- </>;
- else if(id==='ecom')body=<>
-  <circle cx="260" cy="150" r="96" className="a1"/>
-  <path d="M110 330c-40 0-50-60-30-110s20-70 10-90h60c-10 20-10 40 10 90s20 110-30 110z" className="a2"/>
-  <path d="M210 330c-30 0-40-40-26-76 10-26 10-40 6-54h44c-4 14-4 28 6 54 14 36 4 76-30 76z" className="a3f art-float"/>
-  <path d="M300 330c-22 0-26-30-16-52 8-18 8-28 4-38h30c-4 10-4 20 4 38 10 22 6 52-22 52z" className="a2"/>
-  <path d="M40 332h330" className="a3"/>
- </>;
- else if(id==='realty')body=<>
-  <circle cx="300" cy="96" r="44" className="a1 art-sun"/>
-  <path d="M70 360V190a70 70 0 0 1 140 0v170z" className="a2"/>
-  <path d="M190 360V150a80 80 0 0 1 160 0v210z" className="a1"/>
-  {[0,1,2].map(r=>[0,1].map(c=><rect key={`${r}${c}`} x={230+c*46} y={170+r*56} width="34" height="40" rx="17" className="a2"/>))}
-  <path d="M30 362h350" className="a3"/>
- </>;
- else body=<>
-  <path d="M60 210h280a140 140 0 0 1-280 0z" className="a1"/>
-  <ellipse cx="200" cy="210" rx="140" ry="22" className="a2"/>
-  {[[140,196,22,'a3f'],[196,190,26,'a1d'],[252,198,20,'a3f'],[170,206,14,'a1d']].map(([x,y,r,c],i)=><circle key={i} cx={x} cy={y} r={r} className={c}/>)}
-  {[150,200,250].map((x,i)=><path key={x} d={`M${x} 150c-16-20 16-30 0-54`} className="a3 art-steam" style={{animationDelay:`${i*.4}s`}}/>)}
- </>;
- return <svg className={`m-art ${className}`} viewBox="0 0 400 400" aria-hidden="true">{body}</svg>;
-}
-function Sticker({text,className=''}){
- const id=useId().replace(/\W/g,'');
- return <svg className={`m-sticker ${className}`} viewBox="0 0 120 120" aria-hidden="true"><circle cx="60" cy="60" r="58" className="st-bg"/><defs><path id={id} d="M60 60m-42 0a42 42 0 1 1 84 0a42 42 0 1 1-84 0"/></defs><text className="st-text"><textPath href={`#${id}`}>{`${text} ✦ ${text} ✦ `}</textPath></text><path d={star} className="st-star" transform="translate(36 36) scale(.12)"/></svg>;
-}
-function Marquee({items,className=''}){
- const row=[...items,...items,...items];
- return <div className={`m-marquee ${className}`} aria-hidden="true"><div>{[0,1].map(k=><span key={k}>{row.map((x,i)=><React.Fragment key={i}><b>{x}</b><i>✦</i></React.Fragment>)}</span>)}</div></div>;
-}
-// Ornaments per mood: Swiss crop marks, a loud sticker, or warm grain.
-function Deco({mood,niche,sticker=false}){
- if(mood==='strict')return <div className="m-deco m-crops" aria-hidden="true"><i/><i/><i/><i/><span>{niche.name} / 01</span><span>{niche.domain}</span></div>;
- if(mood==='bright')return sticker?<div className="m-deco" aria-hidden="true"><Sticker text={niche.features[0]} className="m-deco-sticker"/></div>:null;
- return <div className="m-deco m-grain" aria-hidden="true"/>;
-}
+// ── Content cards: the mock-ups are filled with real UI, not illustrations ──
+// A letter badge never contradicts the row the way a stock icon can.
+const initials=t=>/^[A-Z]{2,4}$/.test(t)?t:t.replace(/^#\d+\s*/,'').split(/[\s,]+/).filter(Boolean).slice(0,2).map(w=>w[0]).join('').toUpperCase();
+function Badge({text}){return <span className="m-row-icon m-badge">{initials(text)}</span>}
+function Row({row:[t,m,v],meta=true}){return <div className="m-row"><Badge text={t}/><span className="m-row-text"><b>{t}</b>{meta&&<small>{m}</small>}</span><span className="m-row-value">{v}</span></div>}
+function ListCard({niche,title=niche.top,rows=niche.list,className='',style}){return <div className={`m-card m-list-card ${className}`} style={style}><div className="m-card-head"><span>{title}</span><span className="m-link">View all</span></div><div className="m-rows">{rows.map(r=><Row key={r[0]} row={r}/>)}</div></div>}
+function Notes({niche,className='',start=0}){return <div className={`m-notes ${className}`}>{niche.features.map((f,i)=><div className="m-card m-note m-in" key={f} style={rise(start+i)}><small>0{i+1}</small><b>{f}</b><p>{niche.notes[i]}</p></div>)}</div>}
+function Quote({niche,className='',style}){const [text,who,role]=niche.quote;return <div className={`m-card m-quote ${className}`} style={style}><span className="m-stars">★★★★★</span><p>“{text}”</p><span className="m-quote-by"><Badge text={who}/><span><b>{who}</b><small>{role}</small></span></span></div>}
+function Mix({niche,className='',style}){return <div className={`m-card m-mix ${className}`} style={style}><div className="m-card-head"><span>Mix</span><span className="m-delta">7d</span></div>{niche.mix.map(([l,v],i)=><div className="m-mix-row" key={l}><span><b>{l}</b><small>{v}%</small></span><i><i className={`d${i}`} style={{width:`${v}%`}}/></i></div>)}</div>}
+function Kpis({niche,className=''}){return <div className={`m-kpi-row ${className}`}>{niche.kpis.map(([l,v],i)=><div key={l} className="m-in" style={rise(4+i)}><b className="m-display">{v}</b><small>{l}</small></div>)}</div>}
+function MetricCard({niche,className='',style,w=320,h=110}){return <div className={`m-card m-metric-card ${className}`} style={style}><div className="m-card-head"><span>{niche.metric.label}</span><span className="m-delta">{niche.metric.delta}</span></div><strong className="m-big"><Count {...niche.metric}/></strong><Chart series={niche.series} width={w} height={h}/></div>}
 
 // ── Website: poster and editorial layouts ────────────────────────────────
-function SitePoster({niche,mood}){
+function SitePoster({niche}){
  return <div className="m-window m-site m-site-poster">
   <div className="m-chrome"><i/><i/><i/><span className="m-url">{niche.domain}</span></div>
   <div className="m-page">
    <nav className="m-nav m-in" style={rise(0)}><Logo niche={niche}/><span className="m-nav-links">{niche.nav.map(n=><span key={n}>{n}</span>)}</span><span className="m-btn m-btn-sm">{niche.cta}</span></nav>
    <div className="m-pp-hero">
-    <h4 className="m-display m-in" style={rise(1)}>{niche.headline[0]}<br/><em>{niche.headline[1]}</em></h4>
-    <Art niche={niche} className="m-pp-art m-in"/>
-    <Sticker text={niche.cta} className="m-pp-sticker"/>
+    <div className="m-pp-copy">
+     <h4 className="m-display m-in" style={rise(1)}>{niche.headline[0]}<br/><em>{niche.headline[1]}</em></h4>
+     <p className="m-in" style={rise(2)}>{niche.sub}</p>
+     <div className="m-actions m-in" style={rise(3)}><span className="m-btn">{niche.cta}<span className="m-arrow">→</span></span><span className="m-btn m-btn-ghost">See how it works</span></div>
+     <Kpis niche={niche}/>
+    </div>
+    <div className="m-pp-side"><MetricCard niche={niche} className="m-in" style={rise(2)} w={300} h={84}/><Quote niche={niche} className="m-in" style={rise(4)}/></div>
    </div>
-   <div className="m-pp-foot m-in" style={rise(3)}><p>{niche.sub}</p><span className="m-btn">{niche.cta}<span className="m-arrow">→</span></span></div>
+   <Notes niche={niche} className="m-pp-notes" start={5}/>
   </div>
-  <Marquee items={niche.features} className="m-pp-marquee"/>
-  <Deco mood={mood} niche={niche}/>
  </div>;
 }
-function SiteEditorial({niche,mood}){
+function SiteEditorial({niche}){
  return <div className="m-window m-site m-site-ed">
   <div className="m-chrome"><i/><i/><i/><span className="m-url">{niche.domain}</span></div>
   <div className="m-page">
    <nav className="m-nav m-in" style={rise(0)}><Logo niche={niche}/><span className="m-nav-links">{niche.nav.map(n=><span key={n}>{n}</span>)}</span><span className="m-btn m-btn-sm m-btn-ghost">Sign in</span></nav>
    <div className="m-ed-grid">
     <div className="m-ed-side"><b className="m-in" style={rise(1)}>Why {niche.name}</b><ol className="m-ed-index">{niche.features.map((f,i)=><li key={f} className="m-in" style={rise(1+i)}><small>0{i+1}</small>{f}</li>)}</ol></div>
-    <div className="m-ed-art m-in" style={rise(2)}><Art niche={niche}/></div>
+    <div className="m-ed-cards"><ListCard niche={niche} className="m-in" style={rise(2)}/><div className="m-card m-ed-toast m-in" style={rise(3)}><span className="m-toast-icon"><Icon name="bell" size={14}/></span><span><b>{niche.toast[0]}</b><small>{niche.toast[1]}</small></span></div></div>
     <div className="m-ed-copy"><h4 className="m-display m-in" style={rise(2)}>{niche.headline[0]} <em>{niche.headline[1]}</em></h4><p className="m-in" style={rise(3)}>{niche.sub}</p><span className="m-btn m-in" style={rise(4)}>{niche.cta}<span className="m-arrow">→</span></span></div>
    </div>
    <div className="m-ed-stats">{niche.kpis.map(([l,v],i)=><div key={l} className="m-in" style={rise(5+i)}><b className="m-display">{v}</b><small>{l}</small></div>)}</div>
   </div>
-  <Deco mood={mood} niche={niche}/>
- </div>;
+</div>;
 }
 
 // ── App screens: product card and feed ───────────────────────────────────
@@ -273,22 +207,22 @@ function PhoneShell({children,niche,className=''}){
 function PhoneProduct({niche}){
  return <PhoneShell niche={niche} className="m-ph-product">
   <div className="m-app-head m-in" style={rise(0)}><Logo niche={niche}/><span className="m-avatar"/></div>
-  <div className="m-ph-art m-in" style={rise(1)}><Art niche={niche}/><span className="m-ph-tag">{niche.features[0]}</span></div>
+  <div className="m-hero-card m-in" style={rise(1)}><div className="m-card-head"><span>{niche.metric.label}</span><span className="m-delta">{niche.metric.delta}</span></div><strong className="m-big"><Count {...niche.metric}/></strong><Chart series={niche.series} width={280} height={64}/></div>
   <h4 className="m-display m-in" style={rise(2)}>{niche.headline[0]} <em>{niche.headline[1]}</em></h4>
-  <div className="m-ph-chips m-in" style={rise(3)}>{niche.features.map((f,i)=><span key={f} className={i?'':'on'}>{f}</span>)}</div>
-  <span className="m-btn m-ph-cta m-in" style={rise(4)}>{niche.cta}<span className="m-arrow">→</span></span>
+  <Notes niche={niche} className="m-ph-notes" start={3}/>
+  <span className="m-btn m-ph-cta m-in" style={rise(6)}>{niche.cta}<span className="m-arrow">→</span></span>
  </PhoneShell>;
 }
 function PhoneFeed({niche}){
  return <PhoneShell niche={niche} className="m-ph-feed">
   <div className="m-app-head m-in" style={rise(0)}><div><small>{niche.hello}</small><b className="m-display">{niche.name}</b></div><span className="m-row-icon"><Icon name="bell" size={16}/></span></div>
-  <div className="m-stories m-in" style={rise(1)}>{niche.stories.map((t,i)=><span key={t}><i className={i?'':'on'}><Icon name={niche.icons[i%4]} size={18}/></i>{t}</span>)}</div>
+  <div className="m-stories m-in" style={rise(1)}>{niche.stories.map((t,i)=><span key={t}><i className={i?'':'on'}>{initials(t).slice(0,3)}</i>{t}</span>)}</div>
   <div className="m-tiles">
    <div className="m-tile m-tile-hl m-in" style={rise(2)}><small>{niche.metric.label}</small><strong className="m-big"><Count {...niche.metric}/></strong><span className="m-delta">{niche.metric.delta}</span></div>
-   <div className="m-tile m-tile-art m-in" style={rise(3)}><Art niche={niche}/></div>
+   <Mix niche={niche} className="m-tile m-tile-mix m-in" style={rise(3)}/>
    <div className="m-tile m-in" style={rise(4)}><small>{niche.kpis[0][0]}</small><b className="m-display">{niche.kpis[0][1]}</b><Bars series={niche.series.slice(-6)}/></div>
-   <div className="m-tile m-tile-ink m-in" style={rise(5)}><Icon name={niche.icons[1]} size={18}/><b>{niche.list[0][0]}</b><small>{niche.list[0][2]}</small></div>
-   <div className="m-tile m-tile-wide m-in" style={rise(6)}><small>{niche.top}</small>{niche.list.slice(1).map(([t,m,v],i)=><div className="m-row" key={t}><span className="m-row-icon"><Icon name={niche.icons[(i+2)%4]} size={15}/></span><span className="m-row-text"><b>{t}</b><small>{m}</small></span><span className="m-row-value">{v}</span></div>)}</div>
+   <div className="m-tile m-tile-ink m-in" style={rise(5)}><span className="m-ink-top"><Badge text={niche.list[0][0]}/><span className="m-delta">{niche.metric.delta}</span></span><b>{niche.list[0][0]}</b><strong className="m-display">{niche.list[0][2]}</strong></div>
+   <div className="m-tile m-tile-wide m-in" style={rise(6)}><small>{niche.top}</small>{niche.list.slice(1).map(r=><Row key={r[0]} row={r}/>)}</div>
   </div>
  </PhoneShell>;
 }
@@ -307,14 +241,13 @@ function SaasFrame({niche,children,mood}){
    <aside className="m-side"><Logo niche={niche}/><div className="m-side-nav">{niche.side.map((s,i)=><span key={s} className={`m-in${i===1?' on':''}`} style={rise(i)}><Icon name={icons[i]} size={16}/>{s}</span>)}</div><div className="m-side-user"><span className="m-avatar"/><span><b>Anna K.</b><small>Admin</small></span></div></aside>
    <div className="m-main">{children}</div>
   </div>
-  <Deco mood={mood} niche={niche}/>
  </div>;
 }
 function SaasBoard({niche,mood}){
  return <SaasFrame niche={niche} mood={mood}>
   <div className="m-top m-in" style={rise(0)}><b className="m-display">{niche.side[1]}</b><span className="m-faces"><i/><i/><i/></span><span className="m-btn m-btn-sm">+ New</span></div>
-  <div className="m-banner m-in" style={rise(1)}><div><small>{niche.features[0]}</small><h4 className="m-display">{niche.headline[0]} <em>{niche.headline[1]}</em></h4></div><Art niche={niche}/></div>
-  <div className="m-board">{niche.board.map(([title,items],c)=><div key={title} className="m-col m-in" style={rise(2+c)}><div className="m-col-head"><b>{title}</b><small>{items.length}</small></div>{items.map(([t,m],i)=><div key={t} className="m-task"><span className="m-task-top"><b>{t}</b>{c===0&&i===0&&<span className="m-tag t0">New</span>}</span><span className="m-task-foot"><small>{m}</small><span className="m-faces"><i/></span></span></div>)}</div>)}</div>
+  <div className="m-banner m-in" style={rise(1)}><div><small>{niche.features[0]}</small><h4 className="m-display">{niche.headline[0]} <em>{niche.headline[1]}</em></h4></div><div className="m-banner-kpis">{niche.kpis.map(([l,v])=><span key={l}><b>{v}</b><small>{l}</small></span>)}</div></div>
+  <div className="m-board">{niche.board.map(([title,items],c)=><div key={title} className="m-col m-in" style={rise(2+c)}><div className="m-col-head"><b>{title}</b><small>{items.length}</small></div>{items.map(([t,m],i)=><div key={t} className="m-task"><span className="m-task-top"><b>{t}</b>{c===0&&i===0&&<span className="m-tag t0">New</span>}</span><span className="m-task-foot"><small>{m}</small><span className="m-faces"><i/></span></span></div>)}<span className="m-col-add">+ Add</span></div>)}</div>
  </SaasFrame>;
 }
 function SaasInsights({niche,mood}){
@@ -324,7 +257,7 @@ function SaasInsights({niche,mood}){
    <div className="m-card m-ins-hero m-in" style={rise(1)}><small>{niche.metric.label}</small><strong className="m-display"><Count {...niche.metric}/></strong><span className="m-delta">{niche.metric.delta}</span><Chart series={niche.series} width={300} height={90}/><div className="m-ins-sub">{niche.kpis.slice(1).map(([l,v])=><span key={l}><small>{l}</small><b>{v}</b></span>)}</div></div>
    <div className="m-card m-ins-donut m-in" style={rise(2)}><div className="m-card-head"><span>Mix</span><span className="m-delta">7d</span></div><div className="m-donut-wrap"><Donut items={niche.mix.map(x=>x[1])}/><b className="m-donut-total">{niche.mix[0][1]}%<small>{niche.mix[0][0]}</small></b></div><div className="m-legend">{niche.mix.map(([l,v],i)=><span key={l}><i className={`d${i}`}/>{l}<b>{v}%</b></span>)}</div></div>
    <div className="m-card m-ins-bars m-in" style={rise(3)}><div className="m-card-head"><span>{niche.kpis[0][0]}</span><b>{niche.kpis[0][1]}</b></div><Bars series={niche.series}/></div>
-   <div className="m-card m-ins-top m-in" style={rise(4)}><div className="m-card-head"><span>{niche.top}</span><span className="m-link">View all</span></div><div className="m-rows">{niche.list.map(([t,m,v],i)=><div className="m-row" key={t}><span className="m-row-icon"><Icon name={niche.icons[i%4]} size={14}/></span><span className="m-row-text"><b>{t}</b></span><span className="m-row-value">{v}</span></div>)}</div></div>
+   <div className="m-card m-ins-top m-in" style={rise(4)}><div className="m-card-head"><span>{niche.top}</span><span className="m-link">View all</span></div><div className="m-rows">{niche.list.map((r,i)=><Row key={r[0]} row={r} meta={false}/>)}</div></div>
   </div>
  </SaasFrame>;
 }
@@ -334,7 +267,7 @@ function SaasPhone({niche}){
   <div className="m-app-head m-in" style={rise(0)}><div><small>{niche.side[0]}</small><b className="m-display">{niche.name}</b></div><span className="m-avatar"/></div>
   <div className="m-hero-card m-in" style={rise(1)}><div className="m-card-head"><span>{niche.metric.label}</span><span className="m-delta">{niche.metric.delta}</span></div><strong className="m-big"><Count {...niche.metric}/></strong><Bars series={niche.series}/></div>
   <div className="m-kpi-pair">{niche.kpis.slice(0,2).map(([l,v],i)=><div className="m-card m-in" key={l} style={rise(2+i)}><small>{l}</small><b>{v}</b></div>)}</div>
-  <div className="m-rows m-in" style={rise(4)}>{niche.list.slice(0,2).map(([t,m,v],i)=><div className="m-row" key={t}><span className="m-row-icon"><Icon name={niche.icons[i]} size={15}/></span><span className="m-row-text"><b>{t}</b><small>{m}</small></span><span className="m-row-value">{v}</span></div>)}</div>
+  <div className="m-rows m-in" style={rise(4)}>{niche.list.map((r,i)=><Row key={r[0]} row={r}/>)}</div>
  </PhoneShell></div>;
 }
 
