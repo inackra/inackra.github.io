@@ -16,6 +16,8 @@ import {content,EMAIL,LINKEDIN} from './content';
 import Constructor from './studio/Constructor';
 import './demo.css';
 import './home.css';
+import './pills.css';
+import {mountPills} from './pills';
 const copy={
  ru:{menu:'Меню',close:'Закрыть',work:'Проекты',about:'Обо мне',contact:'Контакт',structure:'Структура',
   hero:['Дизайн.','В действии.'],heroLabel:'Yan Kavaleu / Multidisciplinary Designer',heroText:'Проектирую сложные цифровые продукты и создаю дизайн-системы, которые ускоряют работу команд. Соединяю UX, визуальный дизайн и AI-разработку.',heroProof:'8 лет в дизайне · опыт в Semrush · развиваю Plenum',client:'Обсудить проект',employer:'Рассмотреть в команду',scroll:'Листай дальше',
@@ -42,6 +44,7 @@ export default function Demo({initialPath='/',ready=true}){
  const [path,setPath]=useState(initialPath);
  const route=parseRoute(path),{lang,archive,privacy,caseId,visualId}=route,casePage=Boolean(caseId||visualId);
  useEffect(()=>{const update=()=>setPath(location.pathname);addEventListener('popstate',update);addEventListener('inackra:navigate',update);return()=>{removeEventListener('popstate',update);removeEventListener('inackra:navigate',update)}},[]);
+ useEffect(()=>mountPills(),[]);
  const [theme,setTheme]=useState('dark');
  useEffect(()=>{const t=document.documentElement.dataset.theme;if(t==='light'||t==='dark')setTheme(t);else if(matchMedia('(prefers-color-scheme: light)').matches)setTheme('light')},[]);
  useEffect(()=>{document.documentElement.dataset.theme=theme},[theme]);

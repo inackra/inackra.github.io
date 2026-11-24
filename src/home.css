@@ -92,3 +92,12 @@ html.theme-swap,html.theme-swap *{transition:background-color .5s,color .5s!impo
 .demo-root .menu-links>a>span.menu-roll{font-size:inherit;letter-spacing:inherit;color:inherit}
 /* The header is solid: the page (and the mock-up) never shows through it. */
 .demo-root>.site-header{background:var(--bg)}
+
+/* Themes: media and product demos stay dark in both themes (their artwork and
+   screens are dark), so everything inside them uses the dark tokens. */
+.demo-root :is(.has-artwork,.project-neighbour,.plenum-prototype-stage,.plenum-measurement,.project-cover,.eva-schematic,.media-format,.wall-media-detail .media-sound,.image-lightbox){
+ --bg:#000;--fg:#EEE9DD;--muted:color-mix(in srgb,#EEE9DD 51%,#000);--line:color-mix(in srgb,#EEE9DD 14%,#000);color:var(--fg)}
+.demo-root .project-neighbour-copy small{color:color-mix(in srgb,var(--fg) 73%,var(--bg))}
+/* Text that used fixed greys from the dark-only site. */
+.demo-root :is(.plenum-outcome p,.eva-evidence figcaption){color:color-mix(in srgb,var(--fg) 60%,var(--bg))}
+.demo-root .eva-impact dd{color:color-mix(in srgb,var(--fg) 68%,var(--bg))}
