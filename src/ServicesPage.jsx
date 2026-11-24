@@ -17,7 +17,7 @@ const clients=[['adobe-semrush','Adobe × Semrush','https://www.semrush.com/'],[
 
 // Calendar colours: Apple's system palette, readable on both themes.
 const C={red:'#FF453A',orange:'#FF9F0A',yellow:'#FFD60A',green:'#30D158',teal:'#40C8E0',blue:'#0A84FF',purple:'#BF5AF2'};
-// Calendar events: [label, first working day 0–19, length in days, lane, colour]. Lane -1 is the all-day row.
+// Calendar events: [label, first working day 0–19, length in days, lane, colour].
 
 // Testimonials appear only once clients have sent them: [quote, name, role and company].
 export const testimonials={ru:[],en:[]};
@@ -35,9 +35,9 @@ const copy={
   calTitle:'Месяц в календаре',days:['Пн','Вт','Ср','Чт','Пт'],week:'Неделя',
   calNote:'Задачи для примера. Настоящий план собираем вместе в первый день.',
   cal:[
-   {lead:'Одна задача за раз: следующая начинается, когда готова предыдущая.',lanes:1,ev:[['Оплата · $1 500',0,2,-1,0],['Лендинг',0,4,0,C.blue],['Онбординг',4,4,0,C.orange],['Экран оплаты',8,3,0,C.green],['Баннеры',11,2,0,C.purple],['Дашборд',13,5,0,C.red],['Правки',18,2,0,C.yellow],['Продлить или пауза',17,3,-1,0]]},
-   {lead:'Две задачи параллельно: продукт и бренд двигаются одновременно.',lanes:2,ev:[['Оплата · $2 700',0,2,-1,0],['Лендинг',0,5,0,C.blue],['Онбординг',5,4,0,C.orange],['Экран оплаты',9,3,0,C.green],['Дашборд',12,5,0,C.red],['Правки',17,3,0,C.yellow],['Логотип и айдентика',0,7,1,C.purple],['Дизайн-система',7,7,1,C.teal],['Моушн-ролик',14,6,1,C.red]]},
-   {lead:'План на 3–4 недели: от идеи до продукта, готового к разработке.',lanes:2,ev:[['Старт · от $3 500',0,2,-1,0],['Исследование и сценарии',0,4,0,C.blue],['Все экраны',4,9,0,C.orange],['Прототип',13,3,0,C.green],['Передача',16,3,0,C.yellow],['Логотип и айдентика',2,5,1,C.purple],['Дизайн-система',7,6,1,C.teal],['Лендинг',13,4,1,C.blue],['Моушн и 3D',17,2,1,C.red],['Готово к разработке',16,3,-1,0]]},
+   {lead:'Одна задача за раз: следующая начинается, когда готова предыдущая.',lanes:1,ev:[['Лендинг',0,4,0,C.blue],['Онбординг',4,4,0,C.orange],['Экран оплаты',8,3,0,C.green],['Баннеры',11,2,0,C.purple],['Дашборд',13,5,0,C.red],['Правки',18,2,0,C.yellow],]},
+   {lead:'Две задачи параллельно: продукт и бренд двигаются одновременно.',lanes:2,ev:[['Лендинг',0,5,0,C.blue],['Онбординг',5,4,0,C.orange],['Экран оплаты',9,3,0,C.green],['Дашборд',12,5,0,C.red],['Правки',17,3,0,C.yellow],['Логотип и айдентика',0,7,1,C.purple],['Дизайн-система',7,7,1,C.teal],['Моушн-ролик',14,6,1,C.red]]},
+   {lead:'План на 3–4 недели: от идеи до продукта, готового к разработке.',lanes:2,ev:[['Исследование и сценарии',0,4,0,C.blue],['Все экраны',4,9,0,C.orange],['Прототип',13,3,0,C.green],['Передача',16,3,0,C.yellow],['Логотип и айдентика',2,5,1,C.purple],['Дизайн-система',7,6,1,C.teal],['Лендинг',13,4,1,C.blue],['Моушн и 3D',17,2,1,C.red],]},
   ],
   proofTitle:'Что уже получалось',clientsTitle:'С кем работал',reviewsTitle:'Отзывы',
   customTitle:'Нужно что-то своё?',customText:'Напиши пару строк о задаче, отвечу в течение дня и предложу формат.',cases:'Смотреть кейсы',
@@ -53,9 +53,9 @@ const copy={
   calTitle:'A month on the calendar',days:['Mon','Tue','Wed','Thu','Fri'],week:'Week',
   calNote:'Sample tasks. We put the real plan together on day one.',
   cal:[
-   {lead:'One task at a time: the next starts when the previous one is done.',lanes:1,ev:[['Payment · $1,500',0,2,-1,0],['Landing page',0,4,0,C.blue],['Onboarding',4,4,0,C.orange],['Checkout',8,3,0,C.green],['Banners',11,2,0,C.purple],['Dashboard',13,5,0,C.red],['Revisions',18,2,0,C.yellow],['Renew or pause',17,3,-1,0]]},
-   {lead:'Two tasks in parallel: product and brand move at the same time.',lanes:2,ev:[['Payment · $2,700',0,2,-1,0],['Landing page',0,5,0,C.blue],['Onboarding',5,4,0,C.orange],['Checkout',9,3,0,C.green],['Dashboard',12,5,0,C.red],['Revisions',17,3,0,C.yellow],['Logo and identity',0,7,1,C.purple],['Design system',7,7,1,C.teal],['Motion video',14,6,1,C.red]]},
-   {lead:'A 3–4 week plan: from an idea to a product ready for development.',lanes:2,ev:[['Start · from $3,500',0,2,-1,0],['Research and flows',0,4,0,C.blue],['All screens',4,9,0,C.orange],['Prototype',13,3,0,C.green],['Handoff',16,3,0,C.yellow],['Logo and identity',2,5,1,C.purple],['Design system',7,6,1,C.teal],['Landing page',13,4,1,C.blue],['Motion and 3D',17,2,1,C.red],['Ready for development',16,3,-1,0]]},
+   {lead:'One task at a time: the next starts when the previous one is done.',lanes:1,ev:[['Landing page',0,4,0,C.blue],['Onboarding',4,4,0,C.orange],['Checkout',8,3,0,C.green],['Banners',11,2,0,C.purple],['Dashboard',13,5,0,C.red],['Revisions',18,2,0,C.yellow],]},
+   {lead:'Two tasks in parallel: product and brand move at the same time.',lanes:2,ev:[['Landing page',0,5,0,C.blue],['Onboarding',5,4,0,C.orange],['Checkout',9,3,0,C.green],['Dashboard',12,5,0,C.red],['Revisions',17,3,0,C.yellow],['Logo and identity',0,7,1,C.purple],['Design system',7,7,1,C.teal],['Motion video',14,6,1,C.red]]},
+   {lead:'A 3–4 week plan: from an idea to a product ready for development.',lanes:2,ev:[['Research and flows',0,4,0,C.blue],['All screens',4,9,0,C.orange],['Prototype',13,3,0,C.green],['Handoff',16,3,0,C.yellow],['Logo and identity',2,5,1,C.purple],['Design system',7,6,1,C.teal],['Landing page',13,4,1,C.blue],['Motion and 3D',17,2,1,C.red],]},
   ],
   proofTitle:'What it has done before',clientsTitle:'Worked with',reviewsTitle:'Testimonials',
   customTitle:'Need something else?',customText:'Write a few lines about the task, I reply within a day and suggest a format.',cases:'See case studies',
@@ -77,17 +77,29 @@ function Calendar({plan,d,paused}){
   const io=new IntersectionObserver(([e])=>{if(e.isIntersecting){setStage('is-in');io.disconnect()}},{threshold:.25});
   io.observe(el);return()=>io.disconnect();
  },[]);
- const weeks=[0,1,2,3];
+ const weeks=[0,1,2,3],seg=w=>plan.ev.map(([label,start,len,lane,color],k)=>{
+  const a=Math.max(start,5*w),b=Math.min(start+len,5*w+5);
+  return a<b&&{k,label,lane,color,a:a-5*w,b:b-5*w,cont:a>start,i:a+lane*1.5};
+ }).filter(Boolean);
  return <div ref={ref} className={`pl-cal ${stage}`} style={{'--lanes':plan.lanes}}>
-  <div className="pl-cal-days" aria-hidden="true">{d.days.map(x=><span key={x}>{x}</span>)}</div>
-  {weeks.map(w=><div className="pl-week" key={w} role="group" aria-label={`${d.week} ${w+1}`} style={{'--meta':plan.ev.some(([,st,ln,lane])=>lane<0&&st<5*w+5&&st+ln>5*w)?'26px':'0px'}}>
-   {[0,1,2,3,4].map(i=><span className="pl-day" key={i} style={{gridColumn:i+1}}>{7*w+i+1}</span>)}
-   {plan.ev.map(([label,start,len,lane,color],k)=>{
-    const a=Math.max(start,5*w),b=Math.min(start+len,5*w+5);if(a>=b)return null;
-    return <span key={k} className={`pl-ev${lane<0?` pl-ev-meta${start>0?' pl-ev-end':''}`:''}${a>start?' pl-ev-cont':''}`}
-     style={{gridColumn:`${a-5*w+1} / ${b-5*w+1}`,gridRow:lane+3,'--c':color||undefined,'--i':a+(lane+1)*1.5}}>{label}</span>;
-   })}
-  </div>)}
+  {/* Desktop: a month view, weeks as rows and events as horizontal bars. */}
+  <div className="pl-month">
+   <div className="pl-cal-days" aria-hidden="true">{d.days.map(x=><span key={x}>{x}</span>)}</div>
+   {weeks.map(w=><div className="pl-week" key={w} role="group" aria-label={`${d.week} ${w+1}`}>
+    {[0,1,2,3,4].map(i=><span className="pl-day" key={i} style={{gridColumn:i+1}}>{7*w+i+1}</span>)}
+    {seg(w).map(e=><span key={e.k} className={`pl-ev${e.cont?' pl-ev-cont':''}`} style={{gridColumn:`${e.a+1} / ${e.b+1}`,gridRow:e.lane+2,'--c':e.color,'--i':e.i}}>{e.label}</span>)}
+   </div>)}
+  </div>
+  {/* Phone: a schedule, each week a block with days running down and events as vertical bars. */}
+  <div className="pl-agenda" aria-hidden="true">
+   {weeks.map(w=><div className="pl-aw" key={w}>
+    <h3>{d.week} {w+1}</h3>
+    <div className="pl-aw-grid">
+     {[0,1,2,3,4].map(i=><span className="pl-aw-day" key={i} style={{gridRow:i+1}}><b>{7*w+i+1}</b>{d.days[i]}</span>)}
+     {seg(w).map(e=><span key={e.k} className={`pl-ev pl-ev-v${e.cont?' pl-ev-cont':''}`} style={{gridRow:`${e.a+1} / ${e.b+1}`,gridColumn:e.lane+2,'--c':e.color,'--i':e.i}}><span>{e.label}</span></span>)}
+    </div>
+   </div>)}
+  </div>
  </div>;
 }
 
@@ -143,7 +155,10 @@ export default function ServicesPage({lang,paused}){
 
   <section className="pl-compare" aria-labelledby="pl-compare">
    <h2 id="pl-compare">{d.calTitle}</h2>
-   <div className="pl-tabs" role="tablist" aria-label={d.calTitle}>{d.plans.map((p,i)=><button type="button" role="tab" key={p.id} className="pill" aria-selected={pick===i} onClick={()=>setPick(i)}>{p.name}</button>)}</div>
+   <div className="pl-cal-head">
+    <div className="pl-tabs" role="tablist" aria-label={d.calTitle}>{d.plans.map((p,i)=><button type="button" role="tab" key={p.id} className="pill" aria-selected={pick===i} onClick={()=>setPick(i)}>{p.name}</button>)}</div>
+    <p className="pl-cal-price" aria-live="polite"><strong>{d.plans[pick].price}</strong> <span>{d.plans[pick].per}</span></p>
+   </div>
    <p className="pl-cal-lead">{d.cal[pick].lead}</p>
    <Calendar key={pick} plan={d.cal[pick]} d={d} paused={paused}/>
    <p className="pl-cal-note">{d.calNote}</p>
