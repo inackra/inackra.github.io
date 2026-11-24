@@ -63,6 +63,9 @@ const copy={
  },
 };
 
+// Plan names, prices and contents, for the page's structured data and llms.txt.
+export const servicePlans=lang=>copy[lang].plans;
+
 const Check=()=><svg className="pl-check" viewBox="0 0 16 16" aria-hidden="true"><circle cx="8" cy="8" r="7"/><path d="m5 8.2 2 2 4-4.2"/></svg>;
 
 const useIso=typeof window==='undefined'?useEffect:useLayoutEffect;

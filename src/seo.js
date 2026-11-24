@@ -1,5 +1,6 @@
 import {parseRoute,homeUrl,workUrl,caseUrl,taskUrl,languageUrl} from './routes';
-import {content,EMAIL,LINKEDIN} from './content';
+import {content,EMAIL,LINKEDIN,TELEGRAM} from './content';
+import {servicePlans} from './ServicesPage';
 import {getCaseStudies} from './caseStudies';
 import searchTasks from './searchTasks.json';
 const getTasks=lang=>searchTasks[lang].aio;
@@ -9,7 +10,7 @@ import {parseShare,allShareCodes,types as buildTypes,moods as buildMoods,niches 
 import {shareUrl} from './routes';
 export const ORIGIN='https://inackra.work';
 const absolute=path=>ORIGIN+path;
-const person={'@type':'Person','@id':ORIGIN+'/#person',name:'Yan Kavaleu',alternateName:'INACKRA',url:ORIGIN+'/',jobTitle:'Multidisciplinary Designer',email:EMAIL,sameAs:[LINKEDIN],knowsAbout:['Digital product design','User experience design','Visual identity','3D graphics','Motion design','AI-assisted development']};
+const person={'@type':'Person','@id':ORIGIN+'/#person',name:'Yan Kavaleu',alternateName:['INACKRA','Ян Ковалев'],url:ORIGIN+'/',jobTitle:'Multidisciplinary Designer',email:EMAIL,sameAs:[LINKEDIN,TELEGRAM,'https://www.youtube.com/@inackra-work'],knowsAbout:['Digital product design','User experience design','Visual identity','3D graphics','Motion design','AI-assisted development']};
 export function metadata(path='/'){
  const route=parseRoute(path),{lang,archive,privacy,services,visualId,caseId,task}=route,shared=route.share!=null?parseShare(route.share):null,ru=lang==='ru',cases=getCaseStudies(content[lang].work.cases,lang),project=cases.find(p=>p.id===caseId),visual=catalog.find(p=>p.id===visualId);
  const tasks=caseId==='aio'?getTasks(lang):caseId==='plenum'?getPlenumTasks(lang):[],scenario=tasks.find(p=>p.id===task);
@@ -26,6 +27,15 @@ export function metadata(path='/'){
  const page={'@type':route.clean==='/'?'ProfilePage':'WebPage','@id':url+'#page',url,name:title,description,inLanguage:lang,isPartOf:{'@id':site['@id']},mainEntity:route.clean==='/'?{'@id':person['@id']}:undefined};
  const graph=[person,site,page];
  if(project){const work={'@type':'CreativeWork','@id':url+'#case-study',name:scenario?`${project.name}: ${scenario.title}`:project.name,description,url,inLanguage:lang,creator:{'@id':person['@id']},image:absolute(image),genre:'Design case study'};if(scenario)work.isPartOf={'@type':'CreativeWork',name:project.name,url:absolute(caseUrl(caseId,lang))};graph.push(work);page.mainEntity={'@id':work['@id']};}
+ // Services: the plans as a Service with priced offers (monthly for subscriptions).
+ if(services){
+  const price=p=>Number(p.price.replace(/[^0-9]/g,'')),monthly=p=>p.id!=='sprint';
+  const offers=servicePlans(lang).map(p=>({'@type':'Offer',name:p.name,description:[p.note,...p.items].join('. '),url,
+   priceSpecification:{'@type':'UnitPriceSpecification',priceCurrency:'USD',...(monthly(p)?{price:price(p),unitText:'MONTH',referenceQuantity:{'@type':'QuantitativeValue',value:1,unitCode:'MON'}}:{minPrice:price(p)})}}));
+  const service={'@type':'Service','@id':url+'#service',name:ru?'Дизайн по подписке — INACKRA':'Design subscription — INACKRA',serviceType:ru?'Дизайн цифровых продуктов, бренда и моушна':'Digital product, brand and motion design',description,url,provider:{'@id':person['@id']},areaServed:'Worldwide',availableLanguage:['ru','en'],
+   hasOfferCatalog:{'@type':'OfferCatalog',name:ru?'Пакеты':'Plans',itemListElement:offers}};
+  graph.push(service);page.mainEntity={'@id':service['@id']};
+ }
  if(route.clean!=='/'){const crumbs=[{name:ru?'Главная':'Home',item:absolute(homeUrl(lang))}];if(archive||project||visual)crumbs.push({name:ru?'Все работы':'All work',item:absolute(workUrl(lang))});if(project)crumbs.push({name:project.name,item:absolute(caseUrl(caseId,lang))});if(scenario)crumbs.push({name:scenario.label,item:url});if(privacy||visual)crumbs.push({name:privacy?(ru?'Конфиденциальность':'Privacy'):title,item:url});if(services)crumbs.push({name:ru?'Услуги':'Services',item:url});graph.push({'@type':'BreadcrumbList',itemListElement:crumbs.map((c,i)=>({'@type':'ListItem',position:i+1,...c}))});}
  return {title,description,lang,canonical,image:image.startsWith('https:')?image:absolute(image),robots:!known||shared||visual||project?.status!=='ready'&&project?'noindex,follow':'index,follow',alternates:['ru','en'].map(lang=>({lang,url:absolute(languageUrl(path,lang))})),schema:{'@context':'https://schema.org','@graph':graph},known};
 }
