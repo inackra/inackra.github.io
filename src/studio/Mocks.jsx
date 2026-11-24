@@ -274,10 +274,10 @@ function SaasPhone({niche}){
 // ── Stage: scales a fixed-size mock-up to the column and tilts it ────────
 export function MockStage({type,mood,niche,paused,variant=0}){
  const box=useRef(null),inner=useRef(null);
- const [size,setSize]=useState({scale:1,compact:false,crop:false});
+ const [size,setSize]=useState({scale:1,compact:false,crop:false,w:0});
  useLayoutEffect(()=>{
   const el=box.current;if(!el)return;
-  const measure=()=>{const w=el.clientWidth,compact=w<640;setSize({scale:Math.min(1,w/(compact?380:1080)),compact,crop:false})};
+  const measure=()=>{const w=el.clientWidth,compact=w<640;setSize({scale:Math.min(1,w/(compact?380:1080)),compact,crop:false,w})};
   measure();const ro=new ResizeObserver(measure);ro.observe(el);return()=>ro.disconnect();
  },[type]);
  useEffect(()=>{
@@ -294,7 +294,7 @@ export function MockStage({type,mood,niche,paused,variant=0}){
  const shown=size.crop?{w:640,h:design.h}:design;
  return <div className={`m-stage${size.crop?' crop':''}`} ref={box} style={{height:shown.h*size.scale}}>
   <div className="m-tilt" ref={inner}>
-   <div className={`mock mood-${mood} type-${type}`} style={{...theme(mood,niche.accent[mood]),width:design.w,height:design.h,transform:`scale(${size.scale})`}}>
+   <div className={`mock mood-${mood} type-${type}`} style={{...theme(mood,niche.accent[mood]),width:design.w,height:design.h,transform:`translateX(${Math.max(0,(size.w-design.w*size.scale)/2)}px) scale(${size.scale})`}}>
     {type==='site'?(size.compact?<MobileSite niche={niche} mood={mood} variant={variant}/>:React.createElement([SiteMock,SitePoster,SiteEditorial][variant]||SiteMock,{niche,mood})):type==='saas'?(size.compact?(variant===1?<div className="m-app-stage compact"><PhoneFeed niche={niche}/></div>:variant===2?<div className="m-app-stage compact"><PhoneProduct niche={niche}/></div>:<SaasPhone niche={niche}/>):React.createElement([SaasMock,SaasBoard,SaasInsights][variant]||SaasMock,{niche,mood})):<AppMock niche={niche} mood={mood} compact={size.compact} variant={variant}/>}
    </div>
   </div>

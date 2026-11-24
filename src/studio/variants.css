@@ -229,3 +229,28 @@
 .m-msite-more .m-quote.m-grow p{font-size:21px;line-height:1.3}
 .m-board .m-task{padding:14px 14px 12px;gap:10px}
 .m-col-add{margin-top:auto;height:38px;border-radius:12px;display:grid;place-items:center;font-size:12px;color:var(--m-muted);box-shadow:inset 0 0 0 1px var(--m-line)}
+
+/* Polish: breathing room, rings that never clip, faces on the right ring colour. */
+.m-stories{padding:6px 18px;margin-top:-6px;margin-bottom:-6px;gap:6px}
+.m-stories i{width:44px;height:44px}
+.m-stories span{width:52px}
+.mock .m-list-card{padding:14px 18px 12px}
+.mock .m-msite-more .m-list-card{padding:12px 16px 10px}
+.mock .m-tile-wide{padding:12px 14px 10px}
+.mock .m-phone-screen .m-rows{padding:4px 14px 6px}
+.m-faces i{box-shadow:0 0 0 2px var(--ring,var(--m-bg))!important;margin-left:-5px}
+.m-main{--ring:var(--m-bg)}.mood-bright .m-main{--ring:#f6f6f2}
+.m-task{--ring:var(--m-surface)}
+.m-site .m-faces{--ring:var(--m-bg)}
+/* Big numbers shrink to the card instead of running off its edge. */
+.mock :is(.m-ins-hero,.m-hero-card,.m-tile,.m-metric-card,.m-kpi-row>div,.m-kpi-pair>.m-card){container-type:inline-size}
+.mock .m-ins-hero strong{font-size:min(52px,13cqw)}
+.mock .m-big{font-size:min(34px,14cqw)}
+.mock .m-tile .m-big{font-size:min(26px,17cqw)}
+.mock .m-tile-ink strong{font-size:min(22px,17cqw)}
+.mock .m-kpi-row b{font-size:min(28px,21cqw)}
+.mock :is(.m-kpi-card,.m-kpi-sm) .m-kpi-row b{font-size:min(22px,21cqw)}
+.mock .m-kpi-pair b{font-size:min(22px,16cqw)}
+.m-phone{box-shadow:none}
+.m-kpi-row b{overflow:hidden;text-overflow:clip}
+.mock .m-tiles{grid-template-rows:122px 122px auto}.mock .m-tile-wide{padding:12px 14px 10px}.mock .m-tile-wide .m-row{padding:6px 0}

@@ -307,3 +307,9 @@
  .result-hint{display:none}
 }
 .order-status.failed{color:#e5484d}.order-status a{color:var(--fg);text-decoration:underline;text-underline-offset:3px}
+
+/* Form fields read as fields: page colour on the tinted order panel. */
+.order-form textarea,.order-form input{background:var(--bg);box-shadow:inset 0 0 0 1px color-mix(in srgb,var(--fg) 10%,transparent)}
+.order-form :is(textarea,input):hover{box-shadow:inset 0 0 0 1px color-mix(in srgb,var(--fg) 22%,transparent)}
+.order-form :is(textarea,input):focus{background:var(--bg);box-shadow:inset 0 0 0 1.5px var(--fg)}
+.order-form ::placeholder{color:color-mix(in srgb,var(--fg) 42%,var(--bg))}
