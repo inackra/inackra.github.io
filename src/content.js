@@ -1,4 +1,6 @@
 export const EMAIL = 'hello@inackra.work';
+export const TELEGRAM = 'https://t.me/Jo1_Se';
+export const TELEGRAM_HANDLE = '@Jo1_Se';
 export const LINKEDIN = 'https://www.linkedin.com/in/yan-kavaleu-9879761b8/';
 export const PORTFOLIO = '/work/';
 

@@ -3,8 +3,10 @@ import FlipText from '../FlipText';
 import Arrow from '../Arrow';
 import Magnetic from '../Magnetic';
 import {MockStage} from './Mocks';
-import {copy,types,moods,niches,achievements,findNiche} from './data';
-import {EMAIL} from '../content';
+import {copy,types,moods,niches,achievements,findNiche,parseShare,shareCode} from './data';
+import {EMAIL,TELEGRAM,TELEGRAM_HANDLE} from '../content';
+import {homeUrl,shareUrl} from '../routes';
+import {ORIGIN} from '../seo';
 
 // Same delivery as the old contact form: a Google Apps Script web app that writes
 // a row to Ян's private sheet. Without it the form opens a prepared email instead.
@@ -34,11 +36,14 @@ function Glyph({id}){return <svg className="opt-icon" viewBox="0 0 24 24" fill="
 // The mood is shown by its palette: three colours of the finished look.
 function Swatch({colors}){return <span className="opt-swatch" aria-hidden="true">{colors.map(c=><i key={c} style={{background:c}}/>)}</span>}
 
-export default function Constructor({lang='ru',paused=false}){
- const d=copy[lang];
- const [step,setStep]=useState(0); // 0..2 choices, 3 generating, 4 result
- const [choice,setChoice]=useState({type:null,mood:null,niche:null});
- const [build,setBuild]=useState(0),[variant,setVariant]=useState(()=>Math.floor(Math.random()*3));
+export default function Constructor({lang='ru',paused=false,shared=null}){
+ const d=copy[lang],initial=shared!=null?parseShare(shared):null;
+ const [step,setStep]=useState(initial?4:0); // 0..2 choices, 3 generating, 4 result
+ const [choice,setChoice]=useState(initial?{type:initial.type,mood:initial.mood,niche:initial.niche}:{type:null,mood:null,niche:null});
+ const [build,setBuild]=useState(0),[variant,setVariant]=useState(()=>initial?initial.variant:Math.floor(Math.random()*3));
+ // A visitor who came by someone's link: the first result is that build, the enquiry says so.
+ const [viewing,setViewing]=useState(Boolean(initial));const via=useRef(initial?shared:null);
+ const [shareOpen,setShareOpen]=useState(false),[copied,setCopied]=useState(false);
  const [proof,setProof]=useState(0),[phase,setPhase]=useState(0);
  const [form,setForm]=useState({task:'',contact:''}),[status,setStatus]=useState('idle');
  const top=useRef(null),sendForm=useRef(null),pending=useRef(null),timer=useRef(null);
@@ -58,16 +63,21 @@ export default function Constructor({lang='ru',paused=false}){
  },[step,lang,paused,d.generating.length]);
 
  const scrollTop=()=>requestAnimationFrame(()=>{const el=top.current;if(el&&el.getBoundingClientRect().top<-40)el.scrollIntoView({behavior:reduced()?'auto':'smooth'})});
- const go=n=>{setStep(n);scrollTop()};
+ const go=n=>{setStep(n);setShareOpen(false);if(n<4&&viewing){setViewing(false);if(location.pathname.includes('/b/'))history.replaceState(null,'',homeUrl(lang))}scrollTop()};
  // Types and moods move on by themselves; a short pause lets the fill land.
  const pick=(key,v,next)=>{setChoice(c=>({...c,[key]:v}));if(next!=null)setTimeout(()=>go(next),reduced()?0:320)};
  const restart=()=>{setChoice({type:null,mood:null,niche:null});setStatus('idle');go(0)};
+ const link=step===4&&choice.type?ORIGIN+shareUrl(shareCode(choice,variant),lang):'';
+ const shareTo=where=>{const text=d.shareText,u=encodeURIComponent(link),t=encodeURIComponent(text);return {tg:`https://t.me/share/url?url=${u}&text=${t}`,in:`https://www.linkedin.com/sharing/share-offsite/?url=${u}`,x:`https://x.com/intent/post?text=${t}&url=${u}`}[where]};
+ const copyLink=async()=>{try{await navigator.clipboard.writeText(link)}catch{const a=document.createElement('textarea');a.value=link;document.body.append(a);a.select();try{document.execCommand('copy')}catch{}a.remove()}setCopied(true);setTimeout(()=>setCopied(false),2200)};
+ const nativeShare=()=>navigator.share?.({title:'INACKRA',text:d.shareText,url:link}).catch(()=>{});
  const submit=e=>{
   e.preventDefault();if(status==='sending')return;
   const task=form.task.trim(),contact=form.contact.trim();
   if(task.length<10||!isEmail(contact)){setStatus('invalid');return}
   const brief=[label(types,choice.type),label(moods,choice.mood),label(niches,choice.niche)].join(' / ');
-  const message=`${lang==='ru'?'Сборка':'Build'}: ${brief}\n\n${task}`;
+  const ref=via.current?`\n${lang==='ru'?'Пришёл по ссылке':'Came via shared link'}: ${ORIGIN}${shareUrl(via.current,lang)}`:'';
+  const message=`${lang==='ru'?'Сборка':'Build'}: ${brief}${ref}\n\n${task}`;
   if(!endpoint){location.href=`mailto:${EMAIL}?subject=${encodeURIComponent(lang==='ru'?'Заявка с конструктора':'Constructor enquiry')}&body=${encodeURIComponent(`${message}\n\n${contact}`)}`;return}
   const f=sendForm.current,id=crypto.randomUUID?.()||`${Date.now().toString(36)}-${Math.random().toString(36).slice(2)}${Math.random().toString(36).slice(2)}`;
   f.elements.requestId.value=id;f.elements.email.value=contact;f.elements.message.value=message;f.elements.lang.value=lang;
@@ -101,10 +111,24 @@ export default function Constructor({lang='ru',paused=false}){
   </div>}
 
   {step===4&&<div className="studio-result">
-   <div className="result-head">
+   {viewing?<div className="result-head result-shared">
+    <div><h1 className="result-title"><Accent text={d.sharedTitle}/></h1><p className="result-shared-text">{d.sharedText}</p></div>
+    <div className="result-actions"><Magnetic type="button" className="mag-small mag-solid" onClick={restart}><span>{d.buildOwn}</span><Arrow/></Magnetic><Magnetic type="button" className="mag-small" onClick={()=>{const el=document.querySelector('.order');el?.scrollIntoView({behavior:reduced()?'auto':'smooth',block:'start'});setTimeout(()=>document.querySelector('.order-form textarea')?.focus({preventScroll:true}),reduced()?0:700)}}><span>{d.wantThis}</span></Magnetic></div>
+   </div>:<div className="result-head">
     <h2 className="result-title"><Accent text={d.summary}/></h2>
-    <div className="result-actions"><span className="result-hint">{d.hint}</span><Magnetic type="button" className="mag-small mag-solid" onClick={()=>go(3)}><span>{d.another}</span></Magnetic><Magnetic type="button" className="mag-small" onClick={restart}><span>{d.restart}</span><Arrow/></Magnetic></div>
-   </div>
+    <div className="result-actions"><span className="result-hint">{d.hint}</span><Magnetic type="button" className="mag-small mag-solid" onClick={()=>go(3)}><span>{d.another}</span></Magnetic><Magnetic type="button" className="mag-small" onClick={restart}><span>{d.restart}</span><Arrow/></Magnetic>
+     <div className="share"><Magnetic type="button" className="mag-small" aria-expanded={shareOpen} aria-controls="share-menu" onClick={()=>setShareOpen(o=>!o)}><span>{d.share}</span></Magnetic>
+      {shareOpen&&<div className="share-menu" id="share-menu" role="menu">
+       <button type="button" role="menuitem" onClick={copyLink}>{copied?d.shareCopied:d.shareCopy}</button>
+       <a role="menuitem" href={shareTo('tg')} target="_blank" rel="noreferrer">Telegram</a>
+       <a role="menuitem" href={shareTo('in')} target="_blank" rel="noreferrer">LinkedIn</a>
+       <a role="menuitem" href={shareTo('x')} target="_blank" rel="noreferrer">X</a>
+       {typeof navigator!=='undefined'&&navigator.share&&<button type="button" role="menuitem" onClick={nativeShare}>{d.shareMore}</button>}
+       <span className="share-url">{link.replace('https://','')}</span>
+      </div>}
+     </div>
+    </div>
+   </div>}
    <MockStage key={build} type={choice.type} mood={choice.mood} niche={niche} paused={paused} variant={variant}/>
    <div className="order">
     <div className="order-copy"><h2>{d.order[0]}<br/><em>{d.order[1]}</em></h2><p>{d.orderText}</p><ul className="order-promise">{d.promise.map(x=><li key={x}>{x}</li>)}</ul></div>
@@ -115,6 +139,7 @@ export default function Constructor({lang='ru',paused=false}){
       <label>{d.task}<textarea rows={3} maxLength={2000} placeholder={d.taskHint} value={form.task} onChange={e=>{setForm({...form,task:e.target.value});setStatus('idle')}}/></label>
       <label>{d.contact}<input maxLength={200} type="email" autoComplete="email" placeholder="you@mail.com" value={form.contact} onChange={e=>{setForm({...form,contact:e.target.value});setStatus('idle')}}/></label>
       <div className="order-submit"><Magnetic type="submit" className="mag-solid"><span>{d.send}</span><Arrow/></Magnetic><span className={`order-status ${status}`} role="status">{status==='invalid'?d.required:status==='sending'?d.sending:status==='failed'?<>{d.failed} <a href={`mailto:${EMAIL}`}>{EMAIL}</a></>:endpoint?d.privacy:d.mailNote}</span></div>
+      <p className="order-direct">{lang==='ru'?'Или напиши напрямую:':'Or write directly:'} <a href={`mailto:${EMAIL}`}>{EMAIL}</a> · <a href={TELEGRAM} target="_blank" rel="noreferrer">Telegram {TELEGRAM_HANDLE}</a></p>
      </form>}
     {endpoint&&<form ref={sendForm} action={endpoint} method="POST" target="constructor-send" hidden aria-hidden="true"><input name="requestId"/><input name="intent" defaultValue="project"/><input name="name" defaultValue="Constructor"/><input name="email"/><textarea name="message"/><input name="lang"/><input name="website"/></form>}
     {endpoint&&<iframe name="constructor-send" title="send" hidden/>}
