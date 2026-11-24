@@ -1,7 +1,7 @@
 import gsap from 'gsap';
 // Magnetic pull and the rising fill for every site button, via one set of
 // delegated listeners (pages render buttons in many components).
-export const PILLS='.text-action:not(summary),.aio-support-navigation>summary,.case-open,.button,.archive-filters a,.archive-filters button,.footer-controls>a,.footer-controls>button,.copy-link,.carousel-arrows button';
+export const PILLS='.text-action:not(summary),.aio-support-navigation>summary,.case-open,.button,.archive-filters a,.archive-filters button,.footer-controls>a,.footer-controls>button,.menu-bottom>a,.copy-link,.pill,.carousel-arrows button';
 export function mountPills(){
  const html=document.documentElement;
  if(!matchMedia('(hover:hover) and (pointer:fine)').matches||matchMedia('(prefers-reduced-motion: reduce)').matches)return()=>{};
