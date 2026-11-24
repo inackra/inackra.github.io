@@ -7,6 +7,7 @@ import {copy,types,moods,niches,achievements,findNiche,parseShare,shareCode} fro
 import {EMAIL,TELEGRAM,TELEGRAM_HANDLE} from '../content';
 import {homeUrl,shareUrl} from '../routes';
 import {ORIGIN} from '../seo';
+import {track,visitSource} from '../analytics';
 
 // Same delivery as the old contact form: a Google Apps Script web app that writes
 // a row to Ян's private sheet. Without it the form opens a prepared email instead.
@@ -46,11 +47,12 @@ export default function Constructor({lang='ru',paused=false,shared=null}){
  const [shareOpen,setShareOpen]=useState(false),[copied,setCopied]=useState(false);
  // Share sits 24px above the bottom of what reads as the mock-up: the phone on small screens, the canvas otherwise.
  const stageRef=useRef(null);
+ useEffect(()=>{if(initial)track('shared_view',{build:shared})},[]);
  useEffect(()=>{const el=stageRef.current;if(!el||step!==4)return;const place=()=>{const mock=el.querySelector('.mock'),phone=el.querySelector('.m-app-stage.compact .m-phone');if(!mock)return;const bottom=(phone||mock).getBoundingClientRect().bottom,stage=el.getBoundingClientRect().bottom;el.style.setProperty('--share-gap',`${Math.round(stage-bottom+24)}px`)};place();const ro=new ResizeObserver(place);ro.observe(el);const t=setTimeout(place,900);return()=>{ro.disconnect();clearTimeout(t)}},[step,build,variant,choice.type]);
  const [proof,setProof]=useState(0),[phase,setPhase]=useState(0);
  const [form,setForm]=useState({task:'',contact:''}),[status,setStatus]=useState('idle');
  const top=useRef(null),sendForm=useRef(null),pending=useRef(null),timer=useRef(null);
- useEffect(()=>{const receive=e=>{if(!/^https:\/\/(script\.google\.com|[a-z0-9-]+\.googleusercontent\.com)$/.test(e.origin)||e.data?.type!=='inackra-enquiry'||e.data?.id!==pending.current)return;clearTimeout(timer.current);pending.current=null;if(e.data.ok){setStatus('sent');setForm({task:'',contact:''})}else setStatus('failed')};addEventListener('message',receive);return()=>{removeEventListener('message',receive);clearTimeout(timer.current)}},[]);
+ useEffect(()=>{const receive=e=>{if(!/^https:\/\/(script\.google\.com|[a-z0-9-]+\.googleusercontent\.com)$/.test(e.origin)||e.data?.type!=='inackra-enquiry'||e.data?.id!==pending.current)return;clearTimeout(timer.current);pending.current=null;if(e.data.ok){track('enquiry_sent',{shared:Boolean(via.current)});setStatus('sent');setForm({task:'',contact:''})}else setStatus('failed')};addEventListener('message',receive);return()=>{removeEventListener('message',receive);clearTimeout(timer.current)}},[]);
  const niche=findNiche(choice.niche);
  const label=(list,id)=>list.find(x=>x.id===id)?.[lang]||'';
 
@@ -61,27 +63,29 @@ export default function Constructor({lang='ru',paused=false,shared=null}){
   setProof(0);setPhase(0);
   const ticks=[setInterval(()=>setProof(p=>(p+1)%list.length),fast?600:1500),setInterval(()=>setPhase(p=>Math.min(p+1,d.generating.length-1)),total/d.generating.length)];
   // Each build moves to the next layout (the first one is random), so rebuilds never repeat.
-  const done=setTimeout(()=>{setBuild(b=>b+1);setVariant(v=>(v+1)%3);setStep(4)},total);
+  const done=setTimeout(()=>{setBuild(b=>b+1);setVariant(v=>(v+1)%3);setStep(4);track('build_done',{type:choice.type,mood:choice.mood,niche:choice.niche})},total);
   return()=>{ticks.forEach(clearInterval);clearTimeout(done)};
  },[step,lang,paused,d.generating.length]);
 
  const scrollTop=()=>requestAnimationFrame(()=>{const el=top.current;if(el&&el.getBoundingClientRect().top<-40)el.scrollIntoView({behavior:reduced()?'auto':'smooth'})});
  const go=n=>{setStep(n);setShareOpen(false);if(n<4&&viewing){setViewing(false);if(location.pathname.includes('/b/'))history.replaceState(null,'',homeUrl(lang))}scrollTop()};
  // Types and moods move on by themselves; a short pause lets the fill land.
- const pick=(key,v,next)=>{setChoice(c=>({...c,[key]:v}));if(next!=null)setTimeout(()=>go(next),reduced()?0:320)};
- const restart=()=>{setChoice({type:null,mood:null,niche:null});setStatus('idle');go(0)};
+ const pick=(key,v,next)=>{setChoice(c=>({...c,[key]:v}));track(`pick_${key}`,{[key]:v});if(next!=null)setTimeout(()=>go(next),reduced()?0:320)};
+ const restart=(from='restart')=>{track(from);setChoice({type:null,mood:null,niche:null});setStatus('idle');go(0)};
  const link=step===4&&choice.type?ORIGIN+shareUrl(shareCode(choice,variant),lang):'';
  const shareTo=where=>{const text=d.shareText,u=encodeURIComponent(link),t=encodeURIComponent(text);return {tg:`https://t.me/share/url?url=${u}&text=${t}`,in:`https://www.linkedin.com/sharing/share-offsite/?url=${u}`,x:`https://x.com/intent/post?text=${t}&url=${u}`}[where]};
- const copyLink=async()=>{try{await navigator.clipboard.writeText(link)}catch{const a=document.createElement('textarea');a.value=link;document.body.append(a);a.select();try{document.execCommand('copy')}catch{}a.remove()}setCopied(true);setTimeout(()=>setCopied(false),2200)};
- const nativeShare=()=>navigator.share?.({title:'INACKRA',text:d.shareText,url:link}).catch(()=>{});
+ const copyLink=async()=>{track('share',{channel:'copy'});try{await navigator.clipboard.writeText(link)}catch{const a=document.createElement('textarea');a.value=link;document.body.append(a);a.select();try{document.execCommand('copy')}catch{}a.remove()}setCopied(true);setTimeout(()=>setCopied(false),2200)};
+ const nativeShare=()=>track('share',{channel:'system'})||navigator.share?.({title:'INACKRA',text:d.shareText,url:link}).catch(()=>{});
  const submit=e=>{
   e.preventDefault();if(status==='sending')return;
   const task=form.task.trim(),contact=form.contact.trim();
   if(task.length<10||!isEmail(contact)){setStatus('invalid');return}
   const brief=[label(types,choice.type),label(moods,choice.mood),label(niches,choice.niche)].join(' / ');
   const ref=via.current?`\n${lang==='ru'?'Пришёл по ссылке':'Came via shared link'}: ${ORIGIN}${shareUrl(via.current,lang)}`:'';
-  const message=`${lang==='ru'?'Сборка':'Build'}: ${brief}${ref}\n\n${task}`;
-  if(!endpoint){location.href=`mailto:${EMAIL}?subject=${encodeURIComponent(lang==='ru'?'Заявка с конструктора':'Constructor enquiry')}&body=${encodeURIComponent(`${message}\n\n${contact}`)}`;return}
+  const source=visitSource(),src=source?`\n${lang==='ru'?'Источник':'Source'}: ${source}`:'';
+  const message=`${lang==='ru'?'Сборка':'Build'}: ${brief}${ref}${src}\n\n${task}`;
+  track('enquiry_submit',{type:choice.type,niche:choice.niche,shared:Boolean(via.current),source:source||'direct'});
+  if(!endpoint){track('enquiry_mail');location.href=`mailto:${EMAIL}?subject=${encodeURIComponent(lang==='ru'?'Заявка с конструктора':'Constructor enquiry')}&body=${encodeURIComponent(`${message}\n\n${contact}`)}`;return}
   const f=sendForm.current,id=crypto.randomUUID?.()||`${Date.now().toString(36)}-${Math.random().toString(36).slice(2)}${Math.random().toString(36).slice(2)}`;
   f.elements.requestId.value=id;f.elements.email.value=contact;f.elements.message.value=message;f.elements.lang.value=lang;
   pending.current=id;setStatus('sending');f.submit();
@@ -101,7 +105,7 @@ export default function Constructor({lang='ru',paused=false,shared=null}){
     {step===0&&row('type',types,1,o=><Glyph id={o.id}/>)}
     {step===1&&row('mood',moods,2,o=><Swatch colors={o.swatch}/>)}
     {step===2&&<>{row('niche',niches,null,o=><Glyph id={o.id}/>)}
-     <div className="studio-build"><Magnetic type="button" className="mag-solid" disabled={!choice.niche} onClick={()=>go(3)}><span>{d.build}</span><Arrow/></Magnetic></div></>}
+     <div className="studio-build"><Magnetic type="button" className="mag-solid" disabled={!choice.niche} onClick={()=>{track('build_start',{type:choice.type,mood:choice.mood,niche:choice.niche});go(3)}}><span>{d.build}</span><Arrow/></Magnetic></div></>}
     {step>0&&<button type="button" className="studio-back" onClick={()=>go(step-1)}><Arrow left/><FlipText>{d.back}</FlipText></button>}
    </div>
   </div>}
@@ -116,20 +120,20 @@ export default function Constructor({lang='ru',paused=false,shared=null}){
   {step===4&&<div className="studio-result">
    {viewing?<div className="result-head result-shared">
     <div><h1 className="result-title"><Accent text={d.sharedTitle}/></h1><p className="result-shared-text">{d.sharedText}</p></div>
-    <div className="result-actions"><Magnetic type="button" className="mag-small mag-solid" onClick={restart}><span>{d.buildOwn}</span><Arrow/></Magnetic><Magnetic type="button" className="mag-small" onClick={()=>{const el=document.querySelector('.order');el?.scrollIntoView({behavior:reduced()?'auto':'smooth',block:'start'});setTimeout(()=>document.querySelector('.order-form textarea')?.focus({preventScroll:true}),reduced()?0:700)}}><span>{d.wantThis}</span></Magnetic></div>
+    <div className="result-actions"><Magnetic type="button" className="mag-small mag-solid" onClick={()=>restart('build_own')}><span>{d.buildOwn}</span><Arrow/></Magnetic><Magnetic type="button" className="mag-small" onClick={()=>{track('want_this',{build:shared});const el=document.querySelector('.order');el?.scrollIntoView({behavior:reduced()?'auto':'smooth',block:'start'});setTimeout(()=>document.querySelector('.order-form textarea')?.focus({preventScroll:true}),reduced()?0:700)}}><span>{d.wantThis}</span></Magnetic></div>
    </div>:<div className="result-head">
     <h2 className="result-title"><Accent text={d.summary}/></h2>
-    <div className="result-actions"><span className="result-hint">{d.hint}</span><Magnetic type="button" className="mag-small mag-solid" onClick={()=>go(3)}><span>{d.another}</span></Magnetic><Magnetic type="button" className="mag-small" onClick={restart}><span>{d.restart}</span><Arrow/></Magnetic>
+    <div className="result-actions"><span className="result-hint">{d.hint}</span><Magnetic type="button" className="mag-small mag-solid" onClick={()=>{track('another');go(3)}}><span>{d.another}</span></Magnetic><Magnetic type="button" className="mag-small" onClick={()=>restart('restart')}><span>{d.restart}</span><Arrow/></Magnetic>
     </div>
    </div>}
    <div className="result-stage" ref={stageRef}>
    <MockStage key={build} type={choice.type} mood={choice.mood} niche={niche} paused={paused} variant={variant}/>
-   {!viewing&&<div className="share share-below"><Magnetic type="button" className="mag-solid share-btn" aria-expanded={shareOpen} aria-controls="share-menu" onClick={()=>setShareOpen(o=>!o)}><span>{d.share}</span></Magnetic>
+   {!viewing&&<div className="share share-below"><Magnetic type="button" className="mag-solid share-btn" aria-expanded={shareOpen} aria-controls="share-menu" onClick={()=>{if(!shareOpen)track('share_open');setShareOpen(!shareOpen)}}><span>{d.share}</span></Magnetic>
       {shareOpen&&<div className="share-menu" id="share-menu" role="menu">
        <button type="button" role="menuitem" onClick={copyLink}>{copied?d.shareCopied:d.shareCopy}</button>
-       <a role="menuitem" href={shareTo('tg')} target="_blank" rel="noreferrer">Telegram</a>
-       <a role="menuitem" href={shareTo('in')} target="_blank" rel="noreferrer">LinkedIn</a>
-       <a role="menuitem" href={shareTo('x')} target="_blank" rel="noreferrer">X</a>
+       <a role="menuitem" onClick={()=>track('share',{channel:'telegram'})} href={shareTo('tg')} target="_blank" rel="noreferrer">Telegram</a>
+       <a role="menuitem" onClick={()=>track('share',{channel:'linkedin'})} href={shareTo('in')} target="_blank" rel="noreferrer">LinkedIn</a>
+       <a role="menuitem" onClick={()=>track('share',{channel:'x'})} href={shareTo('x')} target="_blank" rel="noreferrer">X</a>
        {typeof navigator!=='undefined'&&navigator.share&&<button type="button" role="menuitem" onClick={nativeShare}>{d.shareMore}</button>}
        <span className="share-url">{link.replace('https://','')}</span>
       </div>}
@@ -138,7 +142,7 @@ export default function Constructor({lang='ru',paused=false,shared=null}){
    <div className="order">
     <div className="order-copy"><h2>{d.order[0]}<br/><em>{d.order[1]}</em></h2><p>{d.orderText}</p><ul className="order-promise">{d.promise.map(x=><li key={x}>{x}</li>)}</ul></div>
     {status==='sent'
-     ?<div className="order-sent"><h3>{d.sentTitle}</h3><p>{d.sentText}</p><div className="order-sent-actions"><Magnetic as="a" className="mag-solid" href="#more"><span>{d.seeWork}</span><Arrow/></Magnetic><Magnetic type="button" onClick={restart}><span>{d.playMore}</span></Magnetic></div></div>
+     ?<div className="order-sent"><h3>{d.sentTitle}</h3><p>{d.sentText}</p><div className="order-sent-actions"><Magnetic as="a" className="mag-solid" href="#more"><span>{d.seeWork}</span><Arrow/></Magnetic><Magnetic type="button" onClick={()=>restart('play_more')}><span>{d.playMore}</span></Magnetic></div></div>
      :<form className="order-form" onSubmit={submit} noValidate>
       <div className="order-brief"><span>{d.brief}</span>{[label(types,choice.type),label(moods,choice.mood),label(niches,choice.niche)].map(x=><b key={x}>{x}</b>)}</div>
       <label>{d.task}<textarea rows={3} maxLength={2000} placeholder={d.taskHint} value={form.task} onChange={e=>{setForm({...form,task:e.target.value});setStatus('idle')}}/></label>
