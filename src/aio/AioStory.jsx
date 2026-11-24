@@ -75,12 +75,17 @@ function Evidence({
   onOpen
 }) {
   const tr = useAioCopy();
+  const [open, setOpen] = useState(0);
   if (!task.evidenceGroups) return task.evidence.map(item => <EvidenceScreen key={evidenceSource(item)} item={item} onOpen={onOpen} />);
-  return task.evidenceGroups.map((group, index) => <details className="aio-evidence-flow case-chapter" key={group.id} open={index === 0}>
-  <summary className="text-action"><span><h3>{group.title}</h3><span className="aio-flow-count">{group.items.length}{' '}{tr("экранов")}</span></span><Arrow down /></summary>
-  <p className="aio-flow-intro">{group.intro}</p>
-  {group.items.map(item => <EvidenceScreen key={evidenceSource(item)} item={item} onOpen={onOpen} />)}
- </details>);
+  // Screen groups switch like tabs: one group on the page at a time, no accordion.
+  const groups = task.evidenceGroups, current = groups[Math.min(open, groups.length - 1)];
+  return <section className="aio-evidence-flow case-chapter">
+  <div className="archive-filters aio-flow-tabs" role="tablist" aria-label={tr("Группы экранов")}>{groups.map((group, index) => <button type="button" role="tab" key={group.id} aria-selected={group === current} aria-pressed={group === current} onClick={() => setOpen(index)}>{group.title}<small>{group.items.length}</small></button>)}</div>
+  <div role="tabpanel" key={current.id}>
+   <p className="aio-flow-intro">{current.intro}</p>
+   {current.items.map(item => <EvidenceScreen key={evidenceSource(item)} item={item} onOpen={onOpen} />)}
+  </div>
+ </section>;
 }
 function Story({
   initialTask,

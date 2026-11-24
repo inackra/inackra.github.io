@@ -7,7 +7,6 @@
 .eva-impact dd { margin: 0; color: #bbb; font-size: 14px; }
 .eva-impact > p { color: var(--muted); font-size: 14px; max-width: 680px; }
 .eva-story .archive-filters a { white-space: normal; }
-.eva-story .archive-filters a:hover { background: #eee; color: #000; }
 .eva-chapter { margin-top: 42px; border-top: 1px solid var(--line); padding-top: 35px; }
 .eva-chapter > header { margin-bottom: 25px; }
 .eva-chapter .privacy-intro + .privacy-intro { margin-top: 1em; }

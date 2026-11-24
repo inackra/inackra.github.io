@@ -205,3 +205,4 @@
 @media(prefers-reduced-motion:reduce){.distribution-track b{animation:none}.cohort-detail-bars i,.distribution-track i{transition:none}}
 
 .aio-evidence-row:focus-visible{outline:1px solid var(--muted);outline-offset:10px}
+.aio-flow-tabs{margin:8px 0 26px}
