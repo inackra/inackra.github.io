@@ -254,3 +254,19 @@
 .m-phone{box-shadow:none}
 .m-kpi-row b{overflow:hidden;text-overflow:clip}
 .mock .m-tiles{grid-template-rows:122px 122px auto}.mock .m-tile-wide{padding:12px 14px 10px}.mock .m-tile-wide .m-row{padding:6px 0}
+/* Photos */
+.mock .m-photo{display:block;width:100%;height:100%;object-fit:cover;border-radius:inherit;pointer-events:none;user-select:none}
+.mock .has-photo{overflow:hidden;padding:0;background:var(--m-soft)}
+.mock .m-avatar:has(.m-photo),.mock .m-faces i:has(.m-photo){overflow:hidden;background:var(--m-soft)}
+.mock .m-photo-card{position:relative;padding:0;overflow:hidden;background:var(--m-soft)}
+.mock .m-photo-card>.m-photo{position:absolute;inset:0}
+.m-site-visual.with-photo{justify-content:flex-start}
+.m-site-visual.with-photo .m-site-photo{position:absolute;top:4%;bottom:4%;left:22%;right:0;border-radius:22px}
+.m-site-visual.with-photo>.m-metric-card{position:relative;z-index:1;width:74%}
+.mock .m-pp-photo{height:132px;flex:none}
+.mock .m-ed-photo{flex:1;min-height:110px}
+.mock .m-msite-more .m-photo-card.m-grow{min-height:120px;border-radius:18px}
+.mock .m-app-photo{height:190px;flex:none}
+.mock .m-tile-ink.with-photo{position:relative;overflow:hidden;background:#0b0b0b;color:#fff}
+.mock .m-tile-ink .m-tile-bg{position:absolute;inset:0;opacity:.5;border-radius:0}
+.mock .m-tile-ink.with-photo>:not(.m-tile-bg){position:relative}

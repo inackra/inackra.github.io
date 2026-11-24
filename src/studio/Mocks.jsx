@@ -1,4 +1,4 @@
-import React,{useEffect,useId,useLayoutEffect,useRef,useState} from 'react';
+import React,{createContext,useContext,useEffect,useId,useLayoutEffect,useMemo,useRef,useState} from 'react';
 import './variants.css';
 
 // ── Theme ────────────────────────────────────────────────────────────────
@@ -8,6 +8,27 @@ export function theme(mood,accent){
  if(mood==='twist')return {'--m-bg':'#12110f','--m-surface':'#1c1a17','--m-ink':'#f2ebe0','--m-muted':'#8d857a','--m-line':'#2d2a26','--m-accent':accent,'--m-on-accent':'#12110f','--m-soft':`${accent}24`,'--m-hl':accent};
  return {'--m-bg':'#f4f3ef','--m-surface':'#ffffff','--m-ink':'#121212','--m-muted':'#7a776f','--m-line':'#e4e1da','--m-accent':accent,'--m-on-accent':'#ffffff','--m-soft':`${accent}17`,'--m-hl':accent};
 }
+
+// ── Photos: free-licence shots per niche (src/studio/photos, credits.json) ──
+// Files: <niche>-hero, <niche>-s1..s5 (stories), <niche>-l1..l3 (list rows), avatar-1..8.
+// The route checker bundles without Vite, where import.meta.glob does not exist.
+let photoFiles={};try{photoFiles=import.meta.glob('./photos/*.webp',{eager:true,query:'?url',import:'default'})}catch{}
+const photo=name=>photoFiles[`./photos/${name}.webp`];
+const avatars=[1,2,3,4,5,6,7,8].map(i=>photo(`avatar-${i}`)).filter(Boolean);
+function photosFor(niche){
+ const byText={};
+ niche.stories.forEach((t,i)=>{const src=photo(`${niche.id}-s${i+1}`);if(src)byText[t]=src});
+ niche.list.forEach((r,i)=>{const src=photo(`${niche.id}-l${i+1}`);if(src)byText[r[0]]=src});
+ if(niche.quote&&avatars.length)byText[niche.quote[1]]=avatars[0];
+ return {byText,hero:photo(`${niche.id}-hero`),avatars};
+}
+const Photos=createContext({byText:{},hero:null,avatars:[]});
+const usePhotos=()=>useContext(Photos);
+const Img=({src,className=''})=><img className={`m-photo ${className}`} src={src} alt="" loading="lazy" decoding="async" draggable="false"/>;
+function PhotoCard({className='',style,children}){const {hero}=usePhotos();return hero?<div className={`m-card m-photo-card ${className}`} style={style}><Img src={hero}/>{children}</div>:null}
+const useHero=()=>!!usePhotos().hero;
+function Avatar(){const {avatars}=usePhotos();return <span className="m-avatar">{avatars[1]&&<Img src={avatars[1]}/>}</span>}
+function Faces({n=3,from=2}){const {avatars}=usePhotos();return <span className="m-faces">{Array.from({length:n},(_,i)=>{const src=avatars[(from+i)%Math.max(1,avatars.length)];return <i key={i}>{src&&<Img src={src}/>}</i>})}</span>}
 
 // ── Small parts ──────────────────────────────────────────────────────────
 const paths={
@@ -70,7 +91,8 @@ function SiteMock({niche,mood}){
      <p className="m-in" style={rise(3)}>{niche.sub}</p>
      <div className="m-actions m-in" style={rise(4)}><span className="m-btn">{niche.cta}<span className="m-arrow">→</span></span><span className="m-btn m-btn-ghost">See how it works</span></div>
     </div>
-    <div className="m-site-visual">
+    <div className={`m-site-visual${useHero()?' with-photo':''}`}>
+     <PhotoCard className="m-site-photo m-in" style={rise(2)}/>
      <div className="m-card m-metric-card m-in" style={rise(3)}>
       <div className="m-card-head"><span>{niche.metric.label}</span><span className="m-delta">{niche.metric.delta}</span></div>
       <strong className="m-big"><Count {...niche.metric}/></strong>
@@ -91,7 +113,7 @@ function Phone({niche}){
   <div className="m-phone-screen">
    <div className="m-status"><b>9:41</b><span className="m-island"/><span className="m-status-icons"><i/><i/><i/></span></div>
    <Toast niche={niche} className="m-toast-app"/>
-   <div className="m-app-head m-in" style={rise(0)}><div><small>{niche.hello}</small><b className="m-display">{niche.name}</b></div><span className="m-avatar"/></div>
+   <div className="m-app-head m-in" style={rise(0)}><div><small>{niche.hello}</small><b className="m-display">{niche.name}</b></div><Avatar/></div>
    <div className="m-hero-card m-in" style={rise(1)}>
     <div className="m-card-head"><span>{niche.metric.label}</span><span className="m-delta">{niche.metric.delta}</span></div>
     <strong className="m-big"><Count {...niche.metric}/></strong>
@@ -112,15 +134,16 @@ function MobileSite({niche,mood,variant=0}){
   <h4 className="m-display m-in" style={rise(2)}>{niche.headline[0]}<br/><em>{niche.headline[1]}</em></h4>
   <p className="m-in" style={rise(3)}>{niche.sub}</p>
   <span className="m-btn m-in" style={rise(4)}>{niche.cta}<span className="m-arrow">→</span></span>
-  {variant===2?<div className="m-msite-more"><Kpis niche={niche} className="m-kpi-sm"/><Quote niche={niche} className="m-in m-grow" style={rise(7)}/></div>:variant?<Notes niche={niche} className="m-msite-notes" start={5}/>:<div className="m-msite-more"><MetricCard niche={niche} className="m-in m-grow" style={rise(5)} w={260} h={70}/><Kpis niche={niche} className="m-kpi-sm"/></div>}
+  {variant===2?<div className="m-msite-more"><Kpis niche={niche} className="m-kpi-sm"/><Quote niche={niche} className="m-in m-grow" style={rise(7)}/></div>:variant?<Notes niche={niche} className="m-msite-notes" start={5}/>:<div className="m-msite-more">{useHero()?<PhotoCard className="m-in m-grow" style={rise(5)}/>:<MetricCard niche={niche} className="m-in m-grow" style={rise(5)} w={260} h={70}/>}<Kpis niche={niche} className="m-kpi-sm"/></div>}
  </div></div></div>;
 }
 const PHONES=[Phone,PhoneProduct,PhoneFeed];
+function AppLeft({niche}){return useHero()?<><PhotoCard className="m-app-photo m-in" style={rise(5)}/><Quote niche={niche} className="m-in" style={rise(6)}/></>:<><Quote niche={niche} className="m-in" style={rise(5)}/><Mix niche={niche} className="m-in" style={rise(6)}/></>}
 function AppMock({niche,compact,variant=0}){
  const Screen=PHONES[variant]||Phone;
  if(compact)return <div className="m-app-stage compact"><Screen niche={niche}/></div>;
  return <div className={`m-app-stage m-app-v${variant}`}>
-  <div className="m-app-col left">{variant===1?<><ListCard niche={niche} className="m-in" style={rise(5)}/><Mix niche={niche} className="m-in" style={rise(6)}/></>:variant===2?<Notes niche={niche} start={5}/>:<><Quote niche={niche} className="m-in" style={rise(5)}/><Mix niche={niche} className="m-in" style={rise(6)}/></>}</div>
+  <div className="m-app-col left">{variant===1?<><ListCard niche={niche} className="m-in" style={rise(5)}/><Mix niche={niche} className="m-in" style={rise(6)}/></>:variant===2?<Notes niche={niche} start={5}/>:<AppLeft niche={niche}/>}</div>
   <Screen niche={niche}/>
   <div className="m-app-col right">{variant===1?<><Quote niche={niche} className="m-in" style={rise(8)}/><div className="m-card m-kpi-card m-in" style={rise(9)}><Kpis niche={niche}/></div></>:variant===2?<><Quote niche={niche} className="m-in" style={rise(7)}/><div className="m-card m-kpi-card m-in" style={rise(8)}><Kpis niche={niche}/></div></>:<><div className="m-card m-kpi-card m-in" style={rise(7)}><Kpis niche={niche}/></div><Notes niche={{...niche,features:niche.features.slice(0,2)}} start={8}/></>}</div>
  </div>;
@@ -135,7 +158,7 @@ function SaasMock({niche}){
    <aside className="m-side">
     <Logo niche={niche}/>
     <div className="m-side-nav">{niche.side.map((s,i)=><span key={s} className={`m-in${i?'':' on'}`} style={rise(i)}><Icon name={icons[i]} size={16}/>{s}</span>)}</div>
-    <div className="m-side-user"><span className="m-avatar"/><span><b>Anna K.</b><small>Admin</small></span></div>
+    <div className="m-side-user"><Avatar/><span><b>Anna K.</b><small>Admin</small></span></div>
    </aside>
    <div className="m-main">
     <div className="m-top m-in" style={rise(0)}><b className="m-display">{niche.side[0]}</b><span className="m-search"><Icon name="search" size={14}/>Search</span><span className="m-btn m-btn-sm">+ New</span></div>
@@ -153,7 +176,7 @@ function SaasMock({niche}){
 // ── Content cards: the mock-ups are filled with real UI, not illustrations ──
 // A letter badge never contradicts the row the way a stock icon can.
 const initials=t=>/^[A-Z]{2,4}$/.test(t)?t:t.replace(/^#\d+\s*/,'').split(/[\s,]+/).filter(Boolean).slice(0,2).map(w=>w[0]).join('').toUpperCase();
-function Badge({text}){return <span className="m-row-icon m-badge">{initials(text)}</span>}
+function Badge({text}){const src=usePhotos().byText[text];return src?<span className="m-row-icon m-badge has-photo"><Img src={src}/></span>:<span className="m-row-icon m-badge">{initials(text)}</span>}
 function Row({row:[t,m,v],meta=true}){return <div className="m-row"><Badge text={t}/><span className="m-row-text"><b>{t}</b>{meta&&<small>{m}</small>}</span><span className="m-row-value">{v}</span></div>}
 function ListCard({niche,title=niche.top,rows=niche.list,className='',style}){return <div className={`m-card m-list-card ${className}`} style={style}><div className="m-card-head"><span>{title}</span><span className="m-link">View all</span></div><div className="m-rows">{rows.map(r=><Row key={r[0]} row={r}/>)}</div></div>}
 function Notes({niche,className='',start=0}){return <div className={`m-notes ${className}`}>{niche.features.map((f,i)=><div className="m-card m-note m-in" key={f} style={rise(start+i)}><small>0{i+1}</small><b>{f}</b><p>{niche.notes[i]}</p></div>)}</div>}
@@ -175,7 +198,7 @@ function SitePoster({niche}){
      <div className="m-actions m-in" style={rise(3)}><span className="m-btn">{niche.cta}<span className="m-arrow">→</span></span><span className="m-btn m-btn-ghost">See how it works</span></div>
      <Kpis niche={niche}/>
     </div>
-    <div className="m-pp-side"><MetricCard niche={niche} className="m-in" style={rise(2)} w={300} h={84}/><Quote niche={niche} className="m-in" style={rise(4)}/></div>
+    <div className="m-pp-side"><PhotoCard className="m-pp-photo m-in" style={rise(1)}/><MetricCard niche={niche} className="m-in" style={rise(2)} w={300} h={84}/><Quote niche={niche} className="m-in" style={rise(4)}/></div>
    </div>
    <Notes niche={niche} className="m-pp-notes" start={5}/>
   </div>
@@ -188,7 +211,7 @@ function SiteEditorial({niche}){
    <nav className="m-nav m-in" style={rise(0)}><Logo niche={niche}/><span className="m-nav-links">{niche.nav.map(n=><span key={n}>{n}</span>)}</span><span className="m-btn m-btn-sm m-btn-ghost">Sign in</span></nav>
    <div className="m-ed-grid">
     <div className="m-ed-side"><b className="m-in" style={rise(1)}>Why {niche.name}</b><ol className="m-ed-index">{niche.features.map((f,i)=><li key={f} className="m-in" style={rise(1+i)}><small>0{i+1}</small>{f}</li>)}</ol></div>
-    <div className="m-ed-cards"><ListCard niche={niche} className="m-in" style={rise(2)}/><div className="m-card m-ed-toast m-in" style={rise(3)}><span className="m-toast-icon"><Icon name="bell" size={14}/></span><span><b>{niche.toast[0]}</b><small>{niche.toast[1]}</small></span></div></div>
+    <div className="m-ed-cards"><ListCard niche={niche} className="m-in" style={rise(2)}/><PhotoCard className="m-ed-photo m-in" style={rise(3)}/><div className="m-card m-ed-toast m-in" style={rise(3)}><span className="m-toast-icon"><Icon name="bell" size={14}/></span><span><b>{niche.toast[0]}</b><small>{niche.toast[1]}</small></span></div></div>
     <div className="m-ed-copy"><h4 className="m-display m-in" style={rise(2)}>{niche.headline[0]} <em>{niche.headline[1]}</em></h4><p className="m-in" style={rise(3)}>{niche.sub}</p><span className="m-btn m-in" style={rise(4)}>{niche.cta}<span className="m-arrow">→</span></span></div>
    </div>
    <div className="m-ed-stats">{niche.kpis.map(([l,v],i)=><div key={l} className="m-in" style={rise(5+i)}><b className="m-display">{v}</b><small>{l}</small></div>)}</div>
@@ -206,7 +229,7 @@ function PhoneShell({children,niche,className=''}){
 }
 function PhoneProduct({niche}){
  return <PhoneShell niche={niche} className="m-ph-product">
-  <div className="m-app-head m-in" style={rise(0)}><Logo niche={niche}/><span className="m-avatar"/></div>
+  <div className="m-app-head m-in" style={rise(0)}><Logo niche={niche}/><Avatar/></div>
   <div className="m-hero-card m-in" style={rise(1)}><div className="m-card-head"><span>{niche.metric.label}</span><span className="m-delta">{niche.metric.delta}</span></div><strong className="m-big"><Count {...niche.metric}/></strong><Chart series={niche.series} width={280} height={64}/></div>
   <h4 className="m-display m-in" style={rise(2)}>{niche.headline[0]} <em>{niche.headline[1]}</em></h4>
   <Notes niche={niche} className="m-ph-notes" start={3}/>
@@ -216,16 +239,18 @@ function PhoneProduct({niche}){
 function PhoneFeed({niche}){
  return <PhoneShell niche={niche} className="m-ph-feed">
   <div className="m-app-head m-in" style={rise(0)}><div><small>{niche.hello}</small><b className="m-display">{niche.name}</b></div><span className="m-row-icon"><Icon name="bell" size={16}/></span></div>
-  <div className="m-stories m-in" style={rise(1)}>{niche.stories.map((t,i)=><span key={t}><i className={i?'':'on'}>{initials(t).slice(0,3)}</i>{t}</span>)}</div>
+  <div className="m-stories m-in" style={rise(1)}>{niche.stories.map((t,i)=><span key={t}><Story text={t} on={!i}/>{t}</span>)}</div>
   <div className="m-tiles">
    <div className="m-tile m-tile-hl m-in" style={rise(2)}><small>{niche.metric.label}</small><strong className="m-big"><Count {...niche.metric}/></strong><span className="m-delta">{niche.metric.delta}</span></div>
    <Mix niche={niche} className="m-tile m-tile-mix m-in" style={rise(3)}/>
    <div className="m-tile m-in" style={rise(4)}><small>{niche.kpis[0][0]}</small><b className="m-display">{niche.kpis[0][1]}</b><Bars series={niche.series.slice(-6)}/></div>
-   <div className="m-tile m-tile-ink m-in" style={rise(5)}><span className="m-ink-top"><Badge text={niche.list[0][0]}/><span className="m-delta">{niche.metric.delta}</span></span><b>{niche.list[0][0]}</b><strong className="m-display">{niche.list[0][2]}</strong></div>
+   <div className={`m-tile m-tile-ink m-in${useHero()?' with-photo':''}`} style={rise(5)}><TileBg/><span className="m-ink-top"><Badge text={niche.list[0][0]}/><span className="m-delta">{niche.metric.delta}</span></span><b>{niche.list[0][0]}</b><strong className="m-display">{niche.list[0][2]}</strong></div>
    <div className="m-tile m-tile-wide m-in" style={rise(6)}><small>{niche.top}</small>{niche.list.slice(1).map(r=><Row key={r[0]} row={r}/>)}</div>
   </div>
  </PhoneShell>;
 }
+function TileBg(){const {hero}=usePhotos();return hero?<Img src={hero} className="m-tile-bg"/>:null}
+function Story({text,on}){const src=usePhotos().byText[text];return <i className={`${on?'on':''}${src?' has-photo':''}`}>{src?<Img src={src}/>:initials(text).slice(0,3)}</i>}
 function Bars({series,className=''}){const max=Math.max(...series);return <div className={`m-bars ${className}`}>{series.map((v,i)=><i key={i} style={{height:`${v/max*100}%`,'--i':i}}/>)}</div>}
 function Donut({items}){
  const total=items.reduce((a,b)=>a+b,0);let acc=0;
@@ -238,16 +263,16 @@ function SaasFrame({niche,children,mood}){
  return <div className="m-window m-saas">
   <div className="m-chrome"><i/><i/><i/><span className="m-url">app.{niche.domain}</span></div>
   <div className="m-saas-body">
-   <aside className="m-side"><Logo niche={niche}/><div className="m-side-nav">{niche.side.map((s,i)=><span key={s} className={`m-in${i===1?' on':''}`} style={rise(i)}><Icon name={icons[i]} size={16}/>{s}</span>)}</div><div className="m-side-user"><span className="m-avatar"/><span><b>Anna K.</b><small>Admin</small></span></div></aside>
+   <aside className="m-side"><Logo niche={niche}/><div className="m-side-nav">{niche.side.map((s,i)=><span key={s} className={`m-in${i===1?' on':''}`} style={rise(i)}><Icon name={icons[i]} size={16}/>{s}</span>)}</div><div className="m-side-user"><Avatar/><span><b>Anna K.</b><small>Admin</small></span></div></aside>
    <div className="m-main">{children}</div>
   </div>
  </div>;
 }
 function SaasBoard({niche,mood}){
  return <SaasFrame niche={niche} mood={mood}>
-  <div className="m-top m-in" style={rise(0)}><b className="m-display">{niche.side[1]}</b><span className="m-faces"><i/><i/><i/></span><span className="m-btn m-btn-sm">+ New</span></div>
+  <div className="m-top m-in" style={rise(0)}><b className="m-display">{niche.side[1]}</b><Faces/><span className="m-btn m-btn-sm">+ New</span></div>
   <div className="m-banner m-in" style={rise(1)}><div><small>{niche.features[0]}</small><h4 className="m-display">{niche.headline[0]} <em>{niche.headline[1]}</em></h4></div><div className="m-banner-kpis">{niche.kpis.map(([l,v])=><span key={l}><b>{v}</b><small>{l}</small></span>)}</div></div>
-  <div className="m-board">{niche.board.map(([title,items],c)=><div key={title} className="m-col m-in" style={rise(2+c)}><div className="m-col-head"><b>{title}</b><small>{items.length}</small></div>{items.map(([t,m],i)=><div key={t} className="m-task"><span className="m-task-top"><b>{t}</b>{c===0&&i===0&&<span className="m-tag t0">New</span>}</span><span className="m-task-foot"><small>{m}</small><span className="m-faces"><i/></span></span></div>)}<span className="m-col-add">+ Add</span></div>)}</div>
+  <div className="m-board">{niche.board.map(([title,items],c)=><div key={title} className="m-col m-in" style={rise(2+c)}><div className="m-col-head"><b>{title}</b><small>{items.length}</small></div>{items.map(([t,m],i)=><div key={t} className="m-task"><span className="m-task-top"><b>{t}</b>{c===0&&i===0&&<span className="m-tag t0">New</span>}</span><span className="m-task-foot"><small>{m}</small><Faces n={1} from={3+i+c*3}/></span></div>)}<span className="m-col-add">+ Add</span></div>)}</div>
  </SaasFrame>;
 }
 function SaasInsights({niche,mood}){
@@ -264,7 +289,7 @@ function SaasInsights({niche,mood}){
 // SaaS on a phone: the same product, as its mobile companion.
 function SaasPhone({niche}){
  return <div className="m-app-stage compact"><PhoneShell niche={niche} className="m-ph-saas">
-  <div className="m-app-head m-in" style={rise(0)}><div><small>{niche.side[0]}</small><b className="m-display">{niche.name}</b></div><span className="m-avatar"/></div>
+  <div className="m-app-head m-in" style={rise(0)}><div><small>{niche.side[0]}</small><b className="m-display">{niche.name}</b></div><Avatar/></div>
   <div className="m-hero-card m-in" style={rise(1)}><div className="m-card-head"><span>{niche.metric.label}</span><span className="m-delta">{niche.metric.delta}</span></div><strong className="m-big"><Count {...niche.metric}/></strong><Bars series={niche.series}/></div>
   <div className="m-kpi-pair">{niche.kpis.slice(0,2).map(([l,v],i)=><div className="m-card m-in" key={l} style={rise(2+i)}><small>{l}</small><b>{v}</b></div>)}</div>
   <div className="m-rows m-in" style={rise(4)}>{niche.list.map((r,i)=><Row key={r[0]} row={r}/>)}</div>
@@ -290,13 +315,14 @@ export function MockStage({type,mood,niche,paused,variant=0}){
   el.addEventListener('pointermove',move);el.addEventListener('pointerleave',leave);
   return()=>{cancelAnimationFrame(raf);el.removeEventListener('pointermove',move);el.removeEventListener('pointerleave',leave)};
  },[paused,type]);
+ const photos=useMemo(()=>photosFor(niche),[niche]);
  const design=size.compact?{w:380,h:740}:type==='app'?{w:1080,h:760}:{w:1080,h:680};
  const shown=size.crop?{w:640,h:design.h}:design;
  return <div className={`m-stage${size.crop?' crop':''}`} ref={box} style={{height:shown.h*size.scale}}>
   <div className="m-tilt" ref={inner}>
-   <div className={`mock mood-${mood} type-${type}`} style={{...theme(mood,niche.accent[mood]),width:design.w,height:design.h,transform:`translateX(${Math.max(0,(size.w-design.w*size.scale)/2)}px) scale(${size.scale})`}}>
+   <Photos.Provider value={photos}><div className={`mock mood-${mood} type-${type}`} style={{...theme(mood,niche.accent[mood]),width:design.w,height:design.h,transform:`translateX(${Math.max(0,(size.w-design.w*size.scale)/2)}px) scale(${size.scale})`}}>
     {type==='site'?(size.compact?<MobileSite niche={niche} mood={mood} variant={variant}/>:React.createElement([SiteMock,SitePoster,SiteEditorial][variant]||SiteMock,{niche,mood})):type==='saas'?(size.compact?(variant===1?<div className="m-app-stage compact"><PhoneFeed niche={niche}/></div>:variant===2?<div className="m-app-stage compact"><PhoneProduct niche={niche}/></div>:<SaasPhone niche={niche}/>):React.createElement([SaasMock,SaasBoard,SaasInsights][variant]||SaasMock,{niche,mood})):<AppMock niche={niche} mood={mood} compact={size.compact} variant={variant}/>}
-   </div>
+   </div></Photos.Provider>
   </div>
  </div>;
 }
