@@ -1,6 +1,6 @@
 // Cookieless visit and funnel analytics (Umami Cloud). The website ID is public by design.
 // Without an ID nothing loads and track() is a no-op, so local builds and tests stay clean.
-export const UMAMI_ID=import.meta.env?.VITE_UMAMI_ID||'';
+export const UMAMI_ID=import.meta.env?.VITE_UMAMI_ID||'972d309f-9160-43fe-ba5e-cf18bae540fe';
 const SOURCE_KEY='inackra-source';
 
 // First touch of this visit: UTM tags or the referring site. It travels with the enquiry,
