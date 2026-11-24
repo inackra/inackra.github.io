@@ -4,7 +4,7 @@ const origin='https://inackra.work',root='dist';
 async function pages(dir){const result=[];for(const name of await readdir(dir)){const file=`${dir}/${name}`;if((await stat(file)).isDirectory())result.push(...await pages(file));else if(name==='index.html')result.push(file)}return result;}
 const files=await pages(root),indexed=new Set();const shared=files.filter(f=>/\/b\/[^/]+\/index\.html$/.test(f));assert.equal(shared.length,432,'every constructor build has a share page in both languages');
 for(const file of shared){const html=await readFile(file,'utf8'),image=html.match(/property="og:image" content="https:\/\/inackra\.work(\/og\/[^"]+)"/)?.[1];assert.ok(html.includes('content="noindex,follow"'),`${file} is not indexed`);assert.ok(image,`${file} has a share cover`);await stat(root+image);}
-assert.equal(files.length,264+432,'both languages include every case, task, filter and media route');
+assert.equal(files.length,266+432,'both languages include every case, task, filter and media route');
 const read=file=>readFile(file,'utf8'),exists=async file=>{try{await stat(file);return true}catch{return false}};
 for(const file of files){
  const html=await read(file),path=file.slice(root.length).replace(/index\.html$/,''),en=path.startsWith('/en/');
@@ -29,7 +29,7 @@ for(const file of files){
  }
  for(const img of html.matchAll(/<(?:img|image)\b[^>]*(?:src|href)="(\/[^\"]+)"/g))assert.ok(await exists(root+img[1]),path+' local evidence exists '+img[1]);
 }
-const sitemap=await read(root+'/sitemap.xml'),listed=new Set([...sitemap.matchAll(/<loc>(.*?)<\/loc>/g)].map(x=>x[1]));assert.deepEqual(listed,indexed,'sitemap includes exactly the indexable canonical pages');assert.equal(indexed.size,56);
+const sitemap=await read(root+'/sitemap.xml'),listed=new Set([...sitemap.matchAll(/<loc>(.*?)<\/loc>/g)].map(x=>x[1]));assert.deepEqual(listed,indexed,'sitemap includes exactly the indexable canonical pages');assert.equal(indexed.size,58);
 const ru=JSON.parse(await read('src/aio/tasks.ru.json')),en=JSON.parse(await read('src/aio/tasks.en.json'));
 for(const [lang,tasks] of [['ru',ru],['en',en]])for(const task of tasks){const html=await read(root+(lang==='en'?'/en':'')+`/work/aio/${task.id}/index.html`);assert.ok(html.includes(task.title.replace(/&/g,'&amp;')),task.id+' task-specific static narrative');assert.ok(html.includes('case-image-preview'),task.id+' real interface evidence');}
 const home=await read(root+'/index.html');assert.ok(home.includes('Три шага, и ты увидишь, как может выглядеть твой продукт.'));assert.ok(home.includes('href="/work/cases/"'));assert.ok(home.includes('href="/work/"'));
