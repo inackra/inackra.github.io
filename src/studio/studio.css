@@ -29,7 +29,10 @@
 .mag{position:relative;display:inline-flex;align-items:center;justify-content:center;height:68px;padding:0 40px;border-radius:34px;overflow:hidden;isolation:isolate;font-size:17px;letter-spacing:-.03em;color:var(--fg);background:var(--soft);border:0;cursor:pointer;will-change:transform;-webkit-mask-image:-webkit-radial-gradient(white,black)}
 .mag-fill{position:absolute;z-index:0;left:-25%;top:-50%;width:150%;height:200%;border-radius:50%;background:var(--fg);transform:translateY(-76%);pointer-events:none}
 .mag-label{position:relative;z-index:1;display:inline-flex;align-items:center;gap:12px;white-space:nowrap;transition:color .45s var(--ease)}
-.mag:hover .mag-label,.mag.is-active .mag-label{color:var(--bg)}
+.mag.is-active .mag-label{color:var(--bg)}
+/* Touch screens keep :hover on the last tapped button while the fill (moved only by JS on fine pointers) stays away,
+   which left a dark label on a dark pill. Hover styling is for real pointers only. */
+@media(hover:hover) and (pointer:fine){.mag:hover .mag-label{color:var(--bg)}}
 .mag:focus-visible{outline:none;box-shadow:0 0 0 3px color-mix(in srgb,var(--fg) 30%,transparent)}
 .mag:disabled{opacity:.35;cursor:not-allowed}
 .mag:disabled .mag-fill{display:none}.mag:disabled:hover .mag-label{color:inherit}
@@ -42,8 +45,8 @@
 .opt-swatch{display:inline-flex;flex:none;width:48px}
 .opt-swatch i{display:block;width:18px;height:18px;border-radius:50%;margin-left:-6px;box-shadow:0 0 0 2px var(--soft);transition:box-shadow .45s var(--ease),transform .45s var(--out)}
 .opt-swatch i:first-child{margin-left:0}
-.mag:hover .opt-swatch i,.mag.is-active .opt-swatch i{box-shadow:0 0 0 2px var(--fg)}
-.mag:hover .opt-swatch i:nth-child(2){transform:translateX(3px)}.mag:hover .opt-swatch i:nth-child(3){transform:translateX(6px)}
+.mag.is-active .opt-swatch i{box-shadow:0 0 0 2px var(--fg)}@media(hover:hover) and (pointer:fine){.mag:hover .opt-swatch i{box-shadow:0 0 0 2px var(--fg)}}
+@media(hover:hover) and (pointer:fine){.mag:hover .opt-swatch i:nth-child(2){transform:translateX(3px)}.mag:hover .opt-swatch i:nth-child(3){transform:translateX(6px)}}
 
 
 /* Generating */
