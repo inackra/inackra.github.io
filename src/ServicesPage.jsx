@@ -6,6 +6,7 @@ import {homeUrl,workUrl} from './routes';
 import {EMAIL,TELEGRAM,TELEGRAM_HANDLE} from './content';
 import {achievements} from './studio/data';
 import {pop} from './confetti';
+import {track} from './analytics';
 import './services.css';
 
 // Services as plans, in the manner of a calm pricing page: plans side by side on
@@ -157,7 +158,7 @@ export default function ServicesPage({lang,paused}){
     <p className="pl-note">{p.note}</p>
    </div>
    <ul className="pl-items">{p.items.map(x=><li key={x}><Check/>{x}</li>)}</ul>
-   <a className={`pill pl-cta${p.solid?' pl-cta-solid':''}`} href={TELEGRAM} target="_blank" rel="noreferrer"><span>{p.cta}</span><Arrow/></a>
+   <a className={`pill pl-cta${p.solid?' pl-cta-solid':''}`} href={TELEGRAM} target="_blank" rel="noreferrer" onClick={()=>track('plan_click',{plan:p.id})}><span>{p.cta}</span><Arrow/></a>
   </div>)}</section>
 
   <section className="pl-compare" aria-labelledby="pl-compare">

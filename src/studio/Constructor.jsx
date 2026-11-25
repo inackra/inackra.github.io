@@ -13,6 +13,8 @@ import {track,visitSource} from '../analytics';
 // a row to Ян's private sheet. Without it the form opens a prepared email instead.
 const endpoint=import.meta.env.VITE_ENQUIRY_ENDPOINT||'';
 const isEmail=v=>/^\S+@\S+\.\S+$/.test(v);
+// The reply contact is an email or a Telegram username (@name, t.me/name or a bare name).
+const telegramHandle=v=>{const m=v.trim().match(/^(?:https?:\/\/)?(?:t\.me\/|telegram\.me\/|@)?([a-zA-Z][a-zA-Z0-9_]{4,31})\/?$/);return m?m[1]:null};
 import './studio.css';
 
 const reduced=()=>typeof matchMedia!=='undefined'&&matchMedia('(prefers-reduced-motion: reduce)').matches;
@@ -57,6 +59,11 @@ export default function Constructor({lang='ru',paused=false,shared=null}){
  const [proof,setProof]=useState(0),[phase,setPhase]=useState(0);
  const [form,setForm]=useState({task:'',contact:''}),[status,setStatus]=useState('idle');
  const top=useRef(null),sendForm=useRef(null),pending=useRef(null),timer=useRef(null);
+ // Funnel checkpoints, once per visit: the order block came into view, the visitor started typing.
+ const seenOrder=useRef(false),startedForm=useRef(false);
+ useEffect(()=>{if(step!==4||seenOrder.current||typeof IntersectionObserver==='undefined')return;const el=document.querySelector('.order');if(!el)return;const io=new IntersectionObserver(([e])=>{if(!e.isIntersecting||seenOrder.current)return;seenOrder.current=true;track('order_seen',{shared:Boolean(via.current)});io.disconnect()},{threshold:.35});io.observe(el);return()=>io.disconnect()},[step,build]);
+ const formStart=()=>{if(startedForm.current)return;startedForm.current=true;track('form_start',{shared:Boolean(via.current)})};
+ const toOrder=event=>{track(event,via.current?{build:via.current}:{type:choice.type,niche:choice.niche});document.querySelector('.order')?.scrollIntoView({behavior:reduced()?'auto':'smooth',block:'start'});setTimeout(()=>document.querySelector('.order-form textarea')?.focus({preventScroll:true}),reduced()?0:700)};
  useEffect(()=>{const receive=e=>{if(!/^https:\/\/(script\.google\.com|[a-z0-9-]+\.googleusercontent\.com)$/.test(e.origin)||e.data?.type!=='inackra-enquiry'||e.data?.id!==pending.current)return;clearTimeout(timer.current);pending.current=null;if(e.data.ok){track('enquiry_sent',{shared:Boolean(via.current)});setStatus('sent');setForm({task:'',contact:''})}else setStatus('failed')};addEventListener('message',receive);return()=>{removeEventListener('message',receive);clearTimeout(timer.current)}},[]);
  const niche=findNiche(choice.niche);
  const label=(list,id)=>list.find(x=>x.id===id)?.[lang]||'';
@@ -83,16 +90,17 @@ export default function Constructor({lang='ru',paused=false,shared=null}){
  const nativeShare=()=>track('share',{channel:'system'})||navigator.share?.({title:'INACKRA',text:d.shareText,url:link}).catch(()=>{});
  const submit=e=>{
   e.preventDefault();if(status==='sending')return;
-  const task=form.task.trim(),contact=form.contact.trim();
-  if(task.length<10||!isEmail(contact)){setStatus('invalid');return}
+  const task=form.task.trim(),contact=form.contact.trim(),tg=isEmail(contact)?null:telegramHandle(contact);
+  if(task.length<10||(!isEmail(contact)&&!tg)){setStatus('invalid');return}
   const brief=[label(types,choice.type),label(moods,choice.mood),label(niches,choice.niche)].join(' / ');
   const ref=via.current?`\n${lang==='ru'?'Пришёл по ссылке':'Came via shared link'}: ${ORIGIN}${shareUrl(via.current,lang)}`:'';
   const source=visitSource(),src=source?`\n${lang==='ru'?'Источник':'Source'}: ${source}`:'';
-  const message=`${lang==='ru'?'Сборка':'Build'}: ${brief}${ref}${src}\n\n${task}`;
-  track('enquiry_submit',{type:choice.type,niche:choice.niche,shared:Boolean(via.current),source:source||'direct'});
+  const tgLine=tg?`\nTelegram: @${tg} (https://t.me/${tg})`:'';
+  const message=`${lang==='ru'?'Сборка':'Build'}: ${brief}${ref}${src}${tgLine}\n\n${task}`;
+  track('enquiry_submit',{type:choice.type,niche:choice.niche,shared:Boolean(via.current),source:source||'direct',contact:tg?'telegram':'email'});
   if(!endpoint){track('enquiry_mail');location.href=`mailto:${EMAIL}?subject=${encodeURIComponent(lang==='ru'?'Заявка с конструктора':'Constructor enquiry')}&body=${encodeURIComponent(`${message}\n\n${contact}`)}`;return}
   const f=sendForm.current,id=crypto.randomUUID?.()||`${Date.now().toString(36)}-${Math.random().toString(36).slice(2)}${Math.random().toString(36).slice(2)}`;
-  f.elements.requestId.value=id;f.elements.email.value=contact;f.elements.message.value=message;f.elements.lang.value=lang;
+  f.elements.requestId.value=id;f.elements.email.value=tg?`${tg.toLowerCase()}@t.me`:contact;f.elements.message.value=message;f.elements.lang.value=lang;
   pending.current=id;setStatus('sending');f.submit();
   timer.current=setTimeout(()=>{pending.current=null;setStatus('failed')},25000);
  };
@@ -125,10 +133,10 @@ export default function Constructor({lang='ru',paused=false,shared=null}){
   {step===4&&<div className="studio-result">
    {viewing?<div className="result-head result-shared">
     <div><h1 className="result-title"><Accent text={d.sharedTitle}/></h1><p className="result-shared-text">{d.sharedText}</p></div>
-    <div className="result-actions"><Magnetic type="button" className="mag-small mag-solid" onClick={()=>restart('build_own')}><span>{d.buildOwn}</span><Arrow/></Magnetic><Magnetic type="button" className="mag-small" onClick={()=>{track('want_this',{build:shared});const el=document.querySelector('.order');el?.scrollIntoView({behavior:reduced()?'auto':'smooth',block:'start'});setTimeout(()=>document.querySelector('.order-form textarea')?.focus({preventScroll:true}),reduced()?0:700)}}><span>{d.wantThis}</span></Magnetic></div>
+    <div className="result-actions"><Magnetic type="button" className="mag-small mag-solid" onClick={()=>restart('build_own')}><span>{d.buildOwn}</span><Arrow/></Magnetic><Magnetic type="button" className="mag-small" onClick={()=>toOrder('want_this')}><span>{d.wantThis}</span></Magnetic></div>
    </div>:<div className="result-head">
     <h2 className="result-title"><Accent text={d.summary}/></h2>
-    <div className="result-actions"><span className="result-hint">{d.hint}</span><Magnetic type="button" className="mag-small mag-solid" onClick={()=>{track('another');go(3)}}><span>{d.another}</span></Magnetic><Magnetic type="button" className="mag-small" onClick={()=>restart('restart')}><span>{d.restart}</span><Arrow/></Magnetic>
+    <div className="result-actions"><span className="result-hint">{d.hint}</span><Magnetic type="button" className="mag-small mag-solid" onClick={()=>{track('another');go(3)}}><span>{d.another}</span></Magnetic><Magnetic type="button" className="mag-small" onClick={()=>toOrder('want_real')}><span>{d.wantReal}</span><Arrow/></Magnetic>
     </div>
    </div>}
    <div className="result-stage" ref={stageRef}>
@@ -150,8 +158,8 @@ export default function Constructor({lang='ru',paused=false,shared=null}){
      ?<div className="order-sent"><h3>{d.sentTitle}</h3><p>{d.sentText}</p><div className="order-sent-actions"><Magnetic as="a" className="mag-solid" href="#more"><span>{d.seeWork}</span><Arrow/></Magnetic><Magnetic type="button" onClick={()=>restart('play_more')}><span>{d.playMore}</span></Magnetic></div></div>
      :<form className="order-form" onSubmit={submit} noValidate>
       <div className="order-brief"><span>{d.brief}</span>{[label(types,choice.type),label(moods,choice.mood),label(niches,choice.niche)].map(x=><b key={x}>{x}</b>)}</div>
-      <label>{d.task}<textarea rows={3} maxLength={2000} placeholder={d.taskHint} value={form.task} onChange={e=>{setForm({...form,task:e.target.value});setStatus('idle')}}/></label>
-      <label>{d.contact}<input maxLength={200} type="email" autoComplete="email" placeholder="you@mail.com" value={form.contact} onChange={e=>{setForm({...form,contact:e.target.value});setStatus('idle')}}/></label>
+      <label>{d.task}<textarea rows={3} maxLength={2000} placeholder={d.taskHint} value={form.task} onFocus={formStart} onChange={e=>{setForm({...form,task:e.target.value});setStatus('idle')}}/></label>
+      <label>{d.contact}<input maxLength={200} type="text" inputMode="email" autoComplete="email" autoCapitalize="off" autoCorrect="off" spellCheck={false} placeholder={d.contactHint} value={form.contact} onFocus={formStart} onChange={e=>{setForm({...form,contact:e.target.value});setStatus('idle')}}/></label>
       <div className="order-submit"><Magnetic type="submit" className="mag-solid"><span>{d.send}</span><Arrow/></Magnetic><span className={`order-status ${status}`} role="status">{status==='invalid'?d.required:status==='sending'?d.sending:status==='failed'?<>{d.failed} <a href={`mailto:${EMAIL}`}>{EMAIL}</a></>:endpoint?d.privacy:d.mailNote}</span></div>
       <p className="order-direct">{lang==='ru'?'Или напиши напрямую:':'Or write directly:'} <a href={`mailto:${EMAIL}`}>{EMAIL}</a> · <a href={TELEGRAM} target="_blank" rel="noreferrer">Telegram {TELEGRAM_HANDLE}</a></p>
      </form>}
