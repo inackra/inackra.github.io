@@ -14,3 +14,5 @@ Owner setup:
 The frontend sends a normal POST to an isolated iframe and requires a matching unique request ID from a Google script origin before displaying success. It times out honestly if it receives no acknowledgement. The handler only appends rows, validates lengths, escapes spreadsheet formula inputs, checks a honeypot, deduplicates request IDs and limits repeated submissions from one email. These simple checks do not replace dedicated abuse protection if traffic increases. The handler’s acknowledgement targets the production origin only.
 
 Sending enquiries directly to Google Sheets requires this one-time account authorization. No Google credentials should be pasted into chat, stored in this repository or exposed to visitors.
+
+Constructor form contact: one field takes an email or a Telegram username (`@name`, `t.me/name` or a bare name). The sheet script only accepts an email, so a Telegram contact is sent as `<name>@t.me` in the Email column and the real handle goes into the message as `Telegram: @name (https://t.me/name)`. Reply to those leads in Telegram, not by email.
