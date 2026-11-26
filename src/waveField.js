@@ -15,7 +15,7 @@ export function createField(width,height){
 // A travelling height field: perspective, radial displacement and curl all come
 // from the same wave. This bends the number surface without distorting page text.
 export function prepareField(time,waves,trails,width){
- const frame={radius:width<700?138:200,motionGain:width<700?1:.82,
+ const frame={radius:width<700?138:200,motionGain:width<700?.72:.6,
   trails:trails.map(point=>{const age=(time-point.time)/1900;return {...point,weight:age<0||age>1?0:(1-age)*smooth(age*1900/100)}}).filter(p=>p.weight>0),
   waves:waves.map(wave=>{const age=(time-wave.time)/1000;return {...wave,reach:age*245+170,travel:age*245,weight:age<0||age>2.1?0:Math.exp(-age*1.25)*wave.strength*smooth(age/.14)*smooth((2.1-age)/.4)}}).filter(p=>p.weight>0)
  };
@@ -59,7 +59,7 @@ export function sampleField(p,time,waves,trails,width,prepared){
   x:p.x+dx*perspective+Math.sin(time*.00045+p.phase)*1.3,
   y:p.y+dy*perspective+Math.cos(time*.00038+p.phase)*1.3,
   z,light:clamp(light),size:clamp((7+p.seed*2)*depth,5,14),
-  opacity:clamp((width<700?.095+p.seed*.05:.035+p.seed*.03)+light*.8+Math.max(0,z)*.003,0,.92),
+  opacity:clamp((width<700?.095+p.seed*.05:.035+p.seed*.03)+light*.6+Math.max(0,z)*.003,0,.92),
   bit:Math.floor(time/(160+p.seed*800)+p.seed*100)%2
  };
 }
