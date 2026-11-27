@@ -1,6 +1,7 @@
 import React,{useEffect,useRef,useState} from 'react';
 import FlipText from '../FlipText';
 import Arrow from '../Arrow';
+const Retry=()=><svg viewBox="0 0 24 24" fill="none" aria-hidden="true" className="retry-icon"><path d="M19.5 12a7.5 7.5 0 1 1-2.2-5.3M19.5 4v4.5H15" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round"/></svg>;
 import Magnetic from '../Magnetic';
 import {MockStage} from './Mocks';
 import {copy,types,moods,niches,achievements,findNiche,parseShare,shareCode} from './data';
@@ -47,6 +48,10 @@ export default function Constructor({lang='ru',paused=false,shared=null}){
  // A visitor who came by someone's link: the first result is that build, the enquiry says so.
  const [viewing,setViewing]=useState(Boolean(initial));const via=useRef(initial?shared:null);
  const [shareOpen,setShareOpen]=useState(false),[copied,setCopied]=useState(false);
+ const shareRef=useRef(null);
+ // The share menu closes on a click or tap anywhere outside it, and on Esc.
+ useEffect(()=>{if(!shareOpen)return;const out=e=>{if(!shareRef.current?.contains(e.target))setShareOpen(false)};const esc=e=>{if(e.key==='Escape'){setShareOpen(false);shareRef.current?.querySelector('.share-btn')?.focus()}};document.addEventListener('pointerdown',out);document.addEventListener('keydown',esc);return()=>{document.removeEventListener('pointerdown',out);document.removeEventListener('keydown',esc)}},[shareOpen]);
+ useEffect(()=>{if(step!==4)setShareOpen(false)},[step]);
  // Share sits 24px above the bottom of what reads as the mock-up: the phone on small screens, the canvas otherwise.
  const stageRef=useRef(null);
  useEffect(()=>{if(initial)track('shared_view',{build:shared})},[]);
@@ -136,12 +141,12 @@ export default function Constructor({lang='ru',paused=false,shared=null}){
     <div className="result-actions"><Magnetic type="button" className="mag-small mag-solid" onClick={()=>restart('build_own')}><span>{d.buildOwn}</span><Arrow/></Magnetic><Magnetic type="button" className="mag-small" onClick={()=>toOrder('want_this')}><span>{d.wantThis}</span></Magnetic></div>
    </div>:<div className="result-head">
     <h2 className="result-title"><Accent text={d.summary}/></h2>
-    <div className="result-actions"><span className="result-hint">{d.hint}</span><Magnetic type="button" className="mag-small mag-solid" onClick={()=>{track('another');go(3)}}><span>{d.another}</span></Magnetic><Magnetic type="button" className="mag-small" onClick={()=>toOrder('want_real')}><span>{d.wantReal}</span><Arrow/></Magnetic>
+    <div className="result-actions"><span className="result-hint">{d.hint}</span><div className="result-retry"><Magnetic type="button" className="mag-small mag-solid" onClick={()=>restart('try_again')}><span>{d.tryAgain}</span></Magnetic><Magnetic type="button" className="mag-small mag-icon" aria-label={d.another} title={d.another} onClick={()=>{track('another');go(3)}}><Retry/></Magnetic></div><Magnetic type="button" className="mag-small" onClick={()=>toOrder('want_real')}><span>{d.wantReal}</span><Arrow/></Magnetic>
     </div>
    </div>}
    <div className="result-stage" ref={stageRef}>
    <MockStage key={build} type={choice.type} mood={choice.mood} niche={niche} paused={paused} variant={variant}/>
-   {!viewing&&<div className="share share-below"><Magnetic type="button" className="mag-solid share-btn" aria-expanded={shareOpen} aria-controls="share-menu" onClick={()=>{if(!shareOpen)track('share_open');setShareOpen(!shareOpen)}}><span>{d.share}</span></Magnetic>
+   {!viewing&&<div className="share share-below" ref={shareRef}><Magnetic type="button" className="mag-solid share-btn" aria-expanded={shareOpen} aria-controls="share-menu" onClick={()=>{if(!shareOpen)track('share_open');setShareOpen(!shareOpen)}}><span>{d.share}</span></Magnetic>
       {shareOpen&&<div className="share-menu" id="share-menu" role="menu">
        <button type="button" role="menuitem" onClick={copyLink}>{copied?d.shareCopied:d.shareCopy}</button>
        <a role="menuitem" onClick={()=>track('share',{channel:'telegram'})} href={shareTo('tg')} target="_blank" rel="noreferrer">Telegram</a>
